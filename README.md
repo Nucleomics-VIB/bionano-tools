@@ -1,9 +1,9 @@
-text-tools
+bionano-tools
 ==========
 
-Parsing and filtering delimited text data
+Tools to process and QC BioNanoGenomics data
 
-<h4>Please send comments and feedback to <a href="mailto:bits@vib.be">bits@vib.be</a></h4>
+<h4>Please send comments and feedback to <a href="mailto:nucleomics@vib.be">nucleomics@vib.be</a></h4>
 
 ------------
 
