@@ -23,6 +23,12 @@ done
 Type the script name followed by -h will list all available parameters
 
 **run_MQR.sh -h**
+<pre>
+# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
+#		[optional: -l <minlen|150> -p <pval|1e-9>]
+#		[optional: -t <max-threads|32> -m <max-ram|64>]
+#		[optional: -s <sample N molecules>]
+</pre>
 
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
