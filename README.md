@@ -2,7 +2,9 @@
 bionano-tools
 ==========
 
-Tools to process and QC BioNanoGenomics data
+# QC-tools
+
+Tools to process and QC BioNanoGenomics data.
 
 ## **run_MQR.sh**
 
