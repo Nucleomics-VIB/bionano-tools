@@ -1,3 +1,4 @@
+![ngstools](pictures/Irys_icon.png) - BioNano-Tools
 bionano-tools
 ==========
 
