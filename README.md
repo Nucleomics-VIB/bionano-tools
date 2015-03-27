@@ -14,7 +14,7 @@ Type the script name followed by -h will list all available parameters
 
 **run_MQR.sh -h**
 
-<h4>Please send comments and feedback to <a href="mailto:nucleomics@vib.be">nucleomics@vib.be</a></h4>
+<h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
 ------------
 
