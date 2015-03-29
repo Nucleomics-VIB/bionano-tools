@@ -12,7 +12,7 @@
 #	run_MQR.sh -i $b -r myreference.cmap;
 # done
 #
-# Stéphane Plaisance (VIB-NC+BITS) 2015/03/27; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2015/03/27; v1.0
 # visit our Git: https://github.com/BITS-VIB
 
 # check parameters for your system
@@ -86,12 +86,10 @@ fi
 
 # build command
 echo "# computing MQR from ${name}.bnx"
-cmd="cd ${foldername};
-	mkdir -p MQR_${name};
-	${TOOLS}/RefAligner -f \
+cmd="${TOOLS}/RefAligner -f \
 	-ref ${ref} \
 	-i ${bnx} \
-	-o MQR_${name}/MQR_${name} \
+	-o ${foldername}/MoleculeQualityReport \
 	-nosplit 2 -BestRef 1 -biaswt 0 -Mfast 0 -FP 1.5 -sf 0.2 -sd 0.0 -A 5 \
 	-outlier 1e-4 -endoutlier 1e-3 -S -1000 -sr 0.04 -resbias 5 64 \
 	-maxmem ${maxmem} \
