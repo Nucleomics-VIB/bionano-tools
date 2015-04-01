@@ -12,7 +12,9 @@
 #	run_MQR.sh -i $b -r myreference.cmap;
 # done
 #
-# Stephane Plaisance (VIB-NC+BITS) 2015/03/27; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2015/03/27; v1.1
+# added quoting paths to avoid issues with spaces
+#
 # visit our Git: https://github.com/BITS-VIB
 
 # check parameters for your system
@@ -84,7 +86,7 @@ if [ ! -f ${ref} ]; then
     exit 1
 fi
 
-# build command and escape weird chars
+# build command and quote weird chars
 echo "# computing MQR from ${name}.bnx"
 cmd="${TOOLS}/RefAligner -f \
 	-ref ${ref} \
