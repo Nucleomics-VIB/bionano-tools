@@ -6,6 +6,14 @@ bionano-tools
 
 Tools to process and QC BioNanoGenomics data.
 
+## **bnxstats.pl**
+
+The perl script **[bnxstats.pl](qc-tools/bnxstats.pl)** computes basic stats from a BNX file just like what IrysView does under windows (but without the W).
+
+## **bnxfilter.pl**
+
+The bash script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
+
 ## **run_MQR.sh**
 
 The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
