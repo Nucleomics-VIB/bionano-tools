@@ -28,7 +28,7 @@ my $usage="You must provide a BNX file with -i
 # Additional optional parameters are:
 # <-l min-length in kb (100)>
 # <-x max-length in kb (5000)>
-# <-m max-AvgIntensity (0.4)>
+# <-m max-AvgIntensity (0.6)>
 # <-s min-SNR (3.5)>
 # <-h to display this help>";
 
@@ -41,7 +41,7 @@ my $minsize = $opt_l || 100;
 my $minsizeb = $minsize * 1_000;
 my $maxsize = $opt_x || 5000;
 my $maxsizeb = $maxsize * 1_000;
-my $maxavgint = $opt_m || 0.4;
+my $maxavgint = $opt_m || 0.6;
 my $minsnr = $opt_s || 3.5;
 defined($opt_h) && die $usage."\n";
 
