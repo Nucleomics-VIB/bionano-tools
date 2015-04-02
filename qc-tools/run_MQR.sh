@@ -78,7 +78,11 @@ if [ ! -f ${bnx} ]; then
 else
 	# deduced variables
 	foldername=$(dirname "${bnx}")
+<<<<<<< HEAD
 	name=$(basename ${bnx} .bnx)
+=======
+	name=$(basename "${bnx}" .bnx)
+>>>>>>> origin/master
 fi
 
 if [ ! -f ${ref} ]; then
@@ -91,7 +95,11 @@ echo "# computing MQR from ${name}.bnx"
 cmd="${TOOLS}/RefAligner -f \
 	-ref ${ref} \
 	-i $(printf '%q' "${bnx}") \
+<<<<<<< HEAD
     -o $(printf '%q' "${foldername}/MoleculeQualityReport") \
+=======
+	-o $(printf '%q' "${foldername}/MoleculeQualityReport") \
+>>>>>>> origin/master
 	-nosplit 2 -BestRef 1 -biaswt 0 -Mfast 0 -FP 1.5 -sf 0.2 -sd 0.0 -A 5 \
 	-outlier 1e-4 -endoutlier 1e-3 -S -1000 -sr 0.04 -resbias 5 64 \
 	-maxmem ${maxmem} \
