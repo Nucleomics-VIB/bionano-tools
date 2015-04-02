@@ -2,6 +2,8 @@
 bionano-tools
 ==========
 
+*All tools presented below have only been tested by me and may contain bugs, please le tme know if you find some. Each tool relies on dependencies listed on teh top of the code (cpan for perl and cran for R will help you add them)*
+
 # QC-tools
 
 Tools to process and QC BioNanoGenomics data.
@@ -12,7 +14,7 @@ The perl script **[bnxstats.pl](qc-tools/bnxstats.pl)** computes basic stats fro
 
 ## **bnxfilter.pl**
 
-The bash script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
+The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
 
 ## **run_MQR.sh**
 
