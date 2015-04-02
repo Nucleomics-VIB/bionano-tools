@@ -28,6 +28,11 @@ Type the script name followed by -h will list all available parameters
 #		[optional: -t <max-threads|32> -m <max-ram|64>]
 #		[optional: -s <sample N molecules>]
 ```
+# general-tools
+
+## **findNregions.pl**
+
+The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of 100 or more N's and stores the coordinate of all hits to BED for loading in IrysView as track. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
 
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
