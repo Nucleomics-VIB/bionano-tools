@@ -4,19 +4,19 @@ bionano-tools
 
 *All tools presented below have only been tested by me and may contain bugs, please le tme know if you find some. Each tool relies on dependencies normally listed at the top of the code (cpan for perl and cran for R will help you add them)*
 
-# QC-tools
+## QC-tools
 
 Tools to process and QC BioNanoGenomics data.
 
-## **bnxstats.pl**
+### **bnxstats.pl**
 
 The perl script **[bnxstats.pl](qc-tools/bnxstats.pl)** computes basic stats from a BNX file just like what IrysView does under windows (but without the W).
 
-## **bnxfilter.pl**
+### **bnxfilter.pl**
 
 The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
 
-## **run_MQR.sh**
+### **run_MQR.sh**
 
 The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
 
@@ -38,9 +38,9 @@ Type the script name followed by -h will list all available parameters
 #		[optional: -t <max-threads|32> -m <max-ram|64>]
 #		[optional: -s <sample N molecules>]
 ```
-# general-tools
+## general-tools
 
-## **findNregions.pl**
+### **findNregions.pl**
 
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
 
