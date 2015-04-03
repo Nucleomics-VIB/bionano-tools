@@ -45,7 +45,6 @@ Type the script name followed by -h will list all available parameters
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
 
 ```bash
-findNregions.pl -h
 ## Usage: findNregions.pl <-i fasta-file> <-k key-file to rename contigs>
 # Additional optional parameters are:
 # <-l minsize in bps (100)>
