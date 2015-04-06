@@ -14,6 +14,8 @@ use File::Tee qw(tee);
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.01
 #
 # handle complex fasta headers including description
+# added summary for absent / present
+#
 # visit our Git: https://github.com/BITS-VIB
 
 # disable buffering to get output during long process (loop)
@@ -36,18 +38,22 @@ my $keyfile = $opt_k || die $usage."\n";
 my $minlen = $opt_l || 100;
 defined($opt_h) && die $usage."\n";
 
-# if key-file was provided, check it and create hash for renaming
-our %keyhash = ();
-our $present = 0 ;
-our $absent = 0 ;
+# counters
+our $present = 0;
+our $absent = 0;
+our $presentlen = 0;
+our $absentlen = 0;
+our $nlength = 0;
 
-# load renaming table from file
+# load key-file data into hash
+our %keyhash = ();
 open KEYS, $keyfile or die $!;
 while (<KEYS>) {
 	chomp;
 	next if ! ($_ =~ /^[0-9]/); # ignore header lines
 	my ($CompntId, $CompntName, $CompntLength) = split "\t";
 	$keyhash{$CompntName} = $CompntId;
+	# debug print STDOUT "'",$CompntName,"' -> ",$CompntId,"\n";
 }
 close KEYS;
 
@@ -79,12 +85,14 @@ while(my $seq_obj = $parser->next_seq()) {
 
 	# load id, and description into strings and merge into header
 	my $seqid = $seq_obj->id;
-	my $seqdesc = $seq_obj->desc;
+	my $seqdesc = defined $seq_obj->desc ? $seq_obj->desc : "";
 	my $seqheader = join(" ", $seqid, $seqdesc);
+	$seqheader =~ s/\s+$//;
 
 	# check if cmap has this fasta record
 	if ( defined $keyhash{$seqheader}) {
 		$present += 1;
+		$presentlen += $seq_obj->length;
 		print STDOUT "## Searching sequence $seqid for $motif\n";
 		my $sequence = $seq_obj->seq();
 
@@ -94,7 +102,7 @@ while(my $seq_obj = $parser->next_seq()) {
 			my $match_start = $-[0]+1; # BED is zero-based !
 			my $match_end = $+[0];
 			my $match_seq = $&;
-
+			$nlength += length($&);
 			# print in BED5 format when present in cmap
 			print OUT join("\t", $keyhash{$seqheader}, $match_start,
 				$match_end, "N-region", length($&), "+")."\n";
@@ -106,11 +114,26 @@ while(my $seq_obj = $parser->next_seq()) {
 		} else {
 		 	print STDOUT "# $seqid is absent from the cmap\n";
 			$absent += 1;
+			$absentlen += $seq_obj->length;
 		}
 	}
 
-print STDOUT "#\n# found a total of $totcnt N-regions of $minlen bps or more in $present records\n";
-print STDOUT "# $absent records from the original fasta file are absent in the cmap\n";
+# close filehandle
 close OUT;
+
+# report absent maps and absent length
+# reformat lengths with thousand separator
+my $percentpresent = sprintf '%.1f%%', 100*$presentlen/($presentlen+$absentlen);
+$presentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
+$absentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
+$nlength =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
+
+print STDOUT "\n############################# summary #############################\n";
+print STDOUT "# $present fasta entries ($presentlen bps)\n";
+print STDOUT "# reported a total of $totcnt N-regions of $minlen bps or more\n";
+print STDOUT "# representing a cumulated N-length of $nlength bps\n";
+print STDOUT "# $absent entries from the original fasta file are absent in the cmap\n";
+print STDOUT "# for a total of $absentlen bps\n";
+print STDOUT "# => $percentpresent of the fasta file is represented in the cmap\n";
 
 exit 0;
