@@ -11,7 +11,9 @@ use File::Tee qw(tee);
 #
 # adapted from http://stackoverflow.com/questions/10319696
 #
-# Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.01
+#
+# handle complex fasta headers including description
 # visit our Git: https://github.com/BITS-VIB
 
 # disable buffering to get output during long process (loop)
@@ -22,7 +24,7 @@ our($opt_i, $opt_k, $opt_l, $opt_h);
 
 my $usage="## Usage: findNregions.pl <-i fasta-file> <-k key-file to rename contigs>
 # Additional optional parameters are:
-# <-l minsize in bps (100)>
+# <-l minsize in bps (default to 100bps)>
 # <-h to display this help>";
 
 ####################
@@ -74,11 +76,14 @@ my $totcnt = 0;
 
 while(my $seq_obj = $parser->next_seq()) {
 	my $counter=0;
-	# load id and sequence into strings
+
+	# load id, and description into strings and merge into header
 	my $seqid = $seq_obj->id;
+	my $seqdesc = $seq_obj->desc;
+	my $seqheader = join(" ", $seqid, $seqdesc);
 
 	# check if cmap has this fasta record
-	if ( defined $keyhash{$seqid} ) {
+	if ( defined $keyhash{$seqheader}) {
 		$present += 1;
 		print STDOUT "## Searching sequence $seqid for $motif\n";
 		my $sequence = $seq_obj->seq();
@@ -91,7 +96,7 @@ while(my $seq_obj = $parser->next_seq()) {
 			my $match_seq = $&;
 
 			# print in BED5 format when present in cmap
-			print OUT join("\t", $keyhash{$seqid}, $match_start,
+			print OUT join("\t", $keyhash{$seqheader}, $match_start,
 				$match_end, "N-region", length($&), "+")."\n";
 			}
 
