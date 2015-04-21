@@ -14,8 +14,6 @@ use File::Tee qw(tee);
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.01
 #
 # handle complex fasta headers including description
-# added summary for absent / present
-#
 # visit our Git: https://github.com/BITS-VIB
 
 # disable buffering to get output during long process (loop)
@@ -39,8 +37,10 @@ my $minlen = $opt_l || 100;
 defined($opt_h) && die $usage."\n";
 
 # counters
+our $total = 0;
 our $present = 0;
 our $absent = 0;
+our $totallen = 0;
 our $presentlen = 0;
 our $absentlen = 0;
 our $nlength = 0;
@@ -52,8 +52,9 @@ while (<KEYS>) {
 	chomp;
 	next if ! ($_ =~ /^[0-9]/); # ignore header lines
 	my ($CompntId, $CompntName, $CompntLength) = split "\t";
+	$CompntName =~ s/\s+$//; # remove trailing spaces here too
 	$keyhash{$CompntName} = $CompntId;
-	# debug print STDOUT "'",$CompntName,"' -> ",$CompntId,"\n";
+	#debug print STDOUT "'", $CompntName, "' -> ", $CompntId, "\n";
 }
 close KEYS;
 
@@ -80,7 +81,7 @@ my $totcnt = 0;
 # loop over records and return hits to BED #
 ############################################
 
-while(my $seq_obj = $parser->next_seq()) {
+while( my $seq_obj = $parser->next_seq() ) {
 	my $counter=0;
 
 	# load id, and description into strings and merge into header
@@ -88,16 +89,22 @@ while(my $seq_obj = $parser->next_seq()) {
 	my $seqdesc = defined $seq_obj->desc ? $seq_obj->desc : "";
 	my $seqheader = join(" ", $seqid, $seqdesc);
 	$seqheader =~ s/\s+$//;
+	# get sequence length
+	my $len = $seq_obj->length;
+
+	# count
+	$total ++;
+	$totallen += $len;
 
 	# check if cmap has this fasta record
-	if ( defined $keyhash{$seqheader}) {
+	if ( defined $keyhash{$seqheader} ) {
 		$present += 1;
-		$presentlen += $seq_obj->length;
+		$presentlen += $len;
 		print STDOUT "## Searching sequence $seqid for $motif\n";
 		my $sequence = $seq_obj->seq();
 
 		# scan for motif and report hits
-		while ($sequence =~ m/$motif/gi) {
+		while ( $sequence =~ m/$motif/gi ) {
 			$counter++;
 			my $match_start = $-[0]+1; # BED is zero-based !
 			my $match_end = $+[0];
@@ -114,7 +121,7 @@ while(my $seq_obj = $parser->next_seq()) {
 		} else {
 		 	print STDOUT "# $seqid is absent from the cmap\n";
 			$absent += 1;
-			$absentlen += $seq_obj->length;
+			$absentlen += $len;
 		}
 	}
 
@@ -123,17 +130,21 @@ close OUT;
 
 # report absent maps and absent length
 # reformat lengths with thousand separator
-my $percentpresent = sprintf '%.1f%%', 100*$presentlen/($presentlen+$absentlen);
+my $percentpresent = sprintf '%.1f%%', 100*$presentlen/$totallen;
+my $percentn = sprintf '%.1f%%', 100*$nlength/$presentlen;
+$totallen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 $presentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 $absentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 $nlength =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 
 print STDOUT "\n############################# summary #############################\n";
-print STDOUT "# $present fasta entries ($presentlen bps)\n";
-print STDOUT "# reported a total of $totcnt N-regions of $minlen bps or more\n";
-print STDOUT "# representing a cumulated N-length of $nlength bps\n";
+print STDOUT "# $total fasta entries from the original file were parsed\n";
+print STDOUT "# for a total of $totallen bps\n";
 print STDOUT "# $absent entries from the original fasta file are absent in the cmap\n";
 print STDOUT "# for a total of $absentlen bps\n";
 print STDOUT "# => $percentpresent of the fasta file is represented in the cmap\n";
+print STDOUT "# $present fasta entries ($presentlen bps)\n";
+print STDOUT "# reported a total of $totcnt N-regions of $minlen bps or more\n";
+print STDOUT "# representing a cumulated N-length of $nlength bps ($percentn of the represented sequences)\n";
 
 exit 0;
