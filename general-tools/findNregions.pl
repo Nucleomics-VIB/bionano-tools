@@ -12,6 +12,7 @@ use File::Tee qw(tee);
 # adapted from http://stackoverflow.com/questions/10319696
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.01
+# small edits 2015/04/21; v1.02
 #
 # handle complex fasta headers including description
 # visit our Git: https://github.com/BITS-VIB
@@ -137,7 +138,7 @@ $presentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 $absentlen =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 $nlength =~ s/\d{1,3}(?=(\d{3})+(?!\d))/$&,/g;
 
-print STDOUT "\n############################# summary #############################\n";
+print STDOUT "\n############################ summary #####################################\n";
 print STDOUT "# $total fasta entries from the original file were parsed\n";
 print STDOUT "# for a total of $totallen bps\n";
 print STDOUT "# $absent entries from the original fasta file are absent in the cmap\n";
@@ -145,6 +146,6 @@ print STDOUT "# for a total of $absentlen bps\n";
 print STDOUT "# => $percentpresent of the fasta file is represented in the cmap\n";
 print STDOUT "# $present fasta entries ($presentlen bps)\n";
 print STDOUT "# reported a total of $totcnt N-regions of $minlen bps or more\n";
-print STDOUT "# representing a cumulated N-length of $nlength bps ($percentn of the represented sequences)\n";
+print STDOUT "# for a total N-length of $nlength bps ($percentn of represented sequences)\n";
 
 exit 0;
