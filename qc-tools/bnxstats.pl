@@ -3,12 +3,13 @@
 # bnxstats.pl
 # first version: 2014-11-12
 # added N50 2015-01-20
-# added SBNR quantiles
+# added SNR quantiles
 # replaced geometric mean by mean
+# add params in file name
 # parse a BNX file and compute simple stats
 # designed to work with BNX 1.2 format
 
-# Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.5
+# Stephane Plaisance (VIB-NC+BITS) 2015/05/05; v1.51
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -51,8 +52,8 @@ open FILE, $inputfile or die $!;
 my $outpath = dirname($inputfile);
 my $outbase = basename($inputfile);
 
-# include size limit and max intensity in file names
-my $outfile = $outpath."/".$outbase."_stats.txt";
+# include size limit, max intensity, and snr in file names
+my $outfile = $outpath."/".$minlen."kb_".$minsnr."snr_".$outbase."_stats.txt";
 open OUT, "> $outfile" || die $!;
 
 # working variables
