@@ -9,6 +9,9 @@
 # designed to work with BNX 1.2 format
 
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.5
+# Stephane Plaisance (VIB-NC+BITS) 2015/06/06; v1.6
+# 	+ added support for archiving
+# 	+ added filter min label count
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -20,8 +23,8 @@ use Getopt::Std;
 # handle command parameters
 ############################
 
-getopts('i:l:x:m:s:h');
-our($opt_i, $opt_l, $opt_x, $opt_m, $opt_s, $opt_h);
+getopts('i:l:x:m:s:n:zh');
+our($opt_i, $opt_l, $opt_x, $opt_m, $opt_s, $opt_n, $opt_z, $opt_h);
 
 my $usage="You must provide a BNX file with -i
 ## Usage: bnxfilter.pl <-i bnx-file>
@@ -30,6 +33,8 @@ my $usage="You must provide a BNX file with -i
 # <-x max-length in kb (5000)>
 # <-m max-AvgIntensity (0.6)>
 # <-s min-SNR (3.5)>
+# <-n min-nicks (6)>
+# <-z zip results (default OFF)>
 # <-h to display this help>";
 
 ####################
@@ -41,22 +46,34 @@ my $minsize = $opt_l || 100;
 my $minsizeb = $minsize * 1_000;
 my $maxsize = $opt_x || 5000;
 my $maxsizeb = $maxsize * 1_000;
+my $minnck = $opt_n || 6;
 my $maxavgint = $opt_m || 0.6;
 my $minsnr = $opt_s || 3.5;
+my $zipit = defined($opt_z) || undef;
 defined($opt_h) && die $usage."\n";
 
 # open stream from BNX file
-open FILE, $inputfile or die $!;
+# open FILE, $inputfile or die $!;
+my $FILE = OpenArchiveFile ($inputfile) or die $!;
 my $outpath = dirname($inputfile);
-my $outbase = basename($inputfile);
+
+# remove possible suffixes from filename
+my @sufx=( ".bnx", ".bnx.gzip", ".bnx.gz", ".bnx.zip" );
+my $outbase = basename($inputfile, @sufx);
 
 # include size limit, max intensity, and snr in file names
-my $outfile = $outpath."/filtered_".$minsize."kb_".
-	$maxavgint."ai_".$minsnr."snr_".$outbase;
-open OUT, "> $outfile" || die $!;
+my $outfile = $outpath."/filtered_".$minsize."kb_".$minnck."nck_".
+	$maxavgint."ai_".$minsnr."snr_".$outbase.".bnx";
 
-my $logfile = $inputfile."_".$minsize."kb_".
+if ( defined($zipit) ) {
+	open OUT, " | gzip -c > ".$outfile.".gz" || die $!;
+	} else {
+	open OUT, "> $outfile" || die $!;
+		}
+
+my $logfile = $outpath."/".$outbase."_".$minsize."kb_".$minnck."nck_".
 	${maxavgint}."ai_".$minsnr."snr_filtered-log.txt";
+
 open OUT2, "> $logfile" || die $!;
 
 # declare variables
@@ -66,14 +83,14 @@ my $countshort = 0;
 my $countlong = 0;
 my $countlight = 0;
 my $countlowsnr = 0;
+my $countlownck = 0;
 my $first = 1;
 
 ################################
 # parse data and store in array
 ################################
 
-while (my $line = <FILE>) {
-
+while (my $line = <$FILE>) {
 	# check top line for "# BNX File Version:	1.2"
 	if ($first == 1) {
 		if ($line !~ /#\ BNX\ File\ Version:/) {
@@ -109,21 +126,22 @@ while (my $line = <FILE>) {
 
 	# read three more lines
 	for (my $d=1; $d<4; $d++) {
-		$line = <FILE> || die "premature end of file";
+		$line = <$FILE> || die "premature end of file";
 		push @data, $line;
 		}
 
 	# spit and filter 0-line data
 	my $zerol=$data[0];
 	chomp($zerol);
-	my (undef, undef, $Length, $AvgIntensity, $snr, undef) =
+	my (undef, undef, $Length, $AvgIntensity, $snr, $nck, undef) =
 		split(/\t/, $zerol);
 
 	# filter
 	if (($Length >= $minsizeb)
 			&& ($Length <= $maxsizeb)
 			&& ($AvgIntensity <= $maxavgint)
-			&& ($snr >= $minsnr)) {
+			&& ($snr >= $minsnr)
+			&& ($nck >= $minnck)) {
 		# good record
 		$goodcount++;
 		foreach(@data) { print OUT "$_"; }
@@ -144,22 +162,51 @@ while (my $line = <FILE>) {
 		if ($snr < $minsnr) {
 			$countlowsnr++;
 			}
+		# low label frequency
+		if ($nck < $minnck) {
+			$countlownck++;
+			}
 	}
 }
 
-close FILE;
+# take care of handles neetly
+undef $FILE;
 close OUT;
 
 ##################
-# prepare summary
+# print summary
 ##################
 
-print OUT2 join("\t", "minLength", "AvgIntensity", "tot-molecules",
-	"retained", "size-reject_short", "size-reject_long", "AvgInt-reject", "lowSNR-reject")."\n";
-
-print OUT2 join("\t", $minsize, $maxavgint, $counttot, $goodcount,
-	$countshort, $countlong, $countlight, $countlowsnr)."\n";
+print OUT2 join("\t", "minLength",  "maxLength", "minLabelCount",
+	"maxAvgIntensity", "minSNR",
+	"tot-molecules", "retained", "size-reject_short", "size-reject_long",
+	"lowNCK-reject", "AvgInt-reject", "lowSNR-reject")."\n";
+print OUT2 join("\t", $minsize, $maxsize, $minnck,
+	$maxavgint, $minsnr,
+	$counttot, $goodcount, $countshort, $countlong,
+	$countlownck, $countlight, $countlowsnr)."\n";
 
 close OUT2;
 
 exit 0;
+
+##############
+#### Subs ####
+
+sub OpenArchiveFile
+{
+    # $Filename passed in, handle to file passed out
+    my $File = shift; # filename
+    my $FH; # file handle
+
+    if ($File =~ /.bnx$/) {
+		open ($FH, "cat $File | ") or die ("$!: can't open file $File");
+		} elsif ($File =~ /.bnx.zip$/) {
+				open ($FH, "unzip -p $File | ") or die ("$!: can't open file $File");
+			} elsif ($File =~ /(.bnx.gzip|.bnx.gz)$/) {
+					open ($FH, "gzip -dc $File | ") or die ("$!: can't open file $File");
+				} else {
+						die ("$!: the file $File does seem to be a 'bnx' file");
+					}
+    return $FH;
+}
