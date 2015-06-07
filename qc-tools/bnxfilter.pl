@@ -1,12 +1,16 @@
 #!/usr/bin/perl -w
 
-# bnxfilter.pl
-# first version: 2014-11-12
-# filter a BioNanoGenomics RawMolecule file
-# keep only molecules larger than minimum Length (100kb)
-# keep only molecules with AvgIntensity smaller than max limit (0.4)
-# keep only molecules with SNR greater than min limit (3.5)
-# designed to work with BNX 1.2 format
+## bnxfilter.pl
+## first version: 2014-11-12
+## filter a BioNanoGenomics RawMolecule file
+## keep only molecules that:
+#   + are larger than minimum Length (100kb)
+#   + are smaller than maximum length (5000 kb)
+#   + have at least N labels (6)
+#   + have an Avg-Intensity smaller than max limit (0.6)
+#   + have a SNR greater than min limit (3.5)
+## report individual counts per type for failed molecules
+## designed to work with BNX 1.2 format
 
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.5
 # Stephane Plaisance (VIB-NC+BITS) 2015/06/06; v1.6
