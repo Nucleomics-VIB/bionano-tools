@@ -16,6 +16,10 @@ The perl script **[bnxstats.pl](qc-tools/bnxstats.pl)** computes basic stats fro
 
 The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
 
+### **bnxreheader.pl**
+
+The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupported characters in the header of a BNX file by '_' to avoid issue in IrysView (eg MQR returning empty sample name when other chatacters are present). This script should become obsolete when BNG correct their code or validate user input. 
+
 ### **run_MQR.sh**
 
 The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
