@@ -10,7 +10,7 @@ Tools to process and QC BioNanoGenomics data.
 
 ### **bnxstats.pl**
 
-The perl script **[bnxstats.pl](qc-tools/bnxstats.pl)** computes basic stats from a BNX file just like what IrysView does under windows (but without the W).
+The perl script **[bnxstats.pl](qc-tools/bnxstats_v1.pl)** computes basic stats from a BNX file just like what IrysView does under windows (but without the W). A new version of the script **[bnxstats.pl](qc-tools/bnxstats.pl)** was developped to return stats and distributions for each filtering subset (the original script was renamed 'bnxstats_v1' adn is left for reference). 
 
 ### **bnxfilter.pl**
 
