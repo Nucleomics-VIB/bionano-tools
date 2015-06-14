@@ -8,13 +8,15 @@ bionano-tools
 
 Tools to process and QC BioNanoGenomics data.
 
+*Please do dry run to discover the available options in each command*
+
 ### **bnxstats.pl**
 
-The perl script **[bnxstats.pl](qc-tools/bnxstats_v1.pl)** computes basic stats from a BNX file just like what IrysView does under windows (but without the W). A new version of the script **[bnxstats.pl](qc-tools/bnxstats.pl)** was developped to return stats and distributions for each filtering subset (the original script was renamed 'bnxstats_v1' adn is left for reference). 
+The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic stats from a BNX file with size filtering just like what IrysView does under windows (but without the W). This original script was renamed 'bnxstats_v1' and left for reference. A new version of the script **[bnxstats.pl](qc-tools/bnxstats.pl)** allows filtering by size but also by avgIntensity and SNR and returns counts for each filtering subset, it also supports gzipped BNX files which is a nice thing given the huge size these text files tend to develop.
 
 ### **bnxfilter.pl**
 
-The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied.
+The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied. The most recent version of the code supports gzipped data and exports as gzip as option.
 
 ### **bnxreheader.pl**
 
