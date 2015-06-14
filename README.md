@@ -17,8 +17,10 @@ The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic sta
 ## Usage: bnxstats.pl <-i bnx-file>
 # Additional optional parameters are:
 # <-l minsize in kb (100)>
+# <-x maxsize in kb (5000)>
 # <-s minimal SNR (3.50)>
 # <-p percentile (99)>
+# <-m max-AvgIntensity (or percentile if undef)>
 # <-h to display this help>
 ```
 
