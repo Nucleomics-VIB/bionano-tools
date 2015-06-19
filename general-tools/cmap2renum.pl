@@ -20,8 +20,7 @@ use Getopt::Std;
 getopts('c:k:p:h');
 our($opt_c, $opt_k, $opt_p, $opt_h);
 
-my $usage = "Aim: Renumber a reference cmap and create new key file. requires a cmap file with -c and a key file with -k
-# Usage: cmap2renum.pl <-c cmap-file> <-k key-file>
+my $usage = "# Usage: cmap2renum.pl <-c cmap-file> <-k key-file>
 # Optional parameters:
 # -p <prefix (\'new_\')>
 # -h <this help message>\n";
