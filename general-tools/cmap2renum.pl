@@ -7,7 +7,7 @@
 # leading to gaps in numbering and cmap id's greater than 100,000
 # IrysView hybrid scaffold expects the contigIDs to be numbered up to 100,000
 #
-# Stephane Plaisance (VIB-NC+BITS) 2015/06/13; v1.00
+# Stephane Plaisance (VIB-NC+BITS) 2015/06/19; v1.00
 #
 # visit our Git: https://github.com/BITS-VIB
 
