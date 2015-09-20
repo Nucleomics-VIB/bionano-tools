@@ -65,9 +65,13 @@ Type the script name followed by -h will list all available parameters
 **run_MQR.sh -h**
 ```bash
 # Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
-#		[optional: -l <minlen|150> -p <pval|1e-9>]
+#		[optional: -l <minlen|150>]
+#		[optional: -x <maxlen|3000>]
+#		[optional: -a <maxai|0.6>]
+#		[optional: -s <minSNR|3.5>]
+#		[optional: -p <pval|1e-9>]
 #		[optional: -t <max-threads|32> -m <max-ram|64>]
-#		[optional: -s <sample N molecules>]
+#		[optional: -n <sample N molecules>]
 ```
 ## general-tools
 
