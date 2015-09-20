@@ -14,7 +14,6 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/03/27; v1.1
 # added quoting paths to avoid issues with spaces
-# added more filtering options, 2015/09/20; v2.0
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -22,26 +21,19 @@
 TOOLS=/home/bionano/tools
 
 usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
-#		[optional: -l <minlen|150>]
-#		[optional: -x <maxlen|3000>]
-#		[optional: -a <maxai|0.6>]
-#		[optional: -s <minSNR|3.5>]
-#		[optional: -p <pval|1e-9>]
+#		[optional: -l <minlen|150> -p <pval|1e-9>]
 #		[optional: -t <max-threads|32> -m <max-ram|64>]
-#		[optional: -n <sample N molecules>]'
+#		[optional: -s <sample N molecules>]'
 
-while getopts "i:r:l:x:a:s:p:t:m:n:h" opt; do
+while getopts "i:r:l:p:t:m:s:h" opt; do
   case $opt in
     i) bnx=${OPTARG} ;;
     r) ref=${OPTARG} ;;
     l) minlen=${OPTARG} ;;
-    x) maxlen=${OPTARG} ;;
-    a) maxai=${OPTARG} ;;
-    s) minsnr=${OPTARG} ;;
     p) pval=${OPTARG} ;;
     t) maxthr=${OPTARG} ;;
     m) maxmem=${OPTARG} ;;
-    n) molnum=${OPTARG} ;;
+    s) molnum=${OPTARG} ;;
     h) echo "${usage}" >&2; exit 0 ;;
     \?) echo "Invalid option: -${OPTARG}" >&2; exit 1 ;;
     *) echo "this command requires arguments, try -h" >&2; exit 1 ;;
@@ -53,12 +45,9 @@ timestamp=$(date +%s)
 
 # user-provided variables or defaults
 minlen=${opt_l:-150}
-maxlen=${opt_x:-3000}
-maxai=${opt_a:-0.6}
-minsnr=${opt_s:-3.5}
 pval=${opt_p:-"1e-9"}
-maxthr=${opt_t:-32}
 maxmem=${opt_m:-64}
+maxthr=${opt_t:-32}
 
 # test if minimal arguments were provided
 if [ -z "${bnx}" ]
@@ -108,9 +97,6 @@ cmd="${TOOLS}/RefAligner -f \
 	-maxmem ${maxmem} \
 	-M 3 \
 	-minlen ${minlen} \
-	-maxlen ${maxlen} \
-	-minSNR ${minsnr} \
-	-MaxIntensity ${maxai} \
 	-T ${pval} \
 	-maxthreads ${maxthr} \
 	-hashgen 5 3 2.4 1.5 0.05 5.0 1 1 2 -hash -hashdelta 10 \

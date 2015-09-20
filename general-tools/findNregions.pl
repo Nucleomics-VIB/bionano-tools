@@ -13,6 +13,7 @@ use File::Tee qw(tee);
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/04/02; v1.01
 # small edits 2015/04/21; v1.02
+# support for archives 2015/06/30 v1.03
 #
 # handle complex fasta headers including description
 # visit our Git: https://github.com/BITS-VIB
@@ -72,7 +73,7 @@ open OUT, "> $outfile" || die $!;
 tee STDOUT, '>', $outfile."_log.txt" or die $!;
 
 # create parser for multiple fasta files
-my $parser = Bio::SeqIO->new(-file => $fastain, -format => 'Fasta');
+my $parser = OpenArchiveFile($fastain);
 
 # look for $minlen N's in a row
 my $motif="[N]{".$minlen.",}";
@@ -149,3 +150,26 @@ print STDOUT "# reported a total of $totcnt N-regions of $minlen bps or more\n";
 print STDOUT "# for a total N-length of $nlength bps ($percentn of represented sequences)\n";
 
 exit 0;
+
+#### Subs ####
+sub OpenArchiveFile {
+    my $infile = shift;
+    my $FH;
+    if ($infile =~ /.fa$|.fasta$/) {
+    $FH = Bio::SeqIO -> new(-file => "$infile", -format => 'Fasta');
+    }
+    elsif ($infile =~ /.bz2$/) {
+    $FH = Bio::SeqIO -> new(-file => "bgzip -c $infile |", -format => 'Fasta');
+    }
+    elsif ($infile =~ /.gz$/) {
+    $FH = Bio::SeqIO -> new(-file => "gzip -cd $infile |", -format => 'Fasta');
+    }
+    elsif ($infile =~ /.zip$/) {
+    $FH = Bio::SeqIO -> new(-file => "unzip -p $infile |", -format => 'Fasta');
+    } else {
+	die ("$!: do not recognise file type $infile");
+	# if this happens add, the file type with correct opening proc
+    }
+    return $FH;
+}
+
