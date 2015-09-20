@@ -21,13 +21,13 @@
 # check parameters for your system
 TOOLS=/home/bionano/tools
 
-usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap> \
-#		[optional: -l <minlen|150>] \
-#		[optional: -x <maxlen|3000>] \
-#		[optional: -a <maxai|0.6>] \
-#		[optional: -s <minSNR|3.5>] \
-#		[optional: -p <pval|1e-9>] \
-#		[optional: -t <max-threads|32> -m <max-ram|64>] \
+usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
+#		[optional: -l <minlen|150>]
+#		[optional: -x <maxlen|3000>]
+#		[optional: -a <maxai|0.6>]
+#		[optional: -s <minSNR|3.5>]
+#		[optional: -p <pval|1e-9>]
+#		[optional: -t <max-threads|32> -m <max-ram|64>]
 #		[optional: -n <sample N molecules>]'
 
 while getopts "i:r:l:x:a:s:p:t:m:n:h" opt; do
