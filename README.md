@@ -39,7 +39,7 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 
 ### **bnxreheader.pl**
 
-The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupported characters in the header of a BNX file by '_' to avoid issue in IrysView (eg MQR returning empty sample name when other chatacters are present). This script should become obsolete when BNG correct their code or validate user input. 
+The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupported characters in the header of a BNX file by '_' to avoid issue in IrysView (eg MQR returning empty sample name when other chatacters are present). This script should become obsolete when BNG correct their code or validate user input.
 ```bash
 ## Usage: bnxfilter.pl <-i bnx-file>
 # Additional optional parameters are:
