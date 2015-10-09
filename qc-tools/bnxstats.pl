@@ -33,7 +33,7 @@ $|=1;
 # handle command parameters
 ############################
 
-getopts('i:l:s:p:m:h');
+getopts('i:l:x:s:p:m:h');
 our($opt_i, $opt_l, $opt_x, $opt_s, $opt_p, $opt_m, $opt_h);
 
 my $usage="You must provide a BNX file with -i
