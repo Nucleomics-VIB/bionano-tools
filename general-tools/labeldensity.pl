@@ -74,7 +74,7 @@ print STDERR "\n\n";
 my $windows = $inpath."/".$name."_".$binwidth."-bin.bed";
 
 # create windows
-$cmd="bedtools makewindows -g $chromsizes -w 100000 | \
+$cmd="bedtools makewindows -g $chromsizes -w $binwidth | \
 	sort -k 1V,1 -k 2n,2 -k 3n,3 > $windows";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating windows from chrom.sizes";
