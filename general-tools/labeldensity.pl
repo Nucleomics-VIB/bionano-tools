@@ -5,6 +5,7 @@
 # create genome intervals from multifasta (reqired: fasta2chromsizes.pl)
 # create windows (reqired: bedtools makewindows)
 # compare both bed files and compute for each bin (reqired: bedtools map)
+# sort BED files naturally requires a recent version of GNU sort
 # report results in BED format visualisation
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/11/11; v1.00
@@ -17,9 +18,12 @@ use Getopt::Std;
 use File::Basename;
 
 # link the required scripts here
-my $restrict2bed = "/work/MyScripts/restrict2bed.pl";
-my $fasta2chromsizes = "/work/MyScripts/fasta2chromsizes.pl";
-my $bedtools="/opt/biotools/bedtools/bin/bedtools";
+my $restrict2bed = `which restrict2bed.pl`;
+chomp($restrict2bed);
+my $fasta2chromsizes = `which fasta2chromsizes.pl`;
+chomp($fasta2chromsizes);
+my $bedtools=`which bedtools`;
+chomp($bedtools);
 
 ############################
 # handle command parameters
@@ -27,8 +31,8 @@ my $bedtools="/opt/biotools/bedtools/bin/bedtools";
 getopts('i:n:l:b:h');
 our ( $opt_i, $opt_n, $opt_l, $opt_b, $opt_h );
 
-my $usage = "## Usage: labeldensity.pl <-i fasta-file>
-# <-n 'nicker(s)', multiple allowed separated by ',')>
+my $usage = "## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
+# multiple allowed separated by ',')>
 #  'Nt-BspQI' => 'GCTCTTC',
 #  'Nt-BbvCI' => 'CCTCAGC',
 #  'Nb-BsMI'  => 'GAATGC',
@@ -48,38 +52,41 @@ defined($opt_h) && die $usage . "\n";
 my $inpath = dirname($infile);
 my @sufx = ( ".fa", ".fasta", ".fsa" );
 my $name = basename( $infile, @sufx );
-my $outpath = $inpath."/".$name.".bed";
+my $nicking = $inpath."/".$name.".bed";
 my $cmd;
 
 # search nickers in fasta
-$cmd="perl $restrict2bed -i $infile -l $minlen -n $nicker";
+$cmd="perl $restrict2bed -i $infile -l $minlen -n $nicker | \
+	sort -k 1V,1 -k 2n,2 -k 3n,3 > $nicking";
 print STDERR "# ".(qq($cmd))."\n";
-system($cmd);
-print STDERR "\n\n";
-
-my $nicking = $inpath."/".$name.".bed";
-
-# create chromosome.length from multifasta
-$cmd="perl $fasta2chromsizes -i $infile -l $minlen";
-print STDERR "# ".(qq($cmd))."\n";
-system($cmd);
+system($cmd) && die "! failed creating nicking BED file";
 print STDERR "\n\n";
 
 my $chromsizes = $inpath."/".$name.".chrom.sizes";
+
+# create chromosome.length from multifasta
+$cmd="perl $fasta2chromsizes -i $infile -l $minlen | \
+	sort -k 1V,1 -k 2n,2 > $chromsizes";
+print STDERR "# ".(qq($cmd))."\n";
+system($cmd) && die "! failed creating chrom.sizes from fasta";
+print STDERR "\n\n";
+
 my $windows = $inpath."/".$name."_".$binwidth."-bin.bed";
 
 # create windows
-$cmd="bedtools makewindows -g $chromsizes -w 100000 > $windows";
+$cmd="bedtools makewindows -g $chromsizes -w 100000 | \
+	sort -k 1V,1 -k 2n,2 -k 3n,3 > $windows";
 print STDERR "# ".(qq($cmd))."\n";
-system($cmd);
+system($cmd) && die "! failed creating windows from chrom.sizes";
 print STDERR "\n\n";
 
-my $result= $inpath."/".$name."_".$binwidth."-labeldensity.bed"
+my $result= $inpath."/".$name."_".$binwidth."-labeldensity.bed";
 
 # compare and map
-$cmd="perl $bedtools map -a $windows -b $nicking -c 5 -o sum > $result";
+$cmd="$bedtools map -a $windows -b $nicking -c 5 -o sum | \
+	sort -k 1V,1 -k 2n,2 -k 3n,3 > $result";
 print STDERR "# ".(qq($cmd))."\n";
-system($cmd);
+system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
 
 exit 0;
