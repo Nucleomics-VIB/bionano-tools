@@ -75,6 +75,23 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+### **labeldensity.pl**
+
+The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for nicking enzyme sites in multifasta (reqired: restrict2bed.pl), create genome intervals from multifasta (reqired: fasta2chromsizes.pl), create windows (reqired: bedtools makewindows), compare both bed files and compute for each bin (reqired: bedtools map), sort BED files naturally requires a recent version of GNU sort, report results in BED format visualisation.
+
+```bash
+## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
+# multiple allowed separated by ',')>
+#  'Nt-BspQI' => 'GCTCTTC',
+#  'Nt-BbvCI' => 'CCTCAGC',
+#  'Nb-BsMI'  => 'GAATGC',
+#  'Nb-BsrDI' => 'GCAATG'
+# Additional optional parameters are:
+# <-l minimal length for dna sequence (20000)>
+# <-b bin width for computing label density (100000)>
+# <-h to display this help>
+```
+
 ### **findNregions.pl**
 
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
