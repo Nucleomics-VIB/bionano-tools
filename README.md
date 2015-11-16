@@ -87,8 +87,10 @@ The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for ni
 #  'Nb-BsMI'  => 'GAATGC',
 #  'Nb-BsrDI' => 'GCAATG'
 # Additional optional parameters are:
+# <-t title ('label-density')>
 # <-l minimal length for dna sequence (20000)>
 # <-b bin width for computing label density (100000)>
+# <-h to display this help>bel density (100000)>
 # <-h to display this help>
 ```
 
