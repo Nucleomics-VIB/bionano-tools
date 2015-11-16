@@ -99,7 +99,7 @@ print STDERR "\n\n";
 # create IGV track version
 my $igv= $inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
 
-$cmd="awk -v title=$title 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"} {print \$1,\$2,\$3,title,\$4}' $result > $igv";
+$cmd="echo \"#track name=$title-$binwidth-density\" > $igv; awk -v title=$title 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"} {print \$1,\$2,\$3,title,\$4}' $result >> $igv";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating IGV track";
 print STDERR "\n\n";
