@@ -9,7 +9,12 @@
 # report results in BED format visualisation
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/11/11; v1.00
+# added direct support to create IGV track
 #
+# dependencies:
+# restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/BITS-VIB/ngs-tools)
+# bedtools (from: https://github.com/arq5x/bedtools2/releases)
+# 
 # visit our Git: https://github.com/BITS-VIB
 
 use warnings;
@@ -18,18 +23,18 @@ use Getopt::Std;
 use File::Basename;
 
 # link the required scripts here
-my $restrict2bed = `which restrict2bed.pl`;
+my $restrict2bed = `which restrict2bed.pl` || die "missing restrict2bed.pl, check your path\n";
 chomp($restrict2bed);
-my $fasta2chromsizes = `which fasta2chromsizes.pl`;
+my $fasta2chromsizes = `which fasta2chromsizes.pl` || die "missing fasta2chromsizes.pl, check your path\n";
 chomp($fasta2chromsizes);
-my $bedtools=`which bedtools`;
+my $bedtools=`which bedtools` || die "missing bedtools, check your path\n";
 chomp($bedtools);
 
 ############################
 # handle command parameters
 ############################
-getopts('i:n:l:b:h');
-our ( $opt_i, $opt_n, $opt_l, $opt_b, $opt_h );
+getopts('i:n:t:l:b:h');
+our ( $opt_i, $opt_n, $opt_t, $opt_l, $opt_b, $opt_h );
 
 my $usage = "## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 # multiple allowed separated by ',')>
@@ -38,12 +43,14 @@ my $usage = "## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 #  'Nb-BsMI'  => 'GAATGC',
 #  'Nb-BsrDI' => 'GCAATG'
 # Additional optional parameters are:
+# <-t title ('label-density')>
 # <-l minimal length for dna sequence (20000)>
 # <-b bin width for computing label density (100000)>
 # <-h to display this help>";
 
 my $infile = $opt_i || die $usage . "\n";
 my $nicker = $opt_n || die $usage . "\n";
+my $title = $opt_t || "label-density";
 my $minlen = $opt_l || 20000;
 my $binwidth = $opt_b || 100000;
 defined($opt_h) && die $usage . "\n";
@@ -52,41 +59,49 @@ defined($opt_h) && die $usage . "\n";
 my $inpath = dirname($infile);
 my @sufx = ( ".fa", ".fasta", ".fsa" );
 my $name = basename( $infile, @sufx );
-my $nicking = $inpath."/".$name.".bed";
 my $cmd;
 
 # search nickers in fasta
+my $nicking = $inpath."/".$name."-".$title.".bed";
+
 $cmd="perl $restrict2bed -i $infile -l $minlen -n $nicker | \
 	sort -k 1V,1 -k 2n,2 -k 3n,3 > $nicking";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating nicking BED file";
 print STDERR "\n\n";
 
+# create chromosome.length from multifasta
 my $chromsizes = $inpath."/".$name.".chrom.sizes";
 
-# create chromosome.length from multifasta
 $cmd="perl $fasta2chromsizes -i $infile -l $minlen | \
 	sort -k 1V,1 -k 2n,2 > $chromsizes";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating chrom.sizes from fasta";
 print STDERR "\n\n";
 
+# create windows
 my $windows = $inpath."/".$name."_".$binwidth."-bin.bed";
 
-# create windows
 $cmd="bedtools makewindows -g $chromsizes -w $binwidth | \
 	sort -k 1V,1 -k 2n,2 -k 3n,3 > $windows";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating windows from chrom.sizes";
 print STDERR "\n\n";
 
-my $result= $inpath."/".$name."_".$binwidth."-labeldensity.bed";
+# compare and map; create two outputs
+my $result=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.bed";
 
-# compare and map
-$cmd="$bedtools map -a $windows -b $nicking -c 5 -o sum | \
-	sort -k 1V,1 -k 2n,2 -k 3n,3 > $result";
+$cmd="$bedtools map -nonamecheck -a $windows -b $nicking -c 5 -o sum | sort -k 1V,1 -k 2n,2 -k 3n,3 > $result";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed summarizing nicking data in window-bins";
+print STDERR "\n\n";
+
+# create IGV track version
+my $igv= $inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
+
+$cmd="awk -v title=$title 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"} {print \$1,\$2,\$3,title,\$4}' $result > $igv";
+print STDERR "# ".(qq($cmd))."\n";
+system($cmd) && die "! failed creating IGV track";
 print STDERR "\n\n";
 
 exit 0;
