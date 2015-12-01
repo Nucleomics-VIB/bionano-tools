@@ -85,7 +85,7 @@ The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split da
 * .qx11.tsv
 * .qx12.tsv
 
-The files are created next to the input file and are made invisible with a starting '.' (<dot>). This can easily be changed in the code.
+The files are created next to the input file and are made invisible with a starting '.'. This can easily be changed in the code.
 
 Type the script name followed by -h will list all available parameters
 
