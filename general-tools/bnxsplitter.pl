@@ -61,43 +61,43 @@ my $first = 1;
 
 while ( my $line = <$FILE> ) {
 
-    # check top line for "# BNX File Version:	1.2"
-    if ( $first == 1 ) {
-        if ( $line !~ /#\ BNX\ File\ Version:/ ) {
-            die "$line\n This does not seem to be a bnx file";
-        }
-        $first = 0;
-    }
+	# check top line for "# BNX File Version:	1.2"
+	if ( $first == 1 ) {
+		if ( $line !~ /#\ BNX\ File\ Version:/ ) {
+			die "$line\n This does not seem to be a bnx file";
+		}
+		$first = 0;
+	}
 
-    # header block
-    if ( $line =~ /^#/ ) {
-    	print HEADER $line;
-        next;
-    }
-    
-    ## 0	1	94694.1 ...
-    # 1	504.4	3008.2 ...
-    # QX11	1.0645	1.3571 ...
-    # QX12	0.0771	0.0778 ...
+	# header block
+	if ( $line =~ /^#/ ) {
+		print HEADER $line;
+		next;
+	}
+	
+	## 0	1	94694.1 ...
+	# 1	504.4	3008.2 ...
+	# QX11	1.0645	1.3571 ...
+	# QX12	0.0771	0.0778 ...
 
-    # test data consistency
-    $line =~ /^0/ or die "aborted, does not seem to be a valid bnx format";
-    $count++;
-    my @molecule = ();
-    push @molecule, $line;
+	# test data consistency
+	$line =~ /^0/ or die "aborted, does not seem to be a valid bnx format";
+	$count++;
+	my @molecule = ();
+	push @molecule, $line;
 
-    # read three more lines
-    for ( my $d = 1; $d < 4; $d++ ) {
-        $line = <$FILE> || die "premature end of file";
-        push @molecule, $line;
-    }
+	# read three more lines
+	for ( my $d = 1; $d < 4; $d++ ) {
+		$line = <$FILE> || die "premature end of file";
+		push @molecule, $line;
+	}
 
 	# split to four files
 	print ZERO $molecule[0];
 	print ONE $molecule[1];
 	print QX11 $molecule[2];
 	print QX12 $molecule[3];		
-}    
+}	
 
 # take care of handles neetly
 undef $FILE;
@@ -114,18 +114,18 @@ exit 0;
 
 sub OpenArchiveFile {
 
-    # $Filename passed in, handle to file passed out
-    my $File = shift;    # filename
-    my $FH;              # file handle
+	# $Filename passed in, handle to file passed out
+	my $File = shift;	# filename
+	my $FH;			  # file handle
 
-    if ( $File =~ /.bnx$/ ) {
-        open( $FH, "cat $File | " ) or die("$!: can't open file $File");
-    } elsif ( $File =~ /.bnx.zip$/ ) {
-        open( $FH, "unzip -p $File | " ) or die("$!: can't open file $File");
-    } elsif ( $File =~ /(.bnx.gzip|.bnx.gz)$/ ) {
-        open( $FH, "gzip -dc $File | " ) or die("$!: can't open file $File");
-    } else {
-        die("$!: the file $File does seem to be a 'bnx' file");
-    }
-    return $FH;
+	if ( $File =~ /.bnx$/ ) {
+		open( $FH, "cat $File | " ) or die("$!: can't open file $File");
+	} elsif ( $File =~ /.bnx.zip$/ ) {
+		open( $FH, "unzip -p $File | " ) or die("$!: can't open file $File");
+	} elsif ( $File =~ /(.bnx.gzip|.bnx.gz)$/ ) {
+		open( $FH, "gzip -dc $File | " ) or die("$!: can't open file $File");
+	} else {
+		die("$!: the file $File does seem to be a 'bnx' file");
+	}
+	return $FH;
 }
