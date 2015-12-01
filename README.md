@@ -77,7 +77,7 @@ Type the script name followed by -h will list all available parameters
 
 ### **bnxsplitter.pl**
 
-The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files available for down-processing using [R] (or your favorite script).
+The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files available for down-processing using **R** (or your favorite script).
 
 * .header.tsv
 * .zero.tsv
