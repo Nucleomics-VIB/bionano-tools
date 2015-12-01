@@ -94,7 +94,7 @@ while ( my $line = <$FILE> ) {
 
 	# split to four files
 	print ZERO $molecule[0];
-    print ONE $molecule[1];
+	print ONE $molecule[1];
 	print QX11 $molecule[2];
 	print QX12 $molecule[3];		
 }    
