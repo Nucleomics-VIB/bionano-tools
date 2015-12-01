@@ -113,7 +113,6 @@ exit 0;
 #### Subs ####
 
 sub OpenArchiveFile {
-
 	# $Filename passed in, handle to file passed out
 	my $File = shift;	# filename
 	my $FH;			  # file handle
