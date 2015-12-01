@@ -75,6 +75,25 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+### **bnxsplitter.pl**
+
+The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files for down-processing using [R] (or your favorite script). The files are created next to the input file and are made invisible with a atarting '.'. This can easily be changed in teh code.
+
+* .header.tsv
+* .zero.tsv
+* .one.tsv
+* .qx11.tsv
+* .qx12.tsv
+
+Type the script name followed by -h will list all available parameters
+
+**bnxsplitter.pl -h**
+```bash
+You must provide a BNX file with -i
+## Usage: bnxsplitter.pl <-i bnx-file>
+# <-h to display this help>
+```
+
 ### **labeldensity.pl**
 
 The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for nicking enzyme sites in multifasta (reqired: restrict2bed.pl), create genome intervals from multifasta (reqired: fasta2chromsizes.pl), create windows (reqired: bedtools makewindows), compare both bed files and compute for each bin (reqired: bedtools map), sort BED files naturally requires a recent version of GNU sort, report results in BED format visualisation.
