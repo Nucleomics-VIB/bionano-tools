@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 # cmap2bed.pl (first version: 2014)
-# convert cmap to BED4
+# convert cmap to BED5 (strand is set to '.')
 # keep coverage value or other <user-selected> field as BED 'score'
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/12/02; v1.3
