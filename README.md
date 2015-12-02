@@ -77,7 +77,7 @@ Type the script name followed by -h will list all available parameters
 
 ### **cmap2bed.pl**
 
-The perl script **[cmap2bed.pl](general-tools/cmap2bed.pl)** will creta a BED file from a data.cmap file. The resulting file can be used with **[BEDTools[(http://bedtools.readthedocs.org/en/latest/)** to go further.
+The perl script **[cmap2bed.pl](general-tools/cmap2bed.pl)** will creta a BED file from a data.cmap file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
 
 **cmap2bed.pl -h**
 ```bash
