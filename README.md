@@ -75,6 +75,23 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+### **cmap2bed.pl**
+
+The perl script **[cmap2bed.pl](general-tools/cmap2bed.pl)** will creta a BED file from a data.cmap file. The resulting file can be used with **[http://bedtools.readthedocs.org/en/latest/ BEDTools]** to go further.
+
+**cmap2bed.pl -h**
+Aim: Convert cmap data to BED5. You must provide a cmap file with -i
+# Usage: cmap2bed.pl <-i cmap-file> 
+# Optional parameters:
+# -s <field number for BED-score (0-based; default to coverage=7)>
+# (v1.2) 1:ContigLength 2:NumSites 3:SiteID 4:LabelChannel 
+#        5:Position
+#	 6:StdDev 7:Coverage 8:Occurrence 
+#        9:GmeanSNR 10:lnSNRsd
+# <-h to display this help>
+```
+
+
 ### **bnxsplitter.pl**
 
 The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files available for down-processing using **R** (or your favorite script).
