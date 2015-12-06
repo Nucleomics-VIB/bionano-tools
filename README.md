@@ -105,7 +105,7 @@ Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 
 ### **xmap2bed.pl**
 
-The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will creta a BED file from a 'xmap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
+The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED file from a 'xmap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
 
 **xmap2bed.pl -h**
 ```bash
