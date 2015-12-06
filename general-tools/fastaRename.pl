@@ -62,6 +62,8 @@ while ( my $seq = $seq_in->next_seq() ) {
 	$seq_out->write_seq($seq); 
 	}
 
+close $seq_in;
+
 exit 0;
 
 #### Subs ####
