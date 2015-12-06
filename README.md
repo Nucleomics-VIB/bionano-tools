@@ -77,7 +77,7 @@ Type the script name followed by -h will list all available parameters
 
 ### **bedRename.pl**
 
-The perl script **[bedRename.pl](general-tools/bedRename.pl)** will create a new BED file from a public file an dreplace teh original chromosome names with the BNG translation provided with a key file (Knicker). The resulting file can be viewed in IGV together with BNG data.
+The perl script **[bedRename.pl](general-tools/bedRename.pl)** will create a new BED file from a public file and replace the original chromosome names with the BNG translation provided with a key file (first column='official-name', second column='BNG-key' from Knicker). The resulting file can be viewed in IGV together with BNG data.
 
 **bedRename.pl -h**
 ```bash
