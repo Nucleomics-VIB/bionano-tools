@@ -20,7 +20,7 @@ getopts('i:x:c:n:s:h');
 our($opt_i, $opt_x, $opt_c, $opt_n, $opt_s, $opt_h);
 
 my $usage = "Aim: Convert xmap data to BED5. You must provide a xmap file with -i
-# Usage: xmap2bed.pl <-i xmap-file> 
+# Usage: xmap2bed.pl <-i xmap-file>
 # Optional parameters (v0.2) :
 # -x <minimal value for score (default=0)>
 # -c <coordinate system used <'q'=query/'r'=ref> (default='r')
@@ -64,19 +64,19 @@ our %fieldnames = (
 	);
 
 # report choices
-print STDOUT "\n##### running options\n";
-print STDOUT "# coordinates: ".$coordinate."\n";
-print STDOUT "# seqlab: ".($coordinate eq 'q' ? $fieldnames{2} : $fieldnames{3})."\n";
-print STDOUT "# start: ".($coordinate eq 'q' ? $fieldnames{4} : $fieldnames{6})."\n";
-print STDOUT "# end: ".($coordinate eq 'q' ? $fieldnames{5} : $fieldnames{7})."\n";
-print STDOUT "# name: ".$fieldnames{$namefield}."\n";
-print STDOUT "# score: ".$fieldnames{$scorefield}."\n";
+print STDOUT "\n##### BED-field options #####\n";
+print STDOUT "| coordinates: ".$coordinate."\n";
+print STDOUT "| seqlab: ".($coordinate eq 'q' ? $fieldnames{2} : $fieldnames{3})."\n";
+print STDOUT "| start: ".($coordinate eq 'q' ? $fieldnames{4} : $fieldnames{6})."\n";
+print STDOUT "| end: ".($coordinate eq 'q' ? $fieldnames{5} : $fieldnames{7})."\n";
+print STDOUT "| name: ".$fieldnames{$namefield}."\n";
+print STDOUT "| score: ".$fieldnames{$scorefield}."\n";
 
 # load xmap header and process content
 open FILE, $inputfile or die $!;
 my $outpath = dirname($inputfile);
 my $outbase = basename($inputfile, ".xmap");
-my $outfile = $outbase.".bed";
+my $outfile = $outbase."_gt".$minscore.".bed";
 
 # result files
 open OUT, "> $outfile" || die $!;
@@ -94,7 +94,7 @@ while (my $line = <FILE>) {
 		parseheader($line);
 		next;
 		}
-		
+
 	# this is data
 	$countxmap++;
 
@@ -104,13 +104,13 @@ while (my $line = <FILE>) {
 	my $end = ($coordinate eq 'q' ? $field[5] : $field[7]);
 	my $coordstart = int( min($start, $end)+0.5);
 	my $coordend = int( max($start, $end)+0.5);
-	
+
 	# print next rows until contig ends
 	#
 	# test $field[$scorefield]>$minscore and ?print
 	if ($field[$scorefield] > $minscore) {
-		print OUT join("\t", $seqlab, 
-			$coordstart, 
+		print OUT join("\t", $seqlab,
+			$coordstart,
 			$coordend,
 			$field[$namefield],
 			$field[$scorefield],
@@ -121,16 +121,16 @@ close FILE;
 close OUT;
 
 # print summary
-print STDOUT "\n##### XMAP header information\n";
+print STDOUT "\n##### XMAP header information #####\n";
 print STDOUT "| input: ".basename($inputfile)."\n";
 print STDOUT "| records: ".$countxmap."\n";
 print STDOUT "| Colnames: ";
 print STDOUT join(", ", @colnames)."\n";
 # debug
-print STDOUT "# Headers\n";
-print STDOUT join("\n|", @header)."\n";
-print STDOUT "# Comments\n";
-print STDOUT join("\n|", @comments)."\n";
+print STDOUT "\n##### Headers #####\n";
+print STDOUT "|".join("\n|", @header)."\n";
+print STDOUT "\n##### Comments #####\n";
+print STDOUT "|".join("\n|", @comments)."\n";
 print STDOUT "##############################\n";
 
 ##############
