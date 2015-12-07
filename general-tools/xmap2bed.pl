@@ -71,6 +71,7 @@ print STDOUT "| start: ".($coordinate eq 'q' ? $fieldnames{4} : $fieldnames{6}).
 print STDOUT "| end: ".($coordinate eq 'q' ? $fieldnames{5} : $fieldnames{7})."\n";
 print STDOUT "| name: ".$fieldnames{$namefield}."\n";
 print STDOUT "| score: ".$fieldnames{$scorefield}."\n";
+print STDOUT "| strand: ".$fieldnames{8}."\n";
 
 # load xmap header and process content
 open FILE, $inputfile or die $!;
