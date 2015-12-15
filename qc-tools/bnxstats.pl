@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# bnxstats_v2.pl
+# bnxstats.pl
 # first version: 2014-11-12
 # added N50 2015-01-20
 # added SNR quantiles
@@ -13,6 +13,8 @@
 # Stephane Plaisance (VIB-NC+BITS) 2015/06/13; v2.00
 # + add more counts
 # + filter in steps and report all results
+# Stephane Plaisance (VIB-NC+BITS) 2015/06/13; v2.01
+# + fixed kb in size distribution
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -23,7 +25,7 @@ use Getopt::Std;
 use Statistics::Descriptive;
 use POSIX qw(strftime);
 
-my $version = 2.0;
+my $version = 2.01;
 my $date = strftime "%m/%d/%Y", localtime;
 
 # autoflush
@@ -325,7 +327,7 @@ sub report_stats {
 	my @sizea =  map $_->[ 0 ],  @$array_ref;
 	my $totnucl;
 	map { $totnucl += $_ } @sizea;
-	my @sizedist = map { sprintf("%d", $_)} ( get_stats(@sizea) );
+	my @sizedist = map { sprintf("%d", $_/1000)} ( get_stats(@sizea) );
 	push ( @result, join("\t", "length (kb) ", @sizedist) );
 
 	# molecule averageIntensities
