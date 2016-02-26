@@ -77,7 +77,7 @@ Type the script name followed by -h will list all available parameters
 
 ### **bnxclnheader.pl**
 
-The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/shorten file path in the '# Run Data' lines of a BNX header. The resulting file can be viewed in IGV together with BNG data.
+The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/shorten file path in the '# Run Data' lines of a BNX header.
 
 **bnxclnheader.pl -h**
 ```bash
@@ -89,7 +89,7 @@ The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/
 
 ### **bnxreheader.pl**
 
-The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap teh BNX header of a badly formatted BNX file with a correct header from a related BNX file. Made to correct multiple format issues in headers originated from IrysView 2.4 filtering or masking repeats. The resulting file can be viewed in IGV together with BNG data.
+The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap the BNX header of a badly formatted BNX file with a correct header from a related BNX file. This script was made to correct multiple syntax issues in headers originated from IrysView 2.4 filtering or masking of repeats.
 
 **bnxclnheader.pl -h**
 ```bash
