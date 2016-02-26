@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-## bnxreheader.pl
+## bnxclnheader.pl
 ## first version: 2015-06-13
 ## clean header of a BioNanoGenomics RawMolecule file
 ## replace:
@@ -23,7 +23,7 @@ getopts('i:zh');
 our ( $opt_i, $opt_z, $opt_h );
 
 my $usage = "You must provide a BNX file with -i
-## Usage: bnxfilter.pl <-i bnx-file>
+## Usage: bnxclnheader.pl <-i bnx-file>
 # Additional optional parameters are:
 # <-z zip results (default OFF)>
 # <-h to display this help>";
