@@ -37,9 +37,6 @@ my $tmpltfile = $opt_t          || die $usage . "\n";
 my $zipit     = defined($opt_z) || undef;
 defined($opt_h) && die $usage . "\n";
 
-# declare variables
-my $first = 1;
-
 # open stream from BNX file
 # open FILE, $inputfile or die $!;
 my $FILE = OpenArchiveFile($inputfile) or die $!;
@@ -84,16 +81,6 @@ while ( my $line = <$TMPL> ) {
 print OUT2 "## reading data from ".$inputfile." \n#\n";
 
 while ( my $line = <$FILE> ) {
-
-    # check top line for "# BNX File Version:	1.2"
-    if ( $first == 1 ) {
-        if ( $line !~ /#\ BNX\ File\ Version:/ ) {
-            die "$line\n This does not seem to be a bnx file";
-        } else {
-            $first = 0;
-        }
-    }
-	
 	# ignore header lines
 	next if $line =~ /^#/;
 
