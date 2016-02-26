@@ -75,6 +75,30 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+### **bnxclnheader.pl**
+
+The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/shorten file path in the '# Run Data' lines of a BNX header. The resulting file can be viewed in IGV together with BNG data.
+
+**bnxclnheader.pl -h**
+```bash
+## Usage: bnxclnheader.pl <-i bnx-file>
+# Additional optional parameters are:
+# <-z zip results (default OFF)>
+# <-h to display this help>
+```
+
+### **bnxreheader.pl**
+
+The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap teh BNX header of a badly formatted BNX file with a correct header from a related BNX file. Made to correct multiple format issues in headers originated from IrysView 2.4 filtering or masking repeats. The resulting file can be viewed in IGV together with BNG data.
+
+**bnxclnheader.pl -h**
+```bash
+## Usage: bnxreheader.pl <-i bnx-file> <-t template-file>
+# Additional optional parameters are:
+# <-z zip results (default OFF)>
+# <-h to display this help>
+```
+
 ### **bedRename.pl**
 
 The perl script **[bedRename.pl](general-tools/bedRename.pl)** will create a new BED file from a public file and replace the original chromosome names with the BNG translation provided with a key file (first column='official-name', second column='BNG-key' from Knicker). The resulting file can be viewed in IGV together with BNG data.
