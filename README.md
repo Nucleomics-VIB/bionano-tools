@@ -37,6 +37,19 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 # <-n min-nicks (6)>
 # <-z zip results (default OFF)>
 
+### **bnxfilter_repeats.pl**
+
+The bash script **[bnxfilter-repeats.sh](qc-tools/bnxfilter-repeats.sh)** filters BNX data to 'remove', 'restrict to' or 'mask' simple repeats. It reflects the Windows version found in Irysview (that generates data with a wrongly formatted header) and works only on your linux server as it makes direct use of RefAligner. The code is simplistic and you could as well type the command in your terminal.
+
+```bash
+# Usage: bnxfilter-repeats.sh
+#		-i <input (bnx file)>
+#		[opt -t <stretch tolerance|0.1>]
+#		[opt -m <min Repeat Units|5>]
+#		[opt -c <choice (1/2/3)|1>]
+#		[opt -l <keep log>
+```
+
 ### **bnxreheader.pl**
 
 The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupported characters in the header of a BNX file by '_' to avoid issue in IrysView (eg MQR returning empty sample name when other chatacters are present). This script should become obsolete when BNG correct their code or validate user input.
