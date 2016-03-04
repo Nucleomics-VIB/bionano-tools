@@ -36,6 +36,7 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 # <-s min-SNR (3.5)>
 # <-n min-nicks (6)>
 # <-z zip results (default OFF)>
+```
 
 ### **bnxfilter_repeats.pl**
 
