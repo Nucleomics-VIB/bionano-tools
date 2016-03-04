@@ -2,6 +2,7 @@
 
 # run BioNanoGenomics repeat filtering at CLI
 #
+# script name: bnxfilter_repeats.sh
 # Requirements:
 # run on a unix computer installed with working bionano code
 
@@ -12,7 +13,7 @@
 # check parameters for your system
 TOOLS=/home/bionano/tools
 
-usage='# Usage: bnxfilter-repeats.sh
+usage='# Usage: bnxfilter_repeats.sh
 #		-i <input (bnx file)>
 #		[opt -t <stretch tolerance|0.1>]
 #		[opt -m <min Repeat Units|5>]
