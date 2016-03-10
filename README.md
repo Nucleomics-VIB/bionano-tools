@@ -186,7 +186,7 @@ You must provide a BNX file with -i
 
 ### **labeldensity.pl**
 
-The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for nicking enzyme sites in multifasta (reqired: restrict2bed.pl), create genome intervals from multifasta (reqired: fasta2chromsizes.pl), create windows (reqired: bedtools makewindows), compare both bed files and compute for each bin (reqired: bedtools map), sort BED files naturally requires a recent version of GNU sort, report results in BED format visualisation.
+The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for nicking enzyme sites in multifasta (required: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**, create genome intervals from multifasta (required: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**, create windows (required: **bedtools makewindows**), compare both bed files and compute for each bin (required: **bedtools map**), sort BED files naturally requires a recent version of GNU sort, report results in BED format visualisation.
 
 ```bash
 ## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
