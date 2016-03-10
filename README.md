@@ -207,7 +207,6 @@ To achieve this, it proceeds as follows:
 # <-t title ('label-density')>
 # <-l minimal length for dna sequence (20000)>
 # <-b bin width for computing label density (100000)>
-# <-h to display this help>bel density (100000)>
 # <-h to display this help>
 ```
 
