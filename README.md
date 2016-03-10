@@ -186,7 +186,16 @@ You must provide a BNX file with -i
 
 ### **labeldensity.pl**
 
-The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** Search for nicking enzyme sites in multifasta (required: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**, create genome intervals from multifasta (required: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**, create windows (required: **bedtools makewindows**), compare both bed files and compute for each bin (required: **bedtools map**), sort BED files naturally requires a recent version of GNU sort, report results in BED format visualisation.
+The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** will find regions of the genome that show abnormal label densities (none or high). 
+
+To achieve this, it proceeds as follows:
+
+* Search for nicking enzyme sites in multifasta (required: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**
+* Create genome intervals from multifasta (required: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**
+* Create windows (required: **bedtools makewindows**)
+* Compare both bed files and compute for each bin (required: **bedtools map**)
+* Sort BED files naturally requires a recent version of GNU sort
+* Report results in BED format for visualisation.
 
 ```bash
 ## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
