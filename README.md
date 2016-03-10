@@ -190,12 +190,11 @@ The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** will find reg
 
 To achieve this, it proceeds as follows:
 
-* Search for nicking enzyme sites in multifasta (required: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**
-* Create genome intervals from multifasta (required: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**
-* Create windows (required: **bedtools makewindows**)
-* Compare both bed files and compute for each bin (required: **bedtools map**)
-* Sort BED files naturally requires a recent version of GNU sort
-* Report results in BED format for visualisation.
+* Search for nicking enzyme sites in a multifasta (depends on: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**)
+* Create genome intervals in BED format a from multifasta (depends on: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**)
+* Create windows for each chromosome / contig and save in BED format (required: **bedtools makewindows**)
+* Compare both BED files and store the label count in each bin (required: **bedtools map**)
+* Sort BED files naturally (requires a recent version of **GNU sort**) and generate results for visualisation.
 
 ```bash
 ## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
