@@ -7,7 +7,8 @@
 # inspired by http://www.unix.com/shell-programming-and-scripting/
 #   223177-shell-script-logging-cpu-memory-usage-linux-process.html
 #
-# Stephane Plaisance VIB-BITS march-14-2016 v1.1
+# Stephane Plaisance VIB-BITS march-14-2016 v1.0
+# fixed small bugs (v1.1; 2016-03-15)
 
 usage='# Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>'
@@ -41,15 +42,17 @@ echo "# press <Ctrl>-C to stop logging"
 
 # infinite loop will run until ctrl-C is hit
 while :; do
+
 for mic in $(eval echo "mic{0..${maxmic}}"); do
 t=$(date +%s)
 (echo -ne "${t}\t${mic}\t"; micsmc -c ${mic} -t ${mic} -f ${mic} | \
 egrep "Device Utilization:|Cpu Temp:|Memory Temp:|Total Power:" | \
-awk '{if (FNR==1) {match($0, /([0-9\.]+)/, arr); if(arr[1] != "") print arr[1]} else 
-	{print substr($0, 31, length($0)-29)}}' | \
+awk '{if (FNR==1) {match($0, /([0-9\.]+)/, arr); if(arr[1] != "") print arr[1]} 
+	else {print substr($0, 31, length($0)-29)}}' ) | \
 cut -d "%" -f 1 | cut -d " " -f 1 | transpose -t) >> ${LOG_FILE}
 done
 sleep ${FREQ}
+
 done
 
 # when the app closes, no additional line will be added to the log file
