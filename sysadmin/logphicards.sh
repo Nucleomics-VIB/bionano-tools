@@ -7,7 +7,7 @@
 # inspired by http://www.unix.com/shell-programming-and-scripting/
 #   223177-shell-script-logging-cpu-memory-usage-linux-process.html
 #
-# Stephane Plaisance VIB-BITS march-14-2016 v1.0
+# Stephane Plaisance VIB-BITS march-14-2016 v1.1
 
 usage='# Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>'
@@ -22,7 +22,7 @@ done
 maxmic=5
 
 # repeat loop every x sec
-FREQ=${opt_timeint:-60}
+FREQ=${timeint:-60}
 
 # test if time is a valid number
 re='^[0-9]+$'
@@ -34,8 +34,7 @@ fi
 
 # log file name and header
 LOG_FILE=Xeon_usage_"$(date +%s)".log
-header='#time mic %cpu cpuT memT totW'
-echo ${header%/#\ /\t} > $LOG_FILE
+echo -e "logtime\tmic\tcpu_user\tcpuT\tmemT\ttotW" > $LOG_FILE
 
 echo "# logging to $LOG_FILE every $FREQ sec"
 echo "# press <Ctrl>-C to stop logging"
@@ -46,7 +45,7 @@ for mic in $(eval echo "mic{0..${maxmic}}"); do
 t=$(date +%s)
 (echo -ne "${t}\t${mic}\t"; micsmc -c ${mic} -t ${mic} -f ${mic} | \
 egrep "Device Utilization:|Cpu Temp:|Memory Temp:|Total Power:" | \
-awk '{if (FNR==1) {print substr($0, 32, 10)} else 
+awk '{if (FNR==1) {match($0, /([0-9\.]+)/, arr); if(arr[1] != "") print arr[1]} else 
 	{print substr($0, 31, length($0)-29)}}' | \
 cut -d "%" -f 1 | cut -d " " -f 1 | transpose -t) >> ${LOG_FILE}
 done
