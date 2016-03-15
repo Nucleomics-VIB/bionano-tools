@@ -262,6 +262,19 @@ The BIO-perl script **[fastaRename.pl](fasta-tools/fastaRename.pl)** will rename
 fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 # <-h to display this help>
 ```
+
+## SysAdmin-tools
+
+Those additional tools that we had to develop to troublechoot problems.
+
+### **logphicards.sh**
+
+The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metrics for the 6 Xeon-phi cards present in our server and stores the results in a text file. The log file is then used to plot the different parameters as shown in a demo report attached **[here](sysadmin/thinkmate_logging.pdf)**.
+```bash
+# Usage: logphicards.sh
+#    -t <log-frequency in sec (default 60sec)>
+```
+
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
 ------------
