@@ -48,7 +48,7 @@ t=$(date +%s)
 (echo -ne "${t}\t${mic}\t"; micsmc -c ${mic} -t ${mic} -f ${mic} | \
 egrep "Device Utilization:|Cpu Temp:|Memory Temp:|Total Power:" | \
 awk '{if (FNR==1) {match($0, /([0-9\.]+)/, arr); if(arr[1] != "") print arr[1]} 
-	else {print substr($0, 31, length($0)-29)}}' ) | \
+	else {print substr($0, 31, length($0)-29)}}' | \
 cut -d "%" -f 1 | cut -d " " -f 1 | transpose -t) >> ${LOG_FILE}
 done
 sleep ${FREQ}
