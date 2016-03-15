@@ -1,7 +1,0 @@
-#time mic %cpu cpuT memT totW
--ne 1458041402	mic0	
--ne 1458041402	mic1	
--ne 1458041402	mic2	
--ne 1458041402	mic3	
--ne 1458041402	mic4	
--ne 1458041402	mic5	
