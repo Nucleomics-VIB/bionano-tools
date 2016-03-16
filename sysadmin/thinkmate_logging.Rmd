@@ -36,8 +36,8 @@ init <- log[1,1]
 # add column with spent time in hours
 log$time <- (log$logtime-init)/3600
 
-# keep only first 6.5h for that experiment
-log <- subset(log, time<6.5)
+# keep only first 6.1h for that experiment
+log <- subset(log, time<6.1)
 
 # inspect
 head(log)
