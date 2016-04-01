@@ -223,6 +223,17 @@ The perl tool **[cmap2renum.pl](general-tools/cmap2renum.pl)** takes one referen
 
 In order to clean your assembly file, you may consider applying the next two perl scripts before using 'Knicker'.
 
+### **findNregions.pl**
+
+The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
+
+```bash
+## Usage: findNregions.pl <-i fasta-file> <-k key-file to rename contigs>
+# Additional optional parameters are:
+# <-l minsize in bps (100)>
+# <-h to display this help>
+```
+
 ### **fastaFiltLength.pl**
 
 The BIO-perl script **[fastaFiltLength.pl](fasta-tools/fastaFiltLength.pl)** will filter a multifasta file and keep only sequence with length > min and <max values. Was created to filter genome assemblies containing multiple small files.
