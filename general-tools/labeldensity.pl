@@ -42,7 +42,7 @@ my $usage = "## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 # eg. 'Nt-BbvCI' => 'CCTCAGC',
 # eg. 'Nb-BsMI'  => 'GAATGC',
 # eg. 'Nb-BsrDI' => 'GCAATG',
-# eg. 'Nx-BssSI' => 'CACGAG'
+# eg. 'Nb-BssSI' => 'CACGAG'
 # Additional optional parameters are:
 # <-t title ('label-density')>
 # <-l minimal length for dna sequence (20000)>
