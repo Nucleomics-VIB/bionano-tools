@@ -107,7 +107,7 @@ $cmd="cut -f 4 $result | sort | uniq -c | \
 	print "# density in "w"b stepping windows"}{print $2, $1}' | \
 	sort -n > ${result%%.bed}_counts.txt"
 system($cmd) && die "! failed reporting density counts";
-print STDERR "\n\n";
+print "# density counts were stored in ${result%%.bed}_counts.txt\n\n";
 
 # create IGV track version
 my $igv= $inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
