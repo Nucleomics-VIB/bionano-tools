@@ -38,10 +38,11 @@ our ( $opt_i, $opt_n, $opt_t, $opt_l, $opt_b, $opt_h );
 
 my $usage = "## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 # multiple allowed separated by ',')>
-#  'Nt-BspQI' => 'GCTCTTC',
-#  'Nt-BbvCI' => 'CCTCAGC',
-#  'Nb-BsMI'  => 'GAATGC',
-#  'Nb-BsrDI' => 'GCAATG'
+# eg. 'Nt-BspQI' => 'GCTCTTC',
+# eg. 'Nt-BbvCI' => 'CCTCAGC',
+# eg. 'Nb-BsMI'  => 'GAATGC',
+# eg. 'Nb-BsrDI' => 'GCAATG',
+# eg. 'Nx-BssSI' => 'CACGAG'
 # Additional optional parameters are:
 # <-t title ('label-density')>
 # <-l minimal length for dna sequence (20000)>
