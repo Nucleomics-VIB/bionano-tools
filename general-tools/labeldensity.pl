@@ -15,7 +15,7 @@
 # dependencies:
 # restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/BITS-VIB/ngs-tools)
 # bedtools (from: https://github.com/arq5x/bedtools2/releases)
-# 
+# 2histo.R (https://github.com/BITS-VIB/plotting-tools)
 # visit our Git: https://github.com/BITS-VIB
 
 use warnings;
@@ -32,6 +32,8 @@ my $fasta2chromsizes = `which fasta2chromsizes.pl` || die "missing fasta2chromsi
 chomp($fasta2chromsizes);
 my $bedtools=`which bedtools` || die "missing bedtools, check your path\n";
 chomp($bedtools);
+my $plotR=`which 2histo.R` || die "missing 2histo.R, check your path\n";
+chomp($plotR);
 
 ############################
 # handle command parameters
@@ -99,6 +101,13 @@ $cmd="$bedtools map -nonamecheck -a $windows -b $nicking -c 5 -o sum -null 0 | s
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
+
+# plot density distribution using r
+my $plot=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.png";
+
+$cmd="(cut -f 4 $result | 2histo.R) && mv 2isto.png $plot";
+system($cmd) && die "! failed plotting density counts";
+print "# density counts were plotted to $plot\n\n";
 
 # report density counts
 my $density = $inpath."/".$name."_".$binwidth."-".$title."-labeldensity_counts.txt";
