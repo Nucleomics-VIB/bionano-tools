@@ -101,7 +101,7 @@ system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
 
 # report density counts
-my $density = $inpath."/".$name."_".$binwidth."_counts.txt";
+my $density = $inpath."/".$name."_".$binwidth."-".$title."-labeldensity_counts.txt";
 
 $cmd="cut -f 4 $result | sort | uniq -c | \
 	sed -e 's/ *//' -e 's/ /\t/'| \
