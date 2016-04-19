@@ -100,6 +100,15 @@ print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
 
+# report density counts
+$cmd="cut -f 4 $result | sort | uniq -c | \
+	sed -e 's/ *//' -e 's/ /\t/'| \
+	awk -v w=$windows 'BEGIN{FS="\t"; OFS="\t"; 
+	print "# density in "w"b stepping windows"}{print $2, $1}' | \
+	sort -n > ${result%%.bed}_counts.txt"
+system($cmd) && die "! failed reporting density counts";
+print STDERR "\n\n";
+
 # create IGV track version
 my $igv= $inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
 
