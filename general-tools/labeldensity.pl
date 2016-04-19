@@ -103,14 +103,14 @@ print STDERR "\n\n";
 # report density counts
 $cmd="cut -f 4 $result | sort | uniq -c | \
 	sed -e 's/ *//' -e 's/ /\t/'| \
-	awk -v w=$windows 'BEGIN{FS="\t"; OFS="\t"; 
-	print "# density in "w"b stepping windows"}{print $2, $1}' | \
+	awk -v w=$windows 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"; 
+	print "# density in "w"b stepping windows"}{print \$2, \$1}' | \
 	sort -n > ${result%%.bed}_counts.txt"
 system($cmd) && die "! failed reporting density counts";
 print "# density counts were stored in ${result%%.bed}_counts.txt\n\n";
 
 # create IGV track version
-my $igv= $inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
+my $igv=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
 
 $cmd="echo \"#track name=$title-$binwidth-density\" > $igv; awk -v title=$title 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"} {print \$1,\$2,\$3,title,\$4}' $result >> $igv";
 print STDERR "# ".(qq($cmd))."\n";
