@@ -10,6 +10,7 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/11/11; v1.00
 # added direct support to create IGV track
+# added return 0 when density is null (2016-04-19; v1.01)
 #
 # dependencies:
 # restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/BITS-VIB/ngs-tools)
@@ -21,6 +22,8 @@ use warnings;
 use strict;
 use Getopt::Std;
 use File::Basename;
+
+my $version="1.01";
 
 # link the required scripts here
 my $restrict2bed = `which restrict2bed.pl` || die "missing restrict2bed.pl, check your path\n";
@@ -83,7 +86,7 @@ print STDERR "\n\n";
 # create windows
 my $windows = $inpath."/".$name."_".$binwidth."-bin.bed";
 
-$cmd="bedtools makewindows -g $chromsizes -w $binwidth | \
+$cmd="$bedtools makewindows -g $chromsizes -w $binwidth | \
 	sort -k 1V,1 -k 2n,2 -k 3n,3 > $windows";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed creating windows from chrom.sizes";
@@ -92,7 +95,7 @@ print STDERR "\n\n";
 # compare and map; create two outputs
 my $result=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.bed";
 
-$cmd="$bedtools map -nonamecheck -a $windows -b $nicking -c 5 -o sum | sort -k 1V,1 -k 2n,2 -k 3n,3 > $result";
+$cmd="$bedtools map -nonamecheck -a $windows -b $nicking -c 5 -o sum -null 0 | sort -k 1V,1 -k 2n,2 -k 3n,3 > $result";
 print STDERR "# ".(qq($cmd))."\n";
 system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
