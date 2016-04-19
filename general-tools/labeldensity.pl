@@ -101,13 +101,15 @@ system($cmd) && die "! failed summarizing nicking data in window-bins";
 print STDERR "\n\n";
 
 # report density counts
+my $density = $inpath."/".$name."_".$binwidth."_counts.txt";
+
 $cmd="cut -f 4 $result | sort | uniq -c | \
 	sed -e 's/ *//' -e 's/ /\t/'| \
-	awk -v w=$windows 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"; 
-	print "# density in "w"b stepping windows"}{print \$2, \$1}' | \
-	sort -n > ${result%%.bed}_counts.txt"
+	awk -v w=$binwidth 'BEGIN{FS=\"\\t\"; OFS=\"\\t\"; 
+	print \"# density in \"w\"b stepping windows\"}{print \$2, \$1}' | \
+	sort -n > $density";
 system($cmd) && die "! failed reporting density counts";
-print "# density counts were stored in ${result%%.bed}_counts.txt\n\n";
+print "# density counts were stored in $density\n\n";
 
 # create IGV track version
 my $igv=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.igv";
