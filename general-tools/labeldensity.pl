@@ -105,7 +105,7 @@ print STDERR "\n\n";
 # plot density distribution using r
 my $plot=$inpath."/".$name."_".$binwidth."-".$title."-labeldensity.png";
 
-$cmd="(cut -f 4 $result | 2histo.R) && mv 2isto.png $plot";
+$cmd="(cut -f 4 $result | 2histo.R) && mv 2histo.png $plot";
 system($cmd) && die "! failed plotting density counts";
 print "# density counts were plotted to $plot\n\n";
 
