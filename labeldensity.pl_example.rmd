@@ -13,17 +13,19 @@ labeldensity.pl -i hg19.fa -t BspQI-density -l 20000 -b 100000 -n 'GCTCTTC'
 ```
 
 The distribution of BspQI densities across the human genome (hg19) is computed and potted by the script. Please note the values for 25, 50, and 75% which will be used later on for color and lines in IGV.
+
 ![density distribution](pictures/hg19_100000-BspQI-density-labeldensity.png) 
 
 Tracks were added to display human genes, as well as human Gasps (N-regions) and the density track created by labeldensity.pl
+
 ![ngstools](pictures/hg19_NtBspQI.png)
 
-The colors for the heatmap view were taken from the quantiles in the above plot. The horizontal lin ein teh lower plot corresponds to the median value of the distribution.
+The colors for the heatmap view were taken from the quantiles in the above plot. The horizontal lin ein the lower plot corresponds to the median value of the distribution.
 ![ngstools](pictures/hg19_heatmap-color.png)
 
 A zoomed region in chr4 shows a concentration of over-labelling (red color).
-![ngstools](pictures/hg19_NtBspQI-chr4region.png)
 
+![ngstools](pictures/hg19_NtBspQI-chr4region.png)
 
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
