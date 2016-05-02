@@ -2,7 +2,9 @@
 Applying the labeldensity.pl script tothe hiuman genome (hg19)
 ==========
 
-This script looks for label occurences across a reference genome and computes the label density in bins of a user-provided size. It also produced BED and IGV files allowing IGV visualization. In teh example below, teh human reference genome was searched for Nt.BspQI sites and the density in 100knb bins computed and vizualized in IGV. Additional tracks for N-regions (aka gaps) is added. A random region was selected to show a zoomed view (chr4:1,486,940-16,191,114) and colors were adapted from the quantile distribution of the densities in ordee to ieasily identify regions of under-laelling (0-25% quantile Q1) or over-labelling (75-100% quantile Q3). A second copy og the same rtack was added in point mode with a lgne showing the median labelling.
+This script looks for label occurences across a reference genome and computes the label density in bins of a user-provided size. 
+It also produced BED and IGV files allowing IGV visualization. 
+In the example below, teh human reference genome was searched for Nt.BspQI sites and the density in 100knb bins computed and vizualized in IGV. Additional tracks for N-regions (aka gaps) is added. A random region was selected to show a zoomed view (chr4:1,486,940-16,191,114) and colors were adapted from the quantile distribution of the densities in ordee to ieasily identify regions of under-laelling (0-25% quantile Q1) or over-labelling (75-100% quantile Q3). A second copy og the same rtack was added in point mode with a lgne showing the median labelling.
 
 ![ngstools](pictures/Irys_icon.png) - BioNano-Tools
 
