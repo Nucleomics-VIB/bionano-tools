@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 # smap2bed.pl (first version: 2016)
-# convert the ref part of a smap (v0.4) to BED5 (strand is set to '.')
+# convert the ref/query part of a smap (v0.4) to BED5 (strand is set to '.')
 # default use confidence value (9) for the score
 # use aligned part of the reference for coordinates
 #
