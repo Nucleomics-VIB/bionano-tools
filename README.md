@@ -163,6 +163,29 @@ Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 # <-h to display this help>
 ```
 
+### **smap2bed.pl**
+
+The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED file from a 'smap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Note that we need to work more on that piece of code as the SV data is not straightforward. Any suggestions would be welcome to make this one more useful.
+
+**smap2bed.pl -h**
+```bash
+Aim: Convert smap data to BED5. You must provide a smap file with -i
+# Usage: smap2bed.pl <-i smap-file>
+# Optional parameters (smap v0.4) :
+# -x <minimal value for Confidence score (default=-1)>
+# -c <coordinate system used <'q'=query/'r'=ref> (default='r')
+# -n <field number for BED-name (1-based; default to SmapEntryID=1)>
+#        1:SmapEntryID 2:QryContigID 3:RefcontigID1 4:RefcontigID2 5:QryStartPos 6:QryEndPos
+#        7:RefStartPos 8:RefEndPos 9:Confidence 10:Type 11:XmapID1 12:XmapID2 13:LinkID
+#       14:QryStartIdx 15:QryEndIdx 16:RefStartIdx 17:RefEndIdx
+# -s <field number for BED-score (1-based; default to Confidence=9)>
+#        1:SmapEntryID 2:QryContigID 3:RefcontigID1 4:RefcontigID2 5:QryStartPos 6:QryEndPos
+#        7:RefStartPos 8:RefEndPos 9:Confidence 10:Type 11:XmapID1 12:XmapID2 13:LinkID
+#       14:QryStartIdx 15:QryEndIdx 16:RefStartIdx 17:RefEndIdx
+# -p <percentile for Confidence distribution (default=95>)
+# <-h to display this help>
+```
+
 ### **bnxsplitter.pl**
 
 The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files available for down-processing using **R** (or your favorite script).
