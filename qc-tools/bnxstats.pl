@@ -15,6 +15,9 @@
 # + filter in steps and report all results
 # Stephane Plaisance (VIB-NC+BITS) 2015/06/13; v2.01
 # + fixed kb in size distribution
+# Stephane Plaisance (VIB-NC+BITS) 2016/05/25; v2.02
+# + allow 10 additional header lines before '# BNX' 
+#   when cli manipulations have added more comment rows
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -83,18 +86,25 @@ my $stat = Statistics::Descriptive::Full->new();
 my @BigArray = ();
 our @result = ();
 our $ailim;
-our $spacer= join( "", "#", ("-" x 50 ), "\n");
+our $spacer = join( "", "#", ("-" x 50 ), "\n");
+our $cntln = 0;
 
 ################################
 # parse data and store in array
 ################################
 
 while (my $line = <$FILE>) {
-
+	
+	# count header lines and abort if '# BNX' is not found in top 10 rows
+	$cntln++;
 	# check top line for "# BNX File Version:	1.2"
 	if ($first == 1) {
 		if ($line !~ /#\ BNX\ File\ Version:/) {
-		die "$line\n This does not seem to be a bnx file";
+			if ($cntln > 10) {
+				die "$line\n This does not seem to be a bnx file";
+				} else {
+					next;
+				}
 			}
 		$first = 0;
 		}

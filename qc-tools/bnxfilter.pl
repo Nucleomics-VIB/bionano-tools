@@ -16,6 +16,9 @@
 # Stephane Plaisance (VIB-NC+BITS) 2015/06/06; v1.6
 # 	+ added support for archiving
 # 	+ added filter min label count
+# Stephane Plaisance (VIB-NC+BITS) 2016/05/25; v1.6.1
+# + allow 10 additional header lines before '# BNX' 
+#   when cli manipulations have added more comment rows
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -101,6 +104,7 @@ my $countlight  = 0;
 my $countlowsnr = 0;
 my $countlownck = 0;
 my $first       = 1;
+our $cntln      = 0;
 
 ################################
 # parse data and store in array
@@ -108,13 +112,19 @@ my $first       = 1;
 
 while ( my $line = <$FILE> ) {
 
-    # check top line for "# BNX File Version:	1.2"
-    if ( $first == 1 ) {
-        if ( $line !~ /#\ BNX\ File\ Version:/ ) {
-            die "$line\n This does not seem to be a bnx file";
-        }
-        $first = 0;
-    }
+	# count header lines and abort if '# BNX' is not found in top 10 rows
+	$cntln++;
+	# check top line for "# BNX File Version:	1.2"
+	if ($first == 1) {
+		if ($line !~ /#\ BNX\ File\ Version:/) {
+			if ($cntln > 10) {
+				die "$line\n This does not seem to be a bnx file";
+				} else {
+					next;
+				}
+			}
+		$first = 0;
+		}
 
     # header block
     if ( $line =~ /^#/ ) {
