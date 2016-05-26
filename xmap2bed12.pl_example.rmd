@@ -1,0 +1,16 @@
+Applying the xmap2bed12.pl script to a xmap sample data
+==========
+
+![xmap example](pictures/xmap_example.png)
+
+Users can further filter using the -x parameter.
+
+![BED5 and BED12 converted data](pictures/xmap2bed12_example.png)
+
+<h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
+
+------------
+
+![Creative Commons License](http://i.creativecommons.org/l/by-sa/3.0/88x31.png?raw=true)
+
+This work is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
