@@ -202,8 +202,6 @@ The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split da
 
 The files are created next to the input file and are made invisible with a starting '.'. This can easily be changed in the code.
 
-Type the script name followed by -h will list all available parameters
-
 **bnxsplitter.pl -h**
 ```bash
 You must provide a BNX file with -i
