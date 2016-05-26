@@ -143,23 +143,27 @@ Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 
 ### **xmap2bed.pl**
 
-The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED file from a 'xmap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
+The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED5 file from a 'xmap' file. Only the part of the query that aligns to the reference is extracted and the result is expressed in REF(=anchor)-coordinates. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
 
 **xmap2bed.pl -h**
 ```bash
 Aim: Convert xmap data to BED5. You must provide a xmap file with -i
-# Usage: xmap2bed.pl <-i xmap-file> 
+# Usage: xmap2bed.pl <-i xmap-file>
 # Optional parameters (v0.2) :
 # -x <minimal value for score (default=0)>
-# -c <coordinate system used <'q'=query/'r'=ref> (default='r')
-# -n <field number for BED-name (1-based; default to XmapEntryID=1)>
-#        1:XmapEntryID 2:QryContigID 3:RefContigID 4:QryStartPos 5:QryEndPos
-#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence
-#       10: HitEnum 11:QryLen 12:RefLen 13:LabelChannel 14:Alignment
-# -s <field number for BED-score (1-based; default to confidence=9)>
-#        1:XmapEntryID 2:QryContigID 3:RefContigID 4:QryStartPos 5:QryEndPos
-#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence
-#       10: HitEnum 11:QryLen 12:RefLen 13:LabelChannel 14:Alignment
+# <-h to display this help>
+```
+
+### **xmap2bed12.pl**
+
+The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
+
+**xmap2bed12.pl -h**
+```bash
+Aim: Convert xmap data to BED12. You must provide a xmap file with -i
+# Usage: xmap2bed12.pl <-i xmap-file>
+# Optional parameters (xmap v0.2) :
+# -x <minimal value for score (default=0)>
 # <-h to display this help>
 ```
 
