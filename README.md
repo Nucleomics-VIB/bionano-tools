@@ -204,7 +204,7 @@ The files are created next to the input file and are made invisible with a start
 
 **bnxsplitter.pl -h**
 ```bash
-You must provide a BNX file with -i
+Aim: Split a BNX file into its components. You must provide a BNX file with -i
 ## Usage: bnxsplitter.pl <-i bnx-file>
 # <-h to display this help>
 ```
