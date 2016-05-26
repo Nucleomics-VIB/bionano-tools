@@ -8,7 +8,7 @@ bionano-tools
 
 Tools to process and QC BioNanoGenomics data.
 
-*Please do dry run to discover the available options in each command*
+*Please do dry run or argument '-h' to discover the available options in each command*
 
 ### **bnxstats.pl**
 
@@ -41,7 +41,6 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 ### **bnxfilter_repeats.pl**
 
 The bash script **[bnxfilter_repeats.sh](qc-tools/bnxfilter_repeats.sh)** filters BNX data to 'remove', 'restrict to' or 'mask' simple repeats. It reflects the Windows version found in Irysview (that generates data with a wrongly formatted header) and works only on your linux server as it makes direct use of RefAligner. The code is simplistic and you could as well type the command in your terminal.
-
 ```bash
 # Usage: bnxfilter-repeats.sh
 #		-i <input (bnx file)>
@@ -67,7 +66,7 @@ The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
 
 Perform molecule quality report (MQR) at CLI instead of running this under IrysView. One may prefer to perform the MQR directly on his/her Nix server. The main advantage is that one can launch this code in a bash loop and perform all MQR from a list of BNX files (single runs) without supervision.
 
-The following loop will process all BNX files in the current folder and create a MQR (in its own folder) from each BNX and a common reference (more parameters are available)
+The following loop will process all BNX files in the current folder and create a MQR (in its own folder) from each BNX and a common reference (more parameters are available).
 ```bash
 for b in *.bnx; do
   run_MQR.sh -i $b -r myreference.cmap;
@@ -75,8 +74,6 @@ done
 ```
 
 Type the script name followed by -h will list all available parameters
-
-**run_MQR.sh -h**
 ```bash
 # Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 #		[optional: -l <minlen|150>]
@@ -92,8 +89,6 @@ Type the script name followed by -h will list all available parameters
 ### **bnxclnheader.pl**
 
 The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/shorten file path in the '# Run Data' lines of a BNX header.
-
-**bnxclnheader.pl -h**
 ```bash
 ## Usage: bnxclnheader.pl <-i bnx-file>
 # Additional optional parameters are:
@@ -104,8 +99,6 @@ The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/
 ### **bnxreheader.pl**
 
 The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap the BNX header of a badly formatted BNX file with a correct header from a related BNX file. This script was made to correct multiple syntax issues in headers originated from IrysView 2.4 filtering or masking of repeats.
-
-**bnxclnheader.pl -h**
 ```bash
 ## Usage: bnxreheader.pl <-i bnx-file> <-t template-file>
 # Additional optional parameters are:
@@ -116,8 +109,6 @@ The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap the
 ### **bedRename.pl**
 
 The perl script **[bedRename.pl](general-tools/bedRename.pl)** will create a new BED file from a public file and replace the original chromosome names with the BNG translation provided with a key file (first column='official-name', second column='BNG-key' from Knicker). The resulting file can be viewed in IGV together with BNG data.
-
-**bedRename.pl -h**
 ```bash
 ## Usage: 
 bedRename.pl <-i bed file (required)> <-k key file (required)>
@@ -127,8 +118,6 @@ bedRename.pl <-i bed file (required)> <-k key file (required)>
 ### **cmap2bed.pl**
 
 The perl script **[cmap2bed.pl](general-tools/cmap2bed.pl)** will create a BED file from a data.cmap file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
-
-**cmap2bed.pl -h**
 ```bash
 Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 # Usage: cmap2bed.pl <-i cmap-file> 
@@ -144,8 +133,6 @@ Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 ### **xmap2bed.pl**
 
 The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED5 file from a 'xmap' file. Only the part of the query that aligns to the reference is extracted and the result is expressed in REF(=anchor)-coordinates. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
-
-**xmap2bed.pl -h**
 ```bash
 Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 # Usage: xmap2bed.pl <-i xmap-file>
@@ -157,8 +144,6 @@ Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 ### **xmap2bed12.pl**
 
 The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
-
-**xmap2bed12.pl -h**
 ```bash
 Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # Usage: xmap2bed12.pl <-i xmap-file>
@@ -170,8 +155,6 @@ Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 ### **smap2bed.pl**
 
 The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED file from a 'smap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Note that we need to work more on that piece of code as the SV data is not straightforward. Any suggestions would be welcome to make this one more useful. The script also reports the distribution of Confidence scores and allows identifying relevant cutoff values for a second run (it is possible to get the cutoff value for any given percentile limit by modifying the '-p' argument).
-
-**smap2bed.pl -h**
 ```bash
 Aim: Convert smap data to BED5. You must provide a smap file with -i
 # Usage: smap2bed.pl <-i smap-file>
@@ -201,8 +184,6 @@ The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split da
 * .qx12.tsv
 
 The files are created next to the input file and are made invisible with a starting '.'. This can easily be changed in the code.
-
-**bnxsplitter.pl -h**
 ```bash
 Aim: Split a BNX file into its components. You must provide a BNX file with -i
 ## Usage: bnxsplitter.pl <-i bnx-file>
@@ -220,7 +201,6 @@ To achieve this, it proceeds as follows:
 * Create windows for each chromosome / contig in teh former file and save in BED format (required: **bedtools makewindows**)
 * Compare the first and last BED files and record the count of nicking sites in each bin (required: **bedtools map**)
 * Sort the obtained BED file naturally (requires a recent version of **GNU sort**) for visualisation (eg. **IGV**).
-
 ```bash
 ## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 # multiple allowed separated by ',')>
@@ -238,7 +218,6 @@ To achieve this, it proceeds as follows:
 ### **cmap2renum.pl**
 
 The perl tool **[cmap2renum.pl](general-tools/cmap2renum.pl)** takes one reference cmap and its matching key-file generated by 'Knicker' and renumbers all cmaps starting from 1 in both files. A new pair of files is saved to disk with added prefix. Such operation is required when the original cmap contained high values for the cmap IDs (over 100,000) which is not supported by downstream steps like hybrid scaffolding). large ID numbers may come from very large contig lists where a number of sequences have been filtered out due to Knicker cutoffs, leaving holes in the ID range and breaching the limit of 100,000.
-
 ```bash
 # Usage: cmap2renum.pl <-c cmap-file> <-k key-file>
 # Optional parameters:
@@ -251,7 +230,6 @@ In order to clean your assembly file, you may consider applying the next two per
 ### **findNregions.pl**
 
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
-
 ```bash
 ## Usage: findNregions.pl <-i fasta-file> <-k key-file to rename contigs>
 # Additional optional parameters are:
