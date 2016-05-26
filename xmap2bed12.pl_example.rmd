@@ -4,6 +4,7 @@ Applying the xmap2bed12.pl script to a xmap sample data
 ![xmap example](pictures/xmap_example.png)
 
 Users can further filter using the -x parameter.
+The top track shows the BED12 export where thinner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the referenec that is matched in teh query cmap (but differences in size sithin tis region are not represented).
 
 ![BED5 and BED12 converted data](pictures/xmap2bed12_example.png)
 
