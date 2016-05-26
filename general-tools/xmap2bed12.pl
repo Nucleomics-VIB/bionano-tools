@@ -1,0 +1,177 @@
+#!/usr/bin/perl -w
+
+# xmap2bed12.pl (first version: 2016)
+# convert xmap data to BED12 format
+# report data in reference coordinates
+# use aligned part of the reference for the thick line
+# add unaligned lengths of the query cmap as thin lines to both end
+#
+# Stephane Plaisance (VIB-NC+BITS) 2016/05/26; v1.0
+# visit our Git: https://github.com/BITS-VIB
+
+use strict;
+use warnings;
+use File::Basename;
+use Getopt::Std;
+use List::Util qw( min max );
+
+# handle command parameters
+getopts('i:x:h');
+our($opt_i, $opt_x, $opt_h);
+
+my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with -i
+# Usage: xmap2bed12.pl <-i xmap-file>
+# Optional parameters (xmap v0.2) :
+# -x <minimal value for score (default=0)>
+# <-h to display this help>";
+
+defined($opt_h) && die $usage . "\n";
+my $inputfile = $opt_i || die $usage;
+my $minscore = $opt_x || 0;
+
+our %fieldnames = (
+	1 => "XmapEntryID",
+	2 => "QryContigID",
+	3 => "RefContigID",
+	4 => "QryStartPos",
+	5 => "QryEndPos",
+	6 => "RefStartPos",
+	7 => "RefEndPos",
+	8 => "Orientation",
+	9 => "Confidence",
+	10 => "HitEnum",
+	11 => "QryLen",
+	12 => "RefLen",
+	13 => "LabelChannel",
+	14 => "Alignment"
+	);
+
+# load xmap header and process content
+open FILE, $inputfile or die $!;
+my $outpath = dirname($inputfile);
+my $outbase = basename($inputfile, ".xmap");
+my $outfile = $outbase."_gt".$minscore."_bed12.bed";
+
+# result files
+open OUT, "> $outfile" || die $!;
+
+# declare variables
+my $countxmap = 0;
+my $keptxmap = 0;
+our @comments = ();
+our @header = ();
+our @colnames = ();
+our @coltypes = ();
+
+# parse data file
+while (my $line = <FILE>) {
+	if ($line =~ /^#/) {
+		parseheader($line);
+		next;
+		}
+
+	# this is data
+	$countxmap++;
+
+	my @field = ( undef, (split /\t/, $line) );
+	my $refid = $field[3];
+	#my $recname=join("|", $field[1], $field[2], $field[10], $field[11], $field[12]);
+	my $recname=join("|", $field[1], $field[2], $field[11], $field[12]);
+	my $confid = $field[9];
+	my $orient = $field[8];
+	
+	# print to BED 12 format
+	# report the reference coordinates even when the aligned segments are unequal in size
+	# name field= XmapEntryID|QryContigID|HitEnum|QryLen|RefLen|
+	if ($field[9] > $minscore) {
+		$keptxmap++;
+
+		# forward cmaps
+		if ($orient eq "+") {
+			my $recstart=$field[6]-($field[4]-1);
+			$recstart = ($recstart>0) ? $recstart : 0;  
+			my $thickstart=$field[6];
+			my $recend=$field[7]+($field[11]-$field[5]);
+			$recend = ($recend>$field[12]) ? $field[12] : $recend; 
+			my $thickend=$field[7];
+			my $blocsize=$recend-$recstart;
+			my $blockstart=0;
+			print OUT join("\t", 
+				$refid,
+				int($recstart),
+				int($recend),
+				"\"".$recname."\"",
+				$confid,
+				$orient,
+				int($thickstart),
+				int($thickend),
+				"0",
+				"1",
+				int($blocsize).",",
+				int($blockstart).","
+				)."\n";
+			} else {
+
+			# reversed cmaps (start and end coordinates are swapped ????)
+			my $recstart=$field[6]-($field[11]-$field[4]);
+			$recstart = ($recstart>0) ? $recstart : 0;  
+			my $thickstart=$field[6];
+			my $recend=$field[7]+($field[5]-1);
+			$recend = ($recend>$field[12]) ? $field[12] : $recend; 
+			my $thickend=$field[7];
+			my $blocsizes=$recend-$recstart;
+			my $blockstarts=0;
+			print OUT join("\t",
+				$refid,
+				int($recstart),
+				int($recend),
+				"\"".$recname."\"",
+				$confid,
+				$orient,
+				int($thickstart),
+				int($thickend),
+				"0",
+				"1",
+				int($blocsizes).",",
+				int($blockstarts).","
+				)."\n";			
+		}
+	}
+}
+close FILE;
+close OUT;
+
+# print summary
+print STDOUT "\n##### XMAP header information #####\n";
+print STDOUT "| input: ".basename($inputfile)."\n";
+print STDOUT "| records: ".$countxmap."\n";
+print STDOUT "| min-Confidence: ".$minscore."\n";
+print STDOUT "| kept-records: ".$keptxmap."\n";
+print STDOUT "| Colnames: ";
+print STDOUT join(", ", @colnames)."\n";
+# debug
+print STDOUT "\n##### Headers #####\n";
+print STDOUT "|".join("\n|", @header)."\n";
+print STDOUT "\n##### Comments #####\n";
+print STDOUT "|".join("\n|", @comments)."\n";
+print STDOUT "##############################\n";
+
+##############
+#### Subs ####
+
+sub parseheader {
+my $line = shift;
+chomp($line);
+$line =~ s/\.\.\.$//;
+# put header in array
+my @arr = split("\t", $line);
+if ($arr[0] =~ /^#h/) {
+		@colnames = @arr[1 .. $#arr];
+	} elsif ($arr[0] =~ /^#f/) {
+		@coltypes = @arr[1 .. $#arr];
+	} elsif ($#arr == 0) {
+		push @comments, $line;
+	} else {
+		push @header, $line;
+	}
+}

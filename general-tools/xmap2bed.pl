@@ -24,7 +24,7 @@ my $usage = "Aim: Convert xmap data to BED5. You must provide a xmap file with -
 # Optional parameters (v0.2) :
 # -x <minimal value for score (default=0)>
 # -c <coordinate system used <'q'=query/'r'=ref> (default='r')
-# -n <field number for BED-name (1-based; default to XmapEntryID=1)>
+# -n <field number for BED-name (1-based; default to QryContigID=1)>
 #        1:XmapEntryID 2:QryContigID 3:RefContigID 4:QryStartPos 5:QryEndPos
 #        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence
 #       10: HitEnum 11:QryLen 12:RefLen 13:LabelChannel 14:Alignment
@@ -38,7 +38,7 @@ defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
 my $minscore = $opt_x || 0;
 my $coordinate = $opt_c || "r";
-my $namefield = $opt_n || 1;
+my $namefield = $opt_n || 2;
 my $scorefield = $opt_s || 9;
 
 # test input
