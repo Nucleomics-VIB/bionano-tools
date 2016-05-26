@@ -24,7 +24,7 @@ $|=1;
 getopts('i:h');
 our ( $opt_i, $opt_h );
 
-my $usage = "You must provide a BNX file with -i
+my $usage = "Aim: Split a BNX file into its components. You must provide a BNX file with -i
 ## Usage: bnxsplitter.pl <-i bnx-file>
 # <-h to display this help>";
 
@@ -75,7 +75,7 @@ while ( my $line = <$FILE> ) {
 		next;
 	}
 	
-	## 0	1	94694.1 ...
+	# 0	1	94694.1 ...
 	# 1	504.4	3008.2 ...
 	# QX11	1.0645	1.3571 ...
 	# QX12	0.0771	0.0778 ...

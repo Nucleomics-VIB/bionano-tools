@@ -23,15 +23,6 @@ my $usage = "Aim: Convert xmap data to BED5. You must provide a xmap file with -
 # Usage: xmap2bed.pl <-i xmap-file>
 # Optional parameters (v0.2) :
 # -x <minimal value for score (default=0)>
-# -c <coordinate system used <'q'=query/'r'=ref> (default='r')
-# -n <field number for BED-name (1-based; default to QryContigID=1)>
-#        1:XmapEntryID 2:QryContigID 3:RefContigID 4:QryStartPos 5:QryEndPos
-#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence
-#       10: HitEnum 11:QryLen 12:RefLen 13:LabelChannel 14:Alignment
-# -s <field number for BED-score (1-based; default to confidence=9)>
-#        1:XmapEntryID 2:QryContigID 3:RefContigID 4:QryStartPos 5:QryEndPos
-#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence
-#       10: HitEnum 11:QryLen 12:RefLen 13:LabelChannel 14:Alignment
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
