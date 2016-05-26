@@ -1,4 +1,4 @@
-Applying the xmap2bed12.pl script to a xmap sample data
+Applying the xmap2bed12.pl and xmap2bed.pl scripts to a xmap sample data
 ==========
 
 A test data was extracted from some xmap file generated with Irys as well as the graphiocal representation of all cmaps aligning to the test scaffold.
@@ -6,7 +6,10 @@ A test data was extracted from some xmap file generated with Irys as well as the
 
 ![BED5 and BED12 converted data](pictures/xmap2bed12_example.png)
 
-After convertion and loading in IGV, the top track shows the BED12 export where thinner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the reference that is matched in the query cmap (but differences in size sithin tis region are not represented). Confidence filtering is also possible with teh optionnal parameter '-x'.
+The first track was obtained with **xmap2bed12.pl** while the second track was ogenerated with **xmap2bed.pl** (only matching regions are reported in the latter).
+
+After convertion and loading in IGV, the top track shows the BED12 export where thiner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the reference that is matched in the query cmap (but differences in size sithin tis region are not represented). Confidence filtering is also possible with teh optionnal parameter '-x'.
+
 
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
