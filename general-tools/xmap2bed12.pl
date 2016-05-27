@@ -9,6 +9,7 @@
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/26; v1.0
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/27; v1.1
 # added translate BNG keys back to real names in Fasta assembly
+# added custom colouring (https://genome.ucsc.edu/FAQ/FAQformat.html#format1.7)
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -18,19 +19,21 @@ use Getopt::Std;
 use List::Util qw( min max );
 
 # handle command parameters
-getopts('i:x:k:h');
-our($opt_i, $opt_x, $opt_k, $opt_h);
+getopts('i:x:k:r:h');
+our($opt_i, $opt_x, $opt_k, $opt_r, $opt_h);
 
 my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # Usage: xmap2bed12.pl <-i xmap-file>
 # Optional parameters (xmap v0.2) :
 # -x <minimal value for score (default=0)>
+# -r <RGB feature color 255,0,0=red (default=0 | black)>
 # -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
 my $minscore = $opt_x || 0;
+my $rgbcol = $opt_r || 0;
 my $keyfile = $opt_k || undef;
 
 our %fieldnames = (
@@ -104,10 +107,7 @@ while (my $line = <FILE>) {
 	next if ($line =~ /^\s*$/);
 	# this is data
 	$countxmap++;
-
 	my @field = ( undef, (split /\t/, $line) );
-
-
 	my $refid;
 	if (defined ($keyfile)) {
 		# translating from key
@@ -146,13 +146,12 @@ while (my $line = <FILE>) {
 				$orient,
 				int($thickstart),
 				int($thickend),
-				"0",
+				$rgbcol,
 				"1",
 				int($blocsize).",",
 				int($blockstart).","
 				)."\n";
 			} else {
-
 			# reversed cmaps (start and end coordinates are swapped ????)
 			my $recstart=$field[6]-($field[11]-$field[4]);
 			$recstart = ($recstart>0) ? $recstart : 0;  
@@ -171,7 +170,7 @@ while (my $line = <FILE>) {
 				$orient,
 				int($thickstart),
 				int($thickend),
-				"0",
+				$rgbcol,
 				"1",
 				int($blocsizes).",",
 				int($blockstarts).","
