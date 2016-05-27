@@ -19,8 +19,8 @@ use Getopt::Std;
 use List::Util qw( min max );
 
 # handle command parameters
-getopts('i:x:k:r:h');
-our($opt_i, $opt_x, $opt_k, $opt_r, $opt_h);
+getopts('i:x:k:r:vh');
+our($opt_i, $opt_x, $opt_k, $opt_r, $opt_v, $opt_h);
 
 my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # Usage: xmap2bed12.pl <-i xmap-file>
@@ -28,6 +28,7 @@ my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with 
 # -x <minimal value for score (default=0)>
 # -r <RGB feature color 255,0,0=red (default=0 | black)>
 # -k <key file (when provided, will rename the sequences to their original naming (default absent)>
+# -v <report verbose summary>
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
@@ -62,7 +63,7 @@ if (defined $keyfile) {
 	open KEYS, $keyfile or die "# keyfile not found or not readable!";
 	# store name translations to hash
 	my $keycnt=0;
-	print STDOUT "\n# loading key pairs\n";
+	defined($opt_v) && print STDERR "\n# loading key pairs\n";
 	while (my $line = <KEYS>) {
 		# ignore header lines and comments
 		$line =~ s/\s+$//;
@@ -77,14 +78,14 @@ if (defined $keyfile) {
 	close KEYS;
 	# test hash contains data
 	$keycnt > 0 || die "# no data found in file!";
-	print STDERR "# loaded ".$keycnt." key rows\n";
+	defined($opt_v) && print STDERR "# loaded ".$keycnt." key rows\n";
 }
 
 # load xmap header and process content
 open FILE, $inputfile or die $!;
 my $outpath = dirname($inputfile);
 my $outbase = basename($inputfile, ".xmap");
-my $outfile = $outbase."_gt".$minscore."_bed12.bed";
+my $outfile = $outbase."_gt".$minscore."_xmap_bed12.bed";
 
 # result files
 open OUT, "> $outfile" || die $!;
@@ -181,20 +182,23 @@ while (my $line = <FILE>) {
 close FILE;
 close OUT;
 
-# print summary
-print STDOUT "\n##### XMAP header information #####\n";
-print STDOUT "| input: ".basename($inputfile)."\n";
-print STDOUT "| records: ".$countxmap."\n";
-print STDOUT "| min-Confidence: ".$minscore."\n";
-print STDOUT "| kept-records: ".$keptxmap."\n";
-print STDOUT "| Colnames: ";
-print STDOUT join(", ", @colnames)."\n";
-# debug
-print STDOUT "\n##### Headers #####\n";
-print STDOUT "|".join("\n|", @header)."\n";
-print STDOUT "\n##### Comments #####\n";
-print STDOUT "|".join("\n|", @comments)."\n";
-print STDOUT "##############################\n";
+# if -v verbose was requested
+if (defined $opt_v) {
+	# print summary
+	print STDOUT "\n##### XMAP header information #####\n";
+	print STDOUT "| input: ".basename($inputfile)."\n";
+	print STDOUT "| records: ".$countxmap."\n";
+	print STDOUT "| min-Confidence: ".$minscore."\n";
+	print STDOUT "| kept-records: ".$keptxmap."\n";
+	print STDOUT "| Colnames: ";
+	print STDOUT join(", ", @colnames)."\n";
+	# debug
+	print STDOUT "\n##### Headers #####\n";
+	print STDOUT "|".join("\n|", @header)."\n";
+	print STDOUT "\n##### Comments #####\n";
+	print STDOUT "|".join("\n|", @comments)."\n";
+	print STDOUT "##############################\n";
+	}
 
 ##############
 #### Subs ####
