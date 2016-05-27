@@ -7,6 +7,8 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/20; v1.0
 # initial version
+# Stephane Plaisance (VIB-NC+BITS) 2016/05/27; v1.1
+# added translate BNG keys back to real names in Fasta assembly
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -18,13 +20,13 @@ use List::Util qw( min max );
 use List::MoreUtils qw( uniq );
 
 # handle command parameters
-getopts('i:x:c:n:s:p:h');
-our($opt_i, $opt_x, $opt_c, $opt_n, $opt_s, $opt_p, $opt_h);
+getopts('i:x:c:n:s:p:k:h');
+our($opt_i, $opt_x, $opt_c, $opt_n, $opt_s, $opt_p, $opt_k, $opt_h);
 
 my $usage = "Aim: Convert smap data to BED5. You must provide a smap file with -i
 # Usage: smap2bed.pl <-i smap-file>
 # Optional parameters (smap v0.4) :
-# -x <minimal value for Confidence score (default=-1)>
+# -x <minimal value for Confidence score (default=0, '-1' is used for complex calls)>
 # -c <coordinate system used <'q'=query/'r'=ref> (default='r')
 # -n <field number for BED-name (1-based; default to SmapEntryID=1)>
 #        1:SmapEntryID 2:QryContigID 3:RefcontigID1 4:RefcontigID2 5:QryStartPos 6:QryEndPos
@@ -35,6 +37,7 @@ my $usage = "Aim: Convert smap data to BED5. You must provide a smap file with -
 #        7:RefStartPos 8:RefEndPos 9:Confidence 10:Type 11:XmapID1 12:XmapID2 13:LinkID
 #       14:QryStartIdx 15:QryEndIdx 16:RefStartIdx 17:RefEndIdx
 # -p <percentile for Confidence distribution (default=95>)
+# -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>";
 
 # // tests for defined-ness rather than truth
@@ -42,11 +45,12 @@ my $usage = "Aim: Convert smap data to BED5. You must provide a smap file with -
 # http://stackoverflow.com/questions/1609060/how-can-i-set-default-values-using-getoptstd
 defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
-my $minscore = $opt_x // -1; # '-1' is used for a number of SV types
+my $minscore = $opt_x // 0; # '-1' is used for more complex SV types
 my $coordinate = $opt_c || "r";
-my $namefield = $opt_n || 1;
+my $namefield = $opt_n || 10;
 my $scorefield = $opt_s || 9;
 my $percentile = $opt_p // 95;
+my $keyfile = $opt_k || undef;
 
 # test input
 grep( /^$coordinate$/, ( "q","r" ) ) || die "-c should be of 'q'/'r'\n";
@@ -75,6 +79,33 @@ our %fieldnames = (
 	17 => "RefEndIdx"
 	);
 
+###################################
+# load full key data into an array
+
+our %translate = ();
+
+if (defined $keyfile) {
+	open KEYS, $keyfile or die "# keyfile not found or not readable!";
+	# store name translations to hash
+	my $keycnt=0;
+	print STDOUT "\n# loading key pairs\n";
+	while (my $line = <KEYS>) {
+		# ignore header lines and comments
+		$line =~ s/\s+$//;
+		next if ($line =~ /^#|^$|^CompntId/);
+		# fill a hash with replacement numbers
+		my @keys = split /\t/, $line;
+		# CompntId	CompntName	CompntLength
+		$translate{$keys[0]} = $keys[1];
+		# print STDOUT $keys[0]." => ".$translate{$keys[0]}."\n";
+		$keycnt++;
+	}
+	close KEYS;
+	# test hash contains data
+	$keycnt > 0 || die "# no data found in file!";
+	print STDERR "# loaded ".$keycnt." key rows\n";
+}
+
 # report choices
 print STDOUT "\n##### BED-field options #####\n";
 print STDOUT "| coordinates: ".$coordinate."\n";
@@ -92,7 +123,7 @@ print STDOUT "| percentile score: ".$percentile."\n";
 open FILE, $inputfile or die $!;
 my $outpath = dirname($inputfile);
 my $outbase = basename($inputfile, ".smap");
-my $outfile = $outbase."_gt".$minscore."_".$coordinate.".bed";
+my $outfile = $outbase."_gt".$minscore."_".$coordinate."_smap.bed";
 
 # result files
 open OUT, "> $outfile" || die $!;
@@ -142,13 +173,30 @@ while (my $line = <FILE>) {
 		$type_filt{$field[10]}++;
 
 		# output data
+		my $seqname=$field[$namefield];
 		my $onerec;
 		foreach $onerec (@seqlab) { 
+		## define name translation using key
+		my $seqlab;
+		if ($coordinate eq 'q') {
+			# naming from query
+			$seqlab = $onerec;
+			} else {
+				# 'r'; naming from reference (anchor)
+				if (defined ($keyfile)) {
+					# translating from key
+					$seqlab = $translate{$onerec};
+					$seqname = $seqname."(qryid:".$field[2].")"
+					} else {
+						# keeping BNG key naming
+						$seqlab = $onerec;
+						}
+			}
 			print OUT join("\t", 
-				$onerec,
+				$seqlab,
 				$coordstart,
 				$coordend,
-				$field[$namefield],
+				$seqname,
 				$field[$scorefield],
 				"."
 				)."\n";
