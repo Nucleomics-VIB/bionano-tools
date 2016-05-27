@@ -7,6 +7,8 @@
 # add unaligned lengths of the query cmap as thin lines to both end
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/26; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2016/05/27; v1.1
+# added translate BNG keys back to real names in Fasta assembly
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -16,18 +18,20 @@ use Getopt::Std;
 use List::Util qw( min max );
 
 # handle command parameters
-getopts('i:x:h');
-our($opt_i, $opt_x, $opt_h);
+getopts('i:x:k:h');
+our($opt_i, $opt_x, $opt_k, $opt_h);
 
 my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # Usage: xmap2bed12.pl <-i xmap-file>
 # Optional parameters (xmap v0.2) :
 # -x <minimal value for score (default=0)>
+# -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
 my $minscore = $opt_x || 0;
+my $keyfile = $opt_k || undef;
 
 our %fieldnames = (
 	1 => "XmapEntryID",
@@ -45,6 +49,33 @@ our %fieldnames = (
 	13 => "LabelChannel",
 	14 => "Alignment"
 	);
+
+###################################
+# load full key data into an array
+
+our %translate = ();
+
+if (defined $keyfile) {
+	open KEYS, $keyfile or die "# keyfile not found or not readable!";
+	# store name translations to hash
+	my $keycnt=0;
+	print STDOUT "\n# loading key pairs\n";
+	while (my $line = <KEYS>) {
+		# ignore header lines and comments
+		$line =~ s/\s+$//;
+		next if ($line =~ /^#|^$|^CompntId/);
+		# fill a hash with replacement numbers
+		my @keys = split /\t/, $line;
+		# CompntId	CompntName	CompntLength
+		$translate{$keys[0]} = $keys[1];
+		# print STDOUT $keys[0]." => ".$translate{$keys[0]}."\n";
+		$keycnt++;
+	}
+	close KEYS;
+	# test hash contains data
+	$keycnt > 0 || die "# no data found in file!";
+	print STDERR "# loaded ".$keycnt." key rows\n";
+}
 
 # load xmap header and process content
 open FILE, $inputfile or die $!;
@@ -74,7 +105,14 @@ while (my $line = <FILE>) {
 	$countxmap++;
 
 	my @field = ( undef, (split /\t/, $line) );
-	my $refid = $field[3];
+	my $refid;
+	if (defined ($keyfile)) {
+		# translating from key
+		$refid = $translate{$field[3]};
+		} else {
+			# keeping BNG key naming
+			$refid = $field[3];
+			}
 	#my $recname=join("|", $field[1], $field[2], $field[10], $field[11], $field[12]);
 	my $recname=join("|", $field[1], $field[2], $field[11], $field[12]);
 	my $confid = $field[9];
