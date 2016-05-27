@@ -156,11 +156,13 @@ Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in **[IGV](https://www.broadinstitute.org/igv/)** or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x). See some example data **[here](xmap2bed12.pl_example.rmd)**.
 ```bash
 Aim: Convert xmap data to BED12. You must provide a xmap file with -i
+# script version:1.1 (05-2016)
 # Usage: xmap2bed12.pl <-i xmap-file>
 # Optional parameters (xmap v0.2) :
 # -x <minimal value for score (default=0)>
 # -r <RGB feature color 255,0,0=red (default=0 | black)>
 # -k <key file (when provided, will rename the sequences to their original naming (default absent)>
+# -v <report verbose summary>
 # <-h to display this help>
 ```
 
