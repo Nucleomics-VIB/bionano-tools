@@ -132,34 +132,45 @@ Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 
 ### **xmap2bed.pl**
 
-The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED5 file from a 'xmap' file. Only the part of the query that aligns to the reference is extracted and the result is expressed in REF(=anchor)-coordinates. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
+The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED5 file from a 'xmap' file. Only the part of the query that aligns to the reference is extracted and the result is expressed in REF(=anchor)-coordinates. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in **[IGV[(https://www.broadinstitute.org/igv/)** or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
 ```bash
 Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 # Usage: xmap2bed.pl <-i xmap-file>
 # Optional parameters (v0.2) :
 # -x <minimal value for score (default=0)>
+# -c <coordinate system used <'q'=query/'r'=ref> (default='r')
+# -n <field number for BED-name (1-based; default to SmapEntryID=1)>
+#        1:XmapEntryID 2:QryContigID 3:RefcontigID1 4:QryStartPos 5:QryEndPos
+#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence 10:HitEnumType 
+#		11:Qrylen 12:Reflen 13:LabelChannel 14:Alignment
+# -s <field number for BED-name (1-based; default to SmapEntryID=1)>
+#        1:XmapEntryID 2:QryContigID 3:RefcontigID1 4:QryStartPos 5:QryEndPos
+#        6:RefStartPos 7:RefEndPos 8:Orientation 9:Confidence 10:HitEnumType 
+#		11:Qrylen 12:Reflen 13:LabelChannel 14:Alignment
+# -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>
 ```
 
 ### **xmap2bed12.pl**
 
-The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in IGV or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
+The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in **[IGV[(https://www.broadinstitute.org/igv/)** or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
 ```bash
 Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # Usage: xmap2bed12.pl <-i xmap-file>
 # Optional parameters (xmap v0.2) :
 # -x <minimal value for score (default=0)>
+# -r <RGB feature color 255,0,0=red (default=0 | black)>
+# -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>
 ```
 
 ### **smap2bed.pl**
 
-The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED file from a 'smap' file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Note that we need to work more on that piece of code as the SV data is not straightforward. Any suggestions would be welcome to make this one more useful. The script also reports the distribution of Confidence scores and allows identifying relevant cutoff values for a second run (it is possible to get the cutoff value for any given percentile limit by modifying the '-p' argument).
+The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED file from a 'smap' file. The resulting file can be used with **[IGV[(https://www.broadinstitute.org/igv/)** or **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Note that we need to work more on that piece of code as the SV data is not straightforward. Any suggestions would be welcome to make this one more useful. The script also reports the distribution of Confidence scores and allows identifying relevant cutoff values for a second run (it is possible to get the cutoff value for any given percentile limit by modifying the '-p' argument).
 ```bash
-Aim: Convert smap data to BED5. You must provide a smap file with -i
 # Usage: smap2bed.pl <-i smap-file>
 # Optional parameters (smap v0.4) :
-# -x <minimal value for Confidence score (default=-1)>
+# -x <minimal value for Confidence score (default=0, '-1' is used for complex calls)>
 # -c <coordinate system used <'q'=query/'r'=ref> (default='r')
 # -n <field number for BED-name (1-based; default to SmapEntryID=1)>
 #        1:SmapEntryID 2:QryContigID 3:RefcontigID1 4:RefcontigID2 5:QryStartPos 6:QryEndPos
@@ -170,6 +181,7 @@ Aim: Convert smap data to BED5. You must provide a smap file with -i
 #        7:RefStartPos 8:RefEndPos 9:Confidence 10:Type 11:XmapID1 12:XmapID2 13:LinkID
 #       14:QryStartIdx 15:QryEndIdx 16:RefStartIdx 17:RefEndIdx
 # -p <percentile for Confidence distribution (default=95>)
+# -k <key file (when provided, will rename the sequences to their original naming (default absent)>
 # <-h to display this help>
 ```
 
