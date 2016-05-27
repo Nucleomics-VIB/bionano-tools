@@ -10,30 +10,377 @@ After convertion and loading in IGV, the top track shows the BED12 export where 
 
 The second track was generated with **smap2bed.pl** for only calls with score >0 (more complex calls are not garantied true with version 1.1 of smap2bed).
 
-<sub>
-<div>
-| 266  | 190  | 455  | 5328 | 1036342.0 | 1007949.4 | 23933.0   | 1827960.0 | -1.00 | translocation_interchr | 294  | 3052 | -1 | 93  | 92  | 1   | 163 |
-|------|------|------|------|-----------|-----------|-----------|-----------|-------|------------------------|------|------|----|-----|-----|-----|-----|
-| 323  | 4869 | 565  | 5328 | 212497.0  | 192944.7  | 602227.0  | 4534875.0 | -1.00 | translocation_interchr | 346  | 3061 | -1 | 16  | 15  | 55  | 422 |
-| 1267 | 3934 | 2883 | 5328 | 80511.4   | 72925.3   | 173155.0  | 794690.0  | -1.00 | translocation_interchr | 1735 | 3049 | -1 | 10  | 9   | 22  | 69  |
-| 1534 | 3985 | 3617 | 5328 | 1104153.3 | 1332841.3 | 9099.0    | 2288930.0 | -1.00 | translocation_interchr | 2197 | 3055 | -1 | 112 | 127 | 1   | 201 |
-| 1535 | 3985 | 3617 | 5328 | 1019941.4 | 798446.1  | 93644.0   | 2784109.0 | -1.00 | translocation_interchr | 2197 | 3057 | -1 | 103 | 79  | 10  | 254 |
-| 1572 | 4753 | 3813 | 5328 | 225501.8  | 178197.4  | 10397.0   | 22532.0   | -1.00 | translocation_interchr | 2292 | 3047 | -1 | 19  | 18  | 1   | 1   |
-| 1822 | 4298 | 5254 | 5328 | 366724.8  | 323488.7  | 157357.0  | 4232504.0 | -1.00 | translocation_interchr | 2990 | 3059 | -1 | 31  | 30  | 21  | 393 |
-| 1829 | 3934 | 5328 | 5328 | 72925.3   | 1010700.8 | 794690.0  | 1820542.0 | 12.43 | deletion               | 3049 | 3053 | -1 | 9   | 89  | 69  | 162 |
-| 1830 | 190  | 5328 | 5328 | 310636.8  | 324053.7  | 1185412.5 | 1189372.0 | 15.13 | insertion              | 3050 | 3051 | -1 | 30  | 33  | 104 | 105 |
-| 1831 | 190  | 5328 | 5328 | 431821.4  | 635189.7  | 1297089.0 | 1452166.0 | 15.13 | insertion              | 3051 | 3052 | -1 | 44  | 59  | 116 | 128 |
-| 1832 | 3985 | 5328 | 5328 | 798446.1  | 1332841.3 | 2288930.0 | 2784109.0 | 19.33 | insertion              | 3055 | 3057 | -1 | 79  | 127 | 201 | 254 |
-| 1833 | 3867 | 5328 | 5328 | 550268.8  | 1073544.1 | 2681301.0 | 3250040.0 | 36.80 | deletion               | 3056 | 3058 | -1 | 50  | 95  | 243 | 294 |
-| 1834 | 3867 | 5328 | 5934 | 550268.8  | 767657.5  | 2681301.0 | 42403.0   | -1.00 | translocation_interchr | 3056 | 3311 | -1 | 50  | 69  | 243 | 6   |
-| 1835 | 3985 | 5328 | 5522 | 326896.8  | 193575.3  | 3254736.0 | 158509.0  | -1.00 | translocation_interchr | 3057 | 3181 | -1 | 41  | 24  | 295 | 17  |
-| 1836 | 3867 | 5328 | 5328 | 2056949.0 | 2237489.3 | 4235063.0 | 4421526.0 | 12.52 | deletion               | 3058 | 3060 | -1 | 189 | 202 | 394 | 409 |
-| 1837 | 3867 | 5328 | 5934 | 1073544.1 | 1063640.9 | 3250040.0 | 338834.0  | -1.00 | translocation_interchr | 3058 | 3311 | -1 | 95  | 94  | 294 | 31  |
-| 1838 | 3867 | 5328 | 5953 | 2056949.0 | 2067885.8 | 4235063.0 | 15538.0   | -1.00 | translocation_interchr | 3058 | 3313 | -1 | 189 | 190 | 394 | 2   |
-| 1839 | 3867 | 5328 | 5953 | 2237489.3 | 2218200.0 | 4421526.0 | 166559.0  | -1.00 | translocation_interchr | 3060 | 3313 | -1 | 202 | 201 | 409 | 13  |
-</div>
-</sub>
+**The original smap data**
 
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">SmapEntryID</th>
+    <th class="tg-yw4l">QryContigID</th>
+    <th class="tg-yw4l">RefcontigID1</th>
+    <th class="tg-yw4l">RefcontigID2</th>
+    <th class="tg-yw4l">QryStartPos</th>
+    <th class="tg-yw4l">QryEndPos</th>
+    <th class="tg-yw4l">RefStartPos</th>
+    <th class="tg-yw4l">RefEndPos</th>
+    <th class="tg-yw4l">Confidence</th>
+    <th class="tg-yw4l">Type</th>
+    <th class="tg-yw4l">XmapID1</th>
+    <th class="tg-yw4l">XmapID2</th>
+    <th class="tg-yw4l">LinkID</th>
+    <th class="tg-yw4l">QryStartIdx</th>
+    <th class="tg-yw4l">QryEndIdx</th>
+    <th class="tg-yw4l">RefStartIdx</th>
+    <th class="tg-yw4l">RefEndIdx</th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">266</td>
+    <td class="tg-yw4l">190</td>
+    <td class="tg-yw4l">455</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">1036342.0</td>
+    <td class="tg-yw4l">1007949.4</td>
+    <td class="tg-yw4l">23933.0</td>
+    <td class="tg-yw4l">1827960.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">294</td>
+    <td class="tg-yw4l">3052</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">93</td>
+    <td class="tg-yw4l">92</td>
+    <td class="tg-yw4l">1</td>
+    <td class="tg-yw4l">163</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">323</td>
+    <td class="tg-yw4l">4869</td>
+    <td class="tg-yw4l">565</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">212497.0</td>
+    <td class="tg-yw4l">192944.7</td>
+    <td class="tg-yw4l">602227.0</td>
+    <td class="tg-yw4l">4534875.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">346</td>
+    <td class="tg-yw4l">3061</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">16</td>
+    <td class="tg-yw4l">15</td>
+    <td class="tg-yw4l">55</td>
+    <td class="tg-yw4l">422</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1267</td>
+    <td class="tg-yw4l">3934</td>
+    <td class="tg-yw4l">2883</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">80511.4</td>
+    <td class="tg-yw4l">72925.3</td>
+    <td class="tg-yw4l">173155.0</td>
+    <td class="tg-yw4l">794690.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">1735</td>
+    <td class="tg-yw4l">3049</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">10</td>
+    <td class="tg-yw4l">9</td>
+    <td class="tg-yw4l">22</td>
+    <td class="tg-yw4l">69</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1534</td>
+    <td class="tg-yw4l">3985</td>
+    <td class="tg-yw4l">3617</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">1104153.3</td>
+    <td class="tg-yw4l">1332841.3</td>
+    <td class="tg-yw4l">9099.0</td>
+    <td class="tg-yw4l">2288930.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">2197</td>
+    <td class="tg-yw4l">3055</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">112</td>
+    <td class="tg-yw4l">127</td>
+    <td class="tg-yw4l">1</td>
+    <td class="tg-yw4l">201</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1535</td>
+    <td class="tg-yw4l">3985</td>
+    <td class="tg-yw4l">3617</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">1019941.4</td>
+    <td class="tg-yw4l">798446.1</td>
+    <td class="tg-yw4l">93644.0</td>
+    <td class="tg-yw4l">2784109.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">2197</td>
+    <td class="tg-yw4l">3057</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">103</td>
+    <td class="tg-yw4l">79</td>
+    <td class="tg-yw4l">10</td>
+    <td class="tg-yw4l">254</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1572</td>
+    <td class="tg-yw4l">4753</td>
+    <td class="tg-yw4l">3813</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">225501.8</td>
+    <td class="tg-yw4l">178197.4</td>
+    <td class="tg-yw4l">10397.0</td>
+    <td class="tg-yw4l">22532.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">2292</td>
+    <td class="tg-yw4l">3047</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">19</td>
+    <td class="tg-yw4l">18</td>
+    <td class="tg-yw4l">1</td>
+    <td class="tg-yw4l">1</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1822</td>
+    <td class="tg-yw4l">4298</td>
+    <td class="tg-yw4l">5254</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">366724.8</td>
+    <td class="tg-yw4l">323488.7</td>
+    <td class="tg-yw4l">157357.0</td>
+    <td class="tg-yw4l">4232504.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">2990</td>
+    <td class="tg-yw4l">3059</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">31</td>
+    <td class="tg-yw4l">30</td>
+    <td class="tg-yw4l">21</td>
+    <td class="tg-yw4l">393</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1829</td>
+    <td class="tg-yw4l">3934</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">72925.3</td>
+    <td class="tg-yw4l">1010700.8</td>
+    <td class="tg-yw4l">794690.0</td>
+    <td class="tg-yw4l">1820542.0</td>
+    <td class="tg-yw4l">12.43</td>
+    <td class="tg-yw4l">deletion</td>
+    <td class="tg-yw4l">3049</td>
+    <td class="tg-yw4l">3053</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">9</td>
+    <td class="tg-yw4l">89</td>
+    <td class="tg-yw4l">69</td>
+    <td class="tg-yw4l">162</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1830</td>
+    <td class="tg-yw4l">190</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">310636.8</td>
+    <td class="tg-yw4l">324053.7</td>
+    <td class="tg-yw4l">1185412.5</td>
+    <td class="tg-yw4l">1189372.0</td>
+    <td class="tg-yw4l">15.13</td>
+    <td class="tg-yw4l">insertion</td>
+    <td class="tg-yw4l">3050</td>
+    <td class="tg-yw4l">3051</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">30</td>
+    <td class="tg-yw4l">33</td>
+    <td class="tg-yw4l">104</td>
+    <td class="tg-yw4l">105</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1831</td>
+    <td class="tg-yw4l">190</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">431821.4</td>
+    <td class="tg-yw4l">635189.7</td>
+    <td class="tg-yw4l">1297089.0</td>
+    <td class="tg-yw4l">1452166.0</td>
+    <td class="tg-yw4l">15.13</td>
+    <td class="tg-yw4l">insertion</td>
+    <td class="tg-yw4l">3051</td>
+    <td class="tg-yw4l">3052</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">44</td>
+    <td class="tg-yw4l">59</td>
+    <td class="tg-yw4l">116</td>
+    <td class="tg-yw4l">128</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1832</td>
+    <td class="tg-yw4l">3985</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">798446.1</td>
+    <td class="tg-yw4l">1332841.3</td>
+    <td class="tg-yw4l">2288930.0</td>
+    <td class="tg-yw4l">2784109.0</td>
+    <td class="tg-yw4l">19.33</td>
+    <td class="tg-yw4l">insertion</td>
+    <td class="tg-yw4l">3055</td>
+    <td class="tg-yw4l">3057</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">79</td>
+    <td class="tg-yw4l">127</td>
+    <td class="tg-yw4l">201</td>
+    <td class="tg-yw4l">254</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1833</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">550268.8</td>
+    <td class="tg-yw4l">1073544.1</td>
+    <td class="tg-yw4l">2681301.0</td>
+    <td class="tg-yw4l">3250040.0</td>
+    <td class="tg-yw4l">36.80</td>
+    <td class="tg-yw4l">deletion</td>
+    <td class="tg-yw4l">3056</td>
+    <td class="tg-yw4l">3058</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">50</td>
+    <td class="tg-yw4l">95</td>
+    <td class="tg-yw4l">243</td>
+    <td class="tg-yw4l">294</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1834</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5934</td>
+    <td class="tg-yw4l">550268.8</td>
+    <td class="tg-yw4l">767657.5</td>
+    <td class="tg-yw4l">2681301.0</td>
+    <td class="tg-yw4l">42403.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">3056</td>
+    <td class="tg-yw4l">3311</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">50</td>
+    <td class="tg-yw4l">69</td>
+    <td class="tg-yw4l">243</td>
+    <td class="tg-yw4l">6</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1835</td>
+    <td class="tg-yw4l">3985</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5522</td>
+    <td class="tg-yw4l">326896.8</td>
+    <td class="tg-yw4l">193575.3</td>
+    <td class="tg-yw4l">3254736.0</td>
+    <td class="tg-yw4l">158509.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">3057</td>
+    <td class="tg-yw4l">3181</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">41</td>
+    <td class="tg-yw4l">24</td>
+    <td class="tg-yw4l">295</td>
+    <td class="tg-yw4l">17</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1836</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">2056949.0</td>
+    <td class="tg-yw4l">2237489.3</td>
+    <td class="tg-yw4l">4235063.0</td>
+    <td class="tg-yw4l">4421526.0</td>
+    <td class="tg-yw4l">12.52</td>
+    <td class="tg-yw4l">deletion</td>
+    <td class="tg-yw4l">3058</td>
+    <td class="tg-yw4l">3060</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">189</td>
+    <td class="tg-yw4l">202</td>
+    <td class="tg-yw4l">394</td>
+    <td class="tg-yw4l">409</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1837</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5934</td>
+    <td class="tg-yw4l">1073544.1</td>
+    <td class="tg-yw4l">1063640.9</td>
+    <td class="tg-yw4l">3250040.0</td>
+    <td class="tg-yw4l">338834.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">3058</td>
+    <td class="tg-yw4l">3311</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">95</td>
+    <td class="tg-yw4l">94</td>
+    <td class="tg-yw4l">294</td>
+    <td class="tg-yw4l">31</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1838</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5953</td>
+    <td class="tg-yw4l">2056949.0</td>
+    <td class="tg-yw4l">2067885.8</td>
+    <td class="tg-yw4l">4235063.0</td>
+    <td class="tg-yw4l">15538.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">3058</td>
+    <td class="tg-yw4l">3313</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">189</td>
+    <td class="tg-yw4l">190</td>
+    <td class="tg-yw4l">394</td>
+    <td class="tg-yw4l">2</td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">1839</td>
+    <td class="tg-yw4l">3867</td>
+    <td class="tg-yw4l">5328</td>
+    <td class="tg-yw4l">5953</td>
+    <td class="tg-yw4l">2237489.3</td>
+    <td class="tg-yw4l">2218200.0</td>
+    <td class="tg-yw4l">4421526.0</td>
+    <td class="tg-yw4l">166559.0</td>
+    <td class="tg-yw4l">-1.00</td>
+    <td class="tg-yw4l">translocation_interchr</td>
+    <td class="tg-yw4l">3060</td>
+    <td class="tg-yw4l">3313</td>
+    <td class="tg-yw4l">-1</td>
+    <td class="tg-yw4l">202</td>
+    <td class="tg-yw4l">201</td>
+    <td class="tg-yw4l">409</td>
+    <td class="tg-yw4l">13</td>
+  </tr>
+</table>
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
 ------------
