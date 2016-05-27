@@ -6,7 +6,7 @@ A test data was extracted from some smap file generated with Irys as well as the
 
 ![BED5 and BED12 converted data](pictures/smap2bed_example.png)
 
-After convertion and loading in IGV, the top track shows the BED12 export where thiner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the reference that is matched in the query cmap (but differences in size sithin this region are not represented). Confidence filtering is also possible with the optionnal parameter '-x'.
+After convertion and loading in IGV, the top track shows the BED12 export where thiner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the reference that is matched in the query cmap (but differences in size within this region are not represented). Confidence filtering is also possible with the optionnal parameter '-x'.
 
 The second track was generated with **smap2bed.pl** for only calls with score >0 (more complex calls are not garantied true with version 1.1 of smap2bed).
 
