@@ -11,6 +11,7 @@ After convertion and loading in IGV, the top track shows the BED12 export where 
 The second track was generated with **smap2bed.pl** for only calls with score >0 (more complex calls are not garantied true with version 1.1 of smap2bed).
 
 <sub>
+<div>
 | 266  | 190  | 455  | 5328 | 1036342.0 | 1007949.4 | 23933.0   | 1827960.0 | -1.00 | translocation_interchr | 294  | 3052 | -1 | 93  | 92  | 1   | 163 |
 |------|------|------|------|-----------|-----------|-----------|-----------|-------|------------------------|------|------|----|-----|-----|-----|-----|
 | 323  | 4869 | 565  | 5328 | 212497.0  | 192944.7  | 602227.0  | 4534875.0 | -1.00 | translocation_interchr | 346  | 3061 | -1 | 16  | 15  | 55  | 422 |
@@ -30,6 +31,7 @@ The second track was generated with **smap2bed.pl** for only calls with score >0
 | 1837 | 3867 | 5328 | 5934 | 1073544.1 | 1063640.9 | 3250040.0 | 338834.0  | -1.00 | translocation_interchr | 3058 | 3311 | -1 | 95  | 94  | 294 | 31  |
 | 1838 | 3867 | 5328 | 5953 | 2056949.0 | 2067885.8 | 4235063.0 | 15538.0   | -1.00 | translocation_interchr | 3058 | 3313 | -1 | 189 | 190 | 394 | 2   |
 | 1839 | 3867 | 5328 | 5953 | 2237489.3 | 2218200.0 | 4421526.0 | 166559.0  | -1.00 | translocation_interchr | 3060 | 3313 | -1 | 202 | 201 | 409 | 13  |
+</div>
 </sub>
 
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
