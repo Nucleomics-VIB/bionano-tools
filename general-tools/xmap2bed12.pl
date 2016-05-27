@@ -21,8 +21,10 @@ use List::Util qw( min max );
 # handle command parameters
 getopts('i:x:k:r:vh');
 our($opt_i, $opt_x, $opt_k, $opt_r, $opt_v, $opt_h);
+our $version="1.1 (05-2016)";
 
 my $usage = "Aim: Convert xmap data to BED12. You must provide a xmap file with -i
+# script version:".$version."
 # Usage: xmap2bed12.pl <-i xmap-file>
 # Optional parameters (xmap v0.2) :
 # -x <minimal value for score (default=0)>
