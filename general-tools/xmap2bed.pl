@@ -126,7 +126,8 @@ while (my $line = <FILE>) {
 		parseheader($line);
 		next;
 		}
-
+	# ignore empty lines
+	next if ($line =~ /^\s*$/);
 	# this is data
 	$countxmap++;
 

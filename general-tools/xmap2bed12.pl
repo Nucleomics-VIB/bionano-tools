@@ -100,11 +100,14 @@ while (my $line = <FILE>) {
 		parseheader($line);
 		next;
 		}
-
+	# ignore empty lines
+	next if ($line =~ /^\s*$/);
 	# this is data
 	$countxmap++;
 
 	my @field = ( undef, (split /\t/, $line) );
+
+
 	my $refid;
 	if (defined ($keyfile)) {
 		# translating from key
