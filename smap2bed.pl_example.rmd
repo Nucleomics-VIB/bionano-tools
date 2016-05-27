@@ -4,6 +4,26 @@ Applying the smap2bed.pl scripts to a smap sample data
 A test data was extracted from some smap file generated with Irys as well as the graphical representation of all cmaps aligning to the test scaffold.
 ![xmap example](pictures/smap_example.png)
 
+| 266  | 190  | 455  | 5328 | 1036342.0 | 1007949.4 | 23933.0   | 1827960.0 | -1.00 | translocation_interchr | 294  | 3052 | -1 | 93  | 92  | 1   | 163 |
+|------|------|------|------|-----------|-----------|-----------|-----------|-------|------------------------|------|------|----|-----|-----|-----|-----|
+| 323  | 4869 | 565  | 5328 | 212497.0  | 192944.7  | 602227.0  | 4534875.0 | -1.00 | translocation_interchr | 346  | 3061 | -1 | 16  | 15  | 55  | 422 |
+| 1267 | 3934 | 2883 | 5328 | 80511.4   | 72925.3   | 173155.0  | 794690.0  | -1.00 | translocation_interchr | 1735 | 3049 | -1 | 10  | 9   | 22  | 69  |
+| 1534 | 3985 | 3617 | 5328 | 1104153.3 | 1332841.3 | 9099.0    | 2288930.0 | -1.00 | translocation_interchr | 2197 | 3055 | -1 | 112 | 127 | 1   | 201 |
+| 1535 | 3985 | 3617 | 5328 | 1019941.4 | 798446.1  | 93644.0   | 2784109.0 | -1.00 | translocation_interchr | 2197 | 3057 | -1 | 103 | 79  | 10  | 254 |
+| 1572 | 4753 | 3813 | 5328 | 225501.8  | 178197.4  | 10397.0   | 22532.0   | -1.00 | translocation_interchr | 2292 | 3047 | -1 | 19  | 18  | 1   | 1   |
+| 1822 | 4298 | 5254 | 5328 | 366724.8  | 323488.7  | 157357.0  | 4232504.0 | -1.00 | translocation_interchr | 2990 | 3059 | -1 | 31  | 30  | 21  | 393 |
+| 1829 | 3934 | 5328 | 5328 | 72925.3   | 1010700.8 | 794690.0  | 1820542.0 | 12.43 | deletion               | 3049 | 3053 | -1 | 9   | 89  | 69  | 162 |
+| 1830 | 190  | 5328 | 5328 | 310636.8  | 324053.7  | 1185412.5 | 1189372.0 | 15.13 | insertion              | 3050 | 3051 | -1 | 30  | 33  | 104 | 105 |
+| 1831 | 190  | 5328 | 5328 | 431821.4  | 635189.7  | 1297089.0 | 1452166.0 | 15.13 | insertion              | 3051 | 3052 | -1 | 44  | 59  | 116 | 128 |
+| 1832 | 3985 | 5328 | 5328 | 798446.1  | 1332841.3 | 2288930.0 | 2784109.0 | 19.33 | insertion              | 3055 | 3057 | -1 | 79  | 127 | 201 | 254 |
+| 1833 | 3867 | 5328 | 5328 | 550268.8  | 1073544.1 | 2681301.0 | 3250040.0 | 36.80 | deletion               | 3056 | 3058 | -1 | 50  | 95  | 243 | 294 |
+| 1834 | 3867 | 5328 | 5934 | 550268.8  | 767657.5  | 2681301.0 | 42403.0   | -1.00 | translocation_interchr | 3056 | 3311 | -1 | 50  | 69  | 243 | 6   |
+| 1835 | 3985 | 5328 | 5522 | 326896.8  | 193575.3  | 3254736.0 | 158509.0  | -1.00 | translocation_interchr | 3057 | 3181 | -1 | 41  | 24  | 295 | 17  |
+| 1836 | 3867 | 5328 | 5328 | 2056949.0 | 2237489.3 | 4235063.0 | 4421526.0 | 12.52 | deletion               | 3058 | 3060 | -1 | 189 | 202 | 394 | 409 |
+| 1837 | 3867 | 5328 | 5934 | 1073544.1 | 1063640.9 | 3250040.0 | 338834.0  | -1.00 | translocation_interchr | 3058 | 3311 | -1 | 95  | 94  | 294 | 31  |
+| 1838 | 3867 | 5328 | 5953 | 2056949.0 | 2067885.8 | 4235063.0 | 15538.0   | -1.00 | translocation_interchr | 3058 | 3313 | -1 | 189 | 190 | 394 | 2   |
+| 1839 | 3867 | 5328 | 5953 | 2237489.3 | 2218200.0 | 4421526.0 | 166559.0  | -1.00 | translocation_interchr | 3060 | 3313 | -1 | 202 | 201 | 409 | 13  |
+
 ![BED5 and BED12 converted data](pictures/smap2bed_example.png)
 
 After convertion and loading in IGV, the top track shows the BED12 export where thiner blocks represent regions of the query that do not align to the reference. The thicker blocks in both tracks represent the region of the reference that is matched in the query cmap (but differences in size within this region are not represented). Confidence filtering is also possible with the optionnal parameter '-x'.
