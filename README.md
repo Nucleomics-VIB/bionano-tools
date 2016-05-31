@@ -54,7 +54,7 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 
 ### **bnxfilter2.pl**
 
-The perl script **[bnxfilter2.pl](qc-tools/bnxfilter2.pl)** adds to the first version and allows filtering on label average itensity and label average-snr.
+The perl script **[bnxfilter2.pl](qc-tools/bnxfilter2.pl)** adds to the first version and allows filtering on **label average-intensity** and **label average-snr** (REM: both new parameters are optional and undef by default, please note the difference between molecule (big-case) and label (small-case) arguments).
 ```bash
 You must provide a BNX file with -i
 ## Usage: bnxfilter2.pl <-i bnx-file>
