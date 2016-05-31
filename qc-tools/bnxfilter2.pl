@@ -287,7 +287,7 @@ print OUT2 $res;
 $res = sprintf("%15s %15s %15s %15s %15s %15s %15s\n",
                  $minsize, $maxsize, 
                  $maxavgint, $minsnr, 
-                 $minnck, $minlsnr, $maxlavgint);
+                 $minnck, $maxlavgint, $minlsnr);
 print STDOUT $res;
 print OUT2 $res;
                  
@@ -295,7 +295,7 @@ print "\n# molecule counts \n";
 $res = sprintf("%15s %15s %15s %15s %15s %15s %15s %15s %15s\n",
                  "tot-molecules", "retained", "short-reject", "long-reject",
                  "molecAI-reject", "molecSNR-reject",
-                 "lowNCK-reject", "labelAI-reject", "labelNR-reject");
+                 "lowNCK-reject", "labelAI-reject", "labelSNR-reject");
 print STDOUT $res;
 print OUT2 $res;
 
