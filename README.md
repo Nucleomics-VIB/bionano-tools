@@ -24,6 +24,20 @@ The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic sta
 # <-h to display this help>
 ```
 
+### **bnx2quantiles.pl**
+
+The perl script **[bnx2quantiles.pl](qc-tools/bnx2quantiles.pl)** analyze BNX data and return value distributions for the most important measurements. Useful to define cutoffs to be used with **bnxfilter.pl** and **bnxfilter2.pl**. 
+
+```bash
+You must provide a BNX file with -i
+## Usage: bnx2quantiles.pl <-i bnx-file>
+# script version:1.0
+# Additional optional parameters are:
+# <-p additional low percentile (1)>
+# <-P additional high percentile (99)>
+# <-h to display this help>
+```
+
 ### **bnxfilter.pl**
 
 The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied. The most recent version of the code supports gzipped data and exports as gzip as option.
@@ -36,6 +50,25 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 # <-s min-SNR (3.5)>
 # <-n min-nicks (6)>
 # <-z zip results (default OFF)>
+```
+
+### **bnxfilter2.pl**
+
+The perl script **[bnxfilter2.pl](qc-tools/bnxfilter2.pl)** adds to the first version and allows filtering on label average itensity and label average-snr.
+```bash
+You must provide a BNX file with -i
+## Usage: bnxfilter2.pl <-i bnx-file>
+# script version:2.0
+# Additional optional parameters are:
+# <-l min-length in kb (100)>
+# <-x max-length in kb (2500)>
+# <-S min-molSNR (3.5)>
+# <-M max-molAvgIntensity (0.6)>
+# <-n min-nicks (6)>
+# <-s min-labSNR (undef)>
+# <-m max-labAvgIntensity (undef)>
+# <-z zip results (default OFF)>
+# <-h to display this help>
 ```
 
 ### **bnxfilter_repeats.pl**
