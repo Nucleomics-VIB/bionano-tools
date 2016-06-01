@@ -4,8 +4,9 @@
 # first version: 2016-05-31
 # report data-distributions for several key BNX value types
 # designed to work with BNX 1.2 format
-
-# Stephane Plaisance (VIB-NC+BITS) 2016/05/31; v1.0
+#
+# Stephane Plaisance (VIB-NC+BITS) 2016/06/01; v1.1
+# added average inter-label distance
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -15,9 +16,8 @@ use File::Basename;
 use Getopt::Std;
 use Statistics::Descriptive;
 use POSIX qw(strftime);
-use Data::Dumper;
 
-my $version = "1.0";
+my $version = "1.1";
 my $date = strftime "%m/%d/%Y", localtime;
 
 # autoflush
@@ -121,10 +121,16 @@ while (my $line = <$FILE>) {
 	my $zerol=$data[0];
 	chomp($zerol);
 
-	my (undef, undef, $Length, $AvgIntensity, $SNR, $NumberofLabels) =
-		split(/\t/, $zerol);
+	my (undef, undef, $Length, $AvgIntensity, $SNR, $NumberofLabels) = split(/\t/, $zerol);
 	$totnucl += $Length;
 	my $labfreq = 100000*$NumberofLabels/$Length;
+	
+	# 1-line data
+	my $onel=$data[1];
+	chomp($onel);
+	my (undef, @labpos) = split(/\t/, $onel);
+	my @labdist = interlabel(\@labpos);
+	my $avg_labdist = average(\@labdist);
 	
 	# X11 row data
 	my $x11l = $data[2];
@@ -145,7 +151,8 @@ while (my $line = <$FILE>) {
 		$SNR, 
 		$AvgIntensity, 
 		sprintf("%.4f",$avg_labsnr), 
-		sprintf("%.4f",$avg_labai)] ) );
+		sprintf("%.4f",$avg_labai),
+		sprintf("%.3f",$avg_labdist)] ) );
 	
 }
 undef $FILE;
@@ -213,7 +220,6 @@ sub format_num {
 
 ###########
 sub average {
-
 	@_ == 1 or die ('Sub usage: $average = average(\@array);'); 
 	my ($array_ref) = @_; 
 	my $sum; 
@@ -221,8 +227,27 @@ sub average {
 
 	foreach (@$array_ref) { $sum += $_; } 
 	return $sum / $count; 
+} 
 
-	} 
+###############
+sub interlabel {
+	@_ == 1 or die ('Sub usage: @interlabel = interlabel(\@array);');
+	return undef unless ( scalar(@_) );
+	my ($array_ref) = @_;
+	my @result;
+	# case only one label in current molecule
+	(scalar @$array_ref) >2 || return 0;
+	# shift first label out of array
+	my $previous = shift @$array_ref;
+	# remove last coordinate (= molecule end)
+	splice @$array_ref, (scalar @$array_ref -1);
+	# get each inter-label distance
+	foreach (@$array_ref) {
+		push @result, ($_-$previous);
+		$previous=$_;
+	}
+	return(@result);
+}
 
 ##############
 sub get_N50 {
@@ -307,6 +332,12 @@ sub report_stats {
 	push ( @result, sprintf("%20s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s", 
 		"labelDensity", @labfrdist) );
 	
+	# label average distance [6]
+	my @labdist =  map $_->[ 6 ],  @$array_ref;
+	my @labdistdist = map { sprintf("%.2f", $_)} ( get_stats(@labdist) );
+	push ( @result, sprintf("%20s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s", 
+		"labelAvgDistance", @labdistdist) );
+		
 	# label averageIntensities [5]
 	my @laia = map $_->[ 5 ],  @$array_ref;
 	my @laidist = map { sprintf("%.2f", $_)} ( get_stats(@laia) );
