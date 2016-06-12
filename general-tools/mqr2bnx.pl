@@ -54,7 +54,7 @@ open OUT, "> $outpath" || die $!;
 if (defined $opt_n) {
 	my $outpath2 = $inpath."/".$inbase."_non-aligning_xmap2bnx.bnx";
 	open OUT2, "> $outpath2" || die $!;
-	print STDERR "# saving non-aligning molecules to file2.\n";
+	print STDERR "# saving non-aligning molecules to ".$inbase."_non-aligning_xmap2bnx.bnx\n";
 	}
 
 # xmap variables
