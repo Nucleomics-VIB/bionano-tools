@@ -49,6 +49,7 @@ my $outpath = $inpath."/".$inbase."_gt".$minscore."_xmap2bnx.bnx";
 
 # result files
 open OUT, "> $outpath" || die $!;
+print STDERR "# saving aligning molecules to ".$inbase."_gt".$minscore."_xmap2bnx.bnx\n";
 
 # handle saving non-aligning molecules
 if (defined $opt_n) {
