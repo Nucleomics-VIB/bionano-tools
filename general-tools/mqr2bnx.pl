@@ -77,7 +77,7 @@ my $uniquebnx = $#bnxids;
 
 print STDERR "# keeping $countxmap alignment records for $uniquebnx molecules.\n";
 
-# parse BNX and keep header and aligning molecules
+# parse BNX and keep header and selected molecules
 my $count = 0;
 my $kept = 0;
 my $first = 1;
@@ -119,7 +119,7 @@ while ( my $line = <BNX> ) {
 
 	# print to OUT when present in xmap
 	my $bnxid = ( split( /\t/, $molecule[0]) )[1];
-	if ( grep( /^$bnxid$/, @bnxids ) ) {
+	if ( defined $inxmap{$bnxid} ) {
 		$kept++;
   		map { print OUT "$_"; } @molecule;
   		}
