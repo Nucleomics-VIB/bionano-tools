@@ -14,6 +14,9 @@ use warnings;
 use File::Basename;
 use Getopt::Std;
 
+# autoflush
+$|=1;
+
 # handle command parameters
 getopts('b:x:c:h');
 our($opt_b, $opt_x, $opt_c, $opt_h);
