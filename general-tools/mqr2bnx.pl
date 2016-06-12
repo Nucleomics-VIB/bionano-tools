@@ -109,6 +109,7 @@ while ( my $line = <BNX> ) {
 		print OUT $line;
 		# case option n was set
   		if (defined $opt_n) {
+  			print STDERR "# saving non-aligning molecules to file2.\n";
   			print OUT2 $line;
   		}
 		next;
