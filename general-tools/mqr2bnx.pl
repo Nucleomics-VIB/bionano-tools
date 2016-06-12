@@ -18,15 +18,16 @@ use Getopt::Std;
 $|=1;
 
 # handle command parameters
-getopts('b:x:c:h');
-our($opt_b, $opt_x, $opt_c, $opt_h);
-our $version="1.0 (06-2016)";
+getopts('b:x:c:nh');
+our($opt_b, $opt_x, $opt_c, $opt_n, $opt_h);
+our $version="1.01 (06-2016)";
 
-my $usage = "Aim: Identifies molecules aligning to a reference from a MQR run and saves them to a new BNX file. You must provide the original BNX file with -b, the MQR xmap file with -x. Optionally, a minial confidence can be added to improve data quality.
+my $usage = "Aim: Identifies molecules aligning to a reference from a MQR run and saves them to a new BNX file. You must provide the original BNX file with -b, the MQR xmap file with -x. Optionally, a minimal confidence can be added to improve data quality. Non-aligning molecules can be saved to a seconf BNX file.
 # script version:".$version."
 # Usage: mqr2bnx.pl <-b bnx-file> <-x xmap-file>
 # Optional parameters:
 # -c <minimal confidence score (default=0)>
+# -u <save non-aligning BNX records to a second file (default OFF)>
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
@@ -49,9 +50,16 @@ my $outpath = $inpath."/".$inbase."_gt".$minscore."_xmap2bnx.bnx";
 # result files
 open OUT, "> $outpath" || die $!;
 
+# handle saving non-aligning molecules
+if (defined $opt_n) {
+	my $outpath2 = $inpath."/".$inbase."_non-aligning_xmap2bnx.bnx";
+	open OUT2, "> $outpath2" || die $!;
+	}
+
 # xmap variables
 my $countxmap = 0;
 my %inxmap = ();
+my %inxmap2 = ();
 
 # parse xmap data file and collect BNX ID's
 # 0=XmapEntryID 1=QryContigID 2=RefContigID 3=QryStartPos 4=QryEndPos
@@ -69,8 +77,11 @@ while (my $line = <XMAP>) {
 		$countxmap++;
 		# store BNX ID in hash
 		$inxmap{$field[1]}++;
-		}
+	} else {
+		# present but non confident enough
+		$inxmap2{$field[1]}++;
 	}
+}
 close XMAP;
 
 # count aligning molecules
@@ -125,9 +136,18 @@ while ( my $line = <BNX> ) {
 		$kept++;
   		map { print OUT "$_"; } @molecule;
   		}
-	}
+  	# case option n was set
+  	if (defined $opt_n) {
+  		if ( ! defined $inxmap{$bnxid} && ! defined $inxmap2{$bnxid} ){
+  		map { print OUT2 "$_"; } @molecule;
+  		}
+  	}
+}
 
 close BNX;
 close OUT;
+if (defined $opt_n) {
+	close OUT2;
+	}
 
 print STDERR "# saved $kept molecules from a total number of $count molecules in the input\n";
