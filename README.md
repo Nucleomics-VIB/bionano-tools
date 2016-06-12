@@ -4,6 +4,8 @@ bionano-tools
 
 *All tools presented below have only been tested by me and may contain bugs, please let me know if you find some. Each tool relies on dependencies normally listed at the top of the code (cpan for perl and cran for R will help you add them)*
 
+Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-tools/wiki)** for examples and workflows.
+
 ## QC-tools
 
 Tools to process and QC BioNanoGenomics data.
