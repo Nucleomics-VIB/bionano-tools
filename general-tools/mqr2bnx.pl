@@ -75,7 +75,7 @@ close XMAP;
 
 # count aligning molecules
 my @bnxids = keys(%inxmap);
-my $uniquebnx = $#bnxids;
+my $uniquebnx = $#bnxids + 1;
 
 print STDERR "# keeping $countxmap alignment records for $uniquebnx molecules.\n";
 
