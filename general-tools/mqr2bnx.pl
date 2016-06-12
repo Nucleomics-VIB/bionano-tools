@@ -61,9 +61,10 @@ while (my $line = <XMAP>) {
 	# ignore header and empty lines
 	next if ($line =~ /^#|^\s*$/);
 	# this is data
-	$countxmap++;
 	my @field = ( split /\t/, $line );
 	if ($field[8] >= $minscore) {
+		# will be extracted
+		$countxmap++;
 		# store BNX ID in hash
 		$inxmap{$field[1]}++;
 		}
@@ -74,10 +75,11 @@ close XMAP;
 my @bnxids = keys(%inxmap);
 my $uniquebnx = $#bnxids;
 
-print STDERR "# found $countxmap alignment records for $uniquebnx molecules.\n";
+print STDERR "# keeping $countxmap alignment records for $uniquebnx molecules.\n";
 
 # parse BNX and keep header and aligning molecules
 my $count = 0;
+my $kept = 0;
 my $first = 1;
 
 while ( my $line = <BNX> ) {
@@ -118,9 +120,12 @@ while ( my $line = <BNX> ) {
 	# print to OUT when present in xmap
 	my $bnxid = ( split( /\t/, $molecule[0]) )[1];
 	if ( grep( /^$bnxid$/, @bnxids ) ) {
+		$kept++;
   		map { print OUT "$_"; } @molecule;
   		}
 	}
 
 close BNX;
 close OUT;
+
+print STDERR "# saved $kept molecules from a total number of $count molecules in the input\n";
