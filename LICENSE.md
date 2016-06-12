@@ -1,4 +1,4 @@
-<a href="https://www.bits.vib.be" target="_blank"><img src="http://www.vib.be/VIBMediaLibrary/Logos/Service_facilities/BITS_website.jpg"</a><a href="https://www.bits.vib.be" target="_blank"><img src="http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png"</a>
+<a href="https://www.bits.vib.be" target="_blank"><img src="http://www.vib.be/VIBMediaLibrary/Logos/Service_facilities/BITS_website.jpg"</a>&nbsp;-&nbsp;<a href="https://www.bits.vib.be" target="_blank"><img src="http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png"</a>
 
 This work is owned by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**, the bioinformatics facility and/or by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, the sequencing facility of the **<a href="http://www.vib.be" target="_blank">VIB</a>**
 
