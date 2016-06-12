@@ -121,4 +121,6 @@ while ( my $line = <BNX> ) {
   		map { print OUT "$_"; } @molecule;
   		}
 	}
+
+close BNX;
 close OUT;
