@@ -97,7 +97,7 @@ The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupport
 
 ### **mqr2bnx.pl**
 
-Perform a MQR (quasi reference alignment) with a reference cmap and a BNX file (merge). The resulting xmap can be used to identify BNX records that show homology to the reference and extract them to new BNX file. A minimal mapping confidence can optinally be set to obtain BNX data of higher confidence. Finally, non-alignining molecules can be saved to a seconf BNX file. The resulting BNX's can be denovo assembled or used as you wish them to be.
+Use the xmap and input BNX from a MQR (quasi reference alignment) to identify BNX records that show homology to a reference (or genomic locus) and extract them to new BNX file. A minimal mapping confidence can be set to obtain BNX data of higher confidence. Finally, non-alignining molecules can also be saved to a second BNX file. The resulting BNX's can be denovo assembled or used as you wish them to be.
 ```bash
 # script version:1.01 (06-2016)
 # Usage: mqr2bnx.pl <-b bnx-file> <-x xmap-file>
