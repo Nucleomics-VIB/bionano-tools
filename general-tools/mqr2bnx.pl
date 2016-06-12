@@ -57,6 +57,8 @@ my %inxmap = ();
 # 0=XmapEntryID 1=QryContigID 2=RefContigID 3=QryStartPos 4=QryEndPos
 # 5=RefStartPos 6=RefEndPos 7=Orientation 8=Confidence 9=HitEnum
 
+print STDERR "# parsing xmap and finding alignment records above confidence $minscore.\n";
+
 while (my $line = <XMAP>) {
 	# ignore header and empty lines
 	next if ($line =~ /^#|^\s*$/);
