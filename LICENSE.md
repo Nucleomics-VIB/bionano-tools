@@ -1,6 +1,6 @@
 <a href="https://www.bits.vib.be" target="_blank"><img src="http://www.vib.be/VIBMediaLibrary/Logos/Service_facilities/BITS_website.jpg"</a>
 
-This work is owned by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**, the bioinformatics facility and/or by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>** the sequencing facility of the **<a href="http://www.vib.be" target="_blank">VIB</a>**
+This work is owned by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**, the bioinformatics facility and/or by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, the sequencing facility of the **<a href="http://www.vib.be" target="_blank">VIB</a>**
 
 This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
 
