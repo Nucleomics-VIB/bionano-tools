@@ -107,8 +107,14 @@ while ( my $line = <BNX> ) {
 	# print header block
 	if ( $line =~ /^#/ ) {
 		print OUT $line;
+		# case option n was set
+  		if (defined $opt_n) {
+  			if ( ! defined $inxmap{$bnxid} && ! defined $inxmap2{$bnxid} ){
+  			print OUT $line;
+  			}
+  		}
 		next;
-		}
+	}
 
 	# 0	1	94694.1 ...
 	# 1	504.4	3008.2 ...
