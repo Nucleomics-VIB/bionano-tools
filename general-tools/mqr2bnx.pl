@@ -110,7 +110,6 @@ while ( my $line = <BNX> ) {
 		# case option n was set
   		if (defined $opt_n) {
   			print OUT2 $line;
-  			}
   		}
 		next;
 	}
