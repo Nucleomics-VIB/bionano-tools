@@ -59,6 +59,7 @@ if (defined $opt_n) {
 	}
 
 # xmap variables
+my $countall = 0;
 my $countxmap = 0;
 my %inxmap = ();
 my %inxmap2 = ();
@@ -73,6 +74,7 @@ while (my $line = <XMAP>) {
 	# ignore header and empty lines
 	next if ($line =~ /^#|^\s*$/);
 	# this is data
+	$countall++;
 	my @field = ( split /\t/, $line );
 	if ($field[8] >= $minscore) {
 		# will be extracted
@@ -90,7 +92,7 @@ close XMAP;
 my @bnxids = keys(%inxmap);
 my $uniquebnx = $#bnxids + 1;
 
-print STDERR "# keeping $countxmap alignment records for $uniquebnx molecules.\n";
+print STDERR "# keeping $uniquebnx molecules out of $countall.\n";
 
 # parse BNX and keep header and selected molecules
 my $count = 0;
