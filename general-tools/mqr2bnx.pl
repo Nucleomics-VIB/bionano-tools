@@ -109,8 +109,7 @@ while ( my $line = <BNX> ) {
 		print OUT $line;
 		# case option n was set
   		if (defined $opt_n) {
-  			if ( ! defined $inxmap{$bnxid} && ! defined $inxmap2{$bnxid} ){
-  			print OUT $line;
+  			print OUT2 $line;
   			}
   		}
 		next;
