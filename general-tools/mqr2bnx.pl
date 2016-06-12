@@ -27,7 +27,7 @@ my $usage = "Aim: Identifies molecules aligning to a reference from a MQR run an
 # Usage: mqr2bnx.pl <-b bnx-file> <-x xmap-file>
 # Optional parameters:
 # -c <minimal confidence score (default=0)>
-# -u <save non-aligning BNX records to a second file (default OFF)>
+# -n <save non-aligning BNX records to a second file (default OFF)>
 # <-h to display this help>";
 
 defined($opt_h) && die $usage . "\n";
