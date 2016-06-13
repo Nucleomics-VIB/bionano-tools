@@ -39,6 +39,28 @@ You must provide a BNX file with -i
 # <-P additional high percentile (99)>
 # <-h to display this help>
 ```
+example run with BNG demo EColi data
+```
+# BioNanoGenomics data quantiles (v1.1), 06/13/2016
+# input file: RawMolecules.bnx
+# tot-molecules: 3'112
+# inputFile size (Gb): 0.277
+# additional percentiles:
+#   low_percentile: 1
+#   high_percentile: 99
+#--------------------------------------------------
+
+# distributions for All molecules (N=3'099, 99.6%)
+                   .        min        25%     median        75%        max       mean      stdev        N50         1%        99%   skewness   kurtosis
+         length (kb)          1         33         70        121        626         89         76        130          3        358          0          0
+   molecAvgIntensity       0.01       0.07       0.09       0.11       0.67       0.09       0.04       0.10       0.02       0.24       3.31      28.05
+         molecAvgSNR       0.70       6.96      11.11      14.83      55.93      11.37       5.78      13.67       2.02      26.34       1.01       3.52
+        labelDensity       1.34      29.18      33.30      37.70     109.80      33.71      10.10      34.82       8.83      67.72       1.14       6.59
+    labelAvgDistance       0.00    2590.52    2930.23    3289.90   11062.50    2950.95     841.76    3043.53       0.00    5682.45       0.80       9.52
+   labelAvgIntensity       0.00       0.02       0.03       0.05       0.51       0.04       0.03       0.05       0.00       0.15       3.04      25.55
+         labelAvgSNR       0.32       4.65       7.27      10.31      42.16       7.78       4.82       9.74       0.84      22.41       1.33       4.63
+#--------------------------------------------------
+```
 
 ### **bnxfilter.pl**
 
