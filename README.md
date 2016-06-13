@@ -142,6 +142,19 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+
+### **bnx0convert.pl**
+
+The perl script **[bnx0convert.pl](general-tools/bnx0convert.pl)** converts old BNX version 0.1 data to teh curren tversion 1.2 format. It adds requierd fields with arbitrary values and brings your old data to compatibility with the current IrysView toolshed. Only one label is supported in this script as in all other scripts presented here. If you need to handle more than just one label, you will need to adapt the code by yourself.
+
+```
+Aim: Reformat old BNX 0.1 format to current version 1.2. Arbitrary values are used for backbone SNR and average intensity. You must provide a BNX file with -i
+# script version:1.0 (2016-06-13)
+## Usage: bnx0convert.pl <-i bnx-file>
+# <-o run name (default 'UnknownRun'>
+# <-h to display this help>
+````
+
 ### **mqr2bnx.pl**
 
 The perl script **[mqr2bnx.pl](general-tools/mqr2bnx.pl)** uses the xmap and input BNX from a MQR (quasi reference alignment) to identify BNX records that show homology to a reference (or genomic locus) and extract them to new BNX file. A minimal mapping confidence can be set to obtain BNX data of higher confidence. Finally, non-alignining molecules can also be saved to a second BNX file. The resulting BNX's can be denovo assembled or used as you wish them to be. Playing with MQR settings should allow producing datasets of variable specificity (to be tested :-)
