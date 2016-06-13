@@ -7,6 +7,8 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/06/01; v1.1
 # added average inter-label distance
+# Stephane Plaisance (VIB-NC+BITS) 2016/06/01; v1.2
+# handle no label case leading to div/0 error (empty rows X11 and X12)
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -17,7 +19,7 @@ use Getopt::Std;
 use Statistics::Descriptive;
 use POSIX qw(strftime);
 
-my $version = "1.1";
+my $version = "1.2";
 my $date = strftime "%m/%d/%Y", localtime;
 
 # autoflush
@@ -136,12 +138,16 @@ while (my $line = <$FILE>) {
 	my $x11l = $data[2];
 	chomp($x11l);
 	my ( undef, @labsnr ) = split( /\t/, $x11l );
+	# handle empty row (no labels on molecule)
+	@labsnr || next;
 	my $avg_labsnr = average(\@labsnr);
 	
 	# X12 row data
 	my $x12l = $data[3];
 	chomp($x12l);
 	my ( undef, @labai ) = split( /\t/, $x12l );
+	# handle empty row (no labels on molecule)
+	@labai || next;
 	my $avg_labai = average(\@labai);
 
 	# store results in @BigArray
@@ -176,7 +182,7 @@ push (@result, "#   high_percentile: ".$highperc);
 push (@result, $spacer);
 
 # reports stats for all molecules
-report_stats("All molecules", \@BigArray);
+report_stats("All labelled molecules", \@BigArray);
 
 # output results to screen and file
 print STDOUT join("\n", @result)."\n";
