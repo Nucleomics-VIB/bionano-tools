@@ -41,7 +41,7 @@ You must provide a BNX file with -i
 ```
 example run with BNG demo EColi data
 ```
-# BioNanoGenomics data quantiles (v1.1), 06/13/2016
+# BioNanoGenomics data quantiles (v1.2), 06/13/2016
 # input file: RawMolecules.bnx
 # tot-molecules: 3'112
 # inputFile size (Gb): 0.277
@@ -50,7 +50,7 @@ example run with BNG demo EColi data
 #   high_percentile: 99
 #--------------------------------------------------
 
-# distributions for All molecules (N=3'099, 99.6%)
+# distributions for All labelled molecules (N=3'099, 99.6%)
                    .        min        25%     median        75%        max       mean      stdev        N50         1%        99%   skewness   kurtosis
          length (kb)          1         33         70        121        626         89         76        130          3        358          0          0
    molecAvgIntensity       0.01       0.07       0.09       0.11       0.67       0.09       0.04       0.10       0.02       0.24       3.31      28.05
