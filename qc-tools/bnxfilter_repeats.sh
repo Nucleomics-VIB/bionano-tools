@@ -14,11 +14,12 @@
 TOOLS=/home/bionano/tools
 
 usage='# Usage: bnxfilter_repeats.sh
-#		-i <input (bnx file)>
-#		[opt -t <stretch tolerance|0.1>]
-#		[opt -m <min Repeat Units|5>]
-#		[opt -c <choice (1/2/3)|1>]
-#		[opt -l <keep log>]'
+#  -i <input (bnx file)>
+## optional parameters (|default value)
+#  -t <stretch tolerance|0.1>
+#  -m <min Repeat Units|5>
+#  -c <choice (1/2/3)|1>
+#  -l <keep log>'
 
 while getopts "i:t:m:c:lh" opt; do
   case $opt in
