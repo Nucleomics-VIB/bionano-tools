@@ -18,7 +18,7 @@ use Getopt::Std;
 ############################
 
 # disable buffering to get output during long process (loop)
-$|=1; 
+$|=1;
 
 getopts('i:o:h');
 our ( $opt_i, $opt_o, $opt_h );
@@ -93,7 +93,7 @@ while ( my $line = <$FILE> ) {
 
 	# avoid old header block
 	next if ( $line =~ /^#/ );
-	
+
 	# test data consistency
 	$line =~ /^0/ or die "aborted, does not seem to be a valid bnx v0.1 format";
 	chomp($line);
@@ -111,11 +111,11 @@ while ( my $line = <$FILE> ) {
 	@onef || die "no data found in #1f row!";
 
 	# count labels for #0f
-	my $labcnt = $#onef-1; 
-	
+	my $labcnt = $#onef-1;
+
 	# ignore molecule if no label
-	if ( $labcnt<1 ) { print STDERR "# ".$labcnt." labels found \n"; next }; 
-	
+	if ( $labcnt<1 ) { print STDERR "# ".$labcnt." labels found \n"; next };
+
 	####################
 	# add missing data #
 	####################
@@ -126,8 +126,8 @@ while ( my $line = <$FILE> ) {
 	#  NumberofLabels, OriginalMoleculeId, ScanNumber, ScanDirection, ChipId,
 	#  Flowcell, RunId, GlobalScanNumber
 	my @zeronew = ();
-	push @zeronew, ( $zerof[0], $count,  $zerof[2], $defai, $defSNR, $labcnt, $count, 
-	"1", "-1", $chipid, $flowcell, $runid, "1" );
+	push @zeronew, ( $zerof[0], $count,  $zerof[2], $defai, $defSNR, $labcnt,
+	 $count, "1", "-1", $chipid, $flowcell, $runid, "1" );
 
 	# add X11 and X12 lines and print out
 	my @x11new = ( ($defSNR) x $labcnt );
@@ -138,13 +138,13 @@ while ( my $line = <$FILE> ) {
 	print OUT join("\t", @onef)."\n";
 	print OUT join("\t", "QX11", @x11new)."\n";
 	print OUT join("\t", "QX12", @x12new)."\n";
-	}	
+	}
 
 # take care of handles neetly
 undef $FILE;
 close OUT;
 
-print STDERR "# processed $count BNX records from format 0.1 to format 1.2\n";
+print STDERR "# converted $count BNX records from format 0.1 to format 1.2\n";
 
 exit 0;
 
@@ -179,20 +179,22 @@ sub createHeader {
 	push @header, "# Label SNR Filter Type:\t".$filt;
 	push @header, "# Min Label SNR:\t".$minsnr;
 	push @header, "# Software Version:\t".$softv;
-	push @header, ( join("\t", "#rh", "SourceFolder", "InstrumentSerial", "Time", 
-		"NanoChannelPixelsPerScan", "StretchFactor", "BasesPerPixel", "NumberofScans", 
-		"ChipId", "Flowcell", "LabelSNRFilterType", "MinMoleculeLength", "MinLabelSNR", 
+	push @header, ( join("\t", "#rh", "SourceFolder", "InstrumentSerial",
+		"Time", "NanoChannelPixelsPerScan", "StretchFactor", "BasesPerPixel",
+		"NumberofScans", "ChipId", "Flowcell", "LabelSNRFilterType",
+		"MinMoleculeLength", "MinLabelSNR",
 		"RunId") );
-	push @header, ( join("\t", "# Run Data", $sfolder, $serial, $rundate, $pxscan, 
-		$stretch, $baseperpxl, "1", $chipid, "1", 
+	push @header, ( join("\t", "# Run Data", $sfolder, $serial, $rundate,
+		$pxscan, $stretch, $baseperpxl, "1", $chipid, "1",
 		$filt, $minlen, $minsnr, $runid) );
 	push @header, ( join("\t", "# Quality Score QX01:", "SNR") );
 	push @header, ( join("\t", "# Quality Score QX02:", "Ave Intensity") );
-	push @header, ( join("\t", "#0h", "LabelChannel", "MoleculeId", "Length", "AvgIntensity", 
-		"SNR", "NumberofLabels", "OriginalMoleculeId", "ScanNumber", "ScanDirection", 
-		"ChipId", "Flowcell", "RunId", "GlobalScanNumber") );
-	push @header, ( join("\t", "#0f", "int", "int", "float", "float", 
-		"float", "int", "int", "int", "int", 
+	push @header, ( join("\t", "#0h", "LabelChannel", "MoleculeId", "Length",
+		"AvgIntensity", "SNR", "NumberofLabels", "OriginalMoleculeId",
+		"ScanNumber", "ScanDirection", "ChipId", "Flowcell", "RunId",
+		"GlobalScanNumber") );
+	push @header, ( join("\t", "#0f", "int", "int", "float", "float",
+		"float", "int", "int", "int", "int",
 		"string", "int", "int", "int") );
 	push @header, ( join("\t", "#1h", "LabelChannel", "LabelPositions[N]") );
 	push @header, ( join("\t", "#1f", "int", "float") );
