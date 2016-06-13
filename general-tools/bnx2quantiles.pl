@@ -182,7 +182,7 @@ push (@result, "#   high_percentile: ".$highperc);
 push (@result, $spacer);
 
 # reports stats for all molecules
-report_stats("All molecules", \@BigArray);
+report_stats("All labelled molecules", \@BigArray);
 
 # output results to screen and file
 print STDOUT join("\n", @result)."\n";
