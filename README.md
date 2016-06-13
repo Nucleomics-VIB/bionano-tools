@@ -33,7 +33,7 @@ The perl script **[bnx2quantiles.pl](qc-tools/bnx2quantiles.pl)** analyze BNX da
 ```bash
 You must provide a BNX file with -i
 ## Usage: bnx2quantiles.pl <-i bnx-file>
-# script version:1.0
+# script version:1.2
 # Additional optional parameters are:
 # <-p additional low percentile (1)>
 # <-P additional high percentile (99)>
