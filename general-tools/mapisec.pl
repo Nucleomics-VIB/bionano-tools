@@ -29,10 +29,12 @@ our($opt_i, $opt_a, $opt_b, $opt_n, $opt_c, $opt_z, $opt_h);
 our $version="1.0 (2016-06-17)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
+
 # Usage: mapisac.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
-# Optional parameters (v1.0) :
+# script version:".$version."
+# Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
-# -c <minimal confidence score to be considered (defajult 0)>
+# -c <minimal confidence score to be considered (default='undef')>
 # -z zip the output to save space> (default OFF)>
 # <-h to display this help>";
 
