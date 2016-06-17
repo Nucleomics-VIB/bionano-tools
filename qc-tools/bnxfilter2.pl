@@ -177,7 +177,7 @@ while ( my $line = <$FILE> ) {
         push @data, $line;
     }
 
-    # spit and filter 0-line data
+    # split and filter 0-line data
     my $zerol = $data[0];
     chomp($zerol);
     my ( undef, undef, $Length, $AvgIntensity, $snr, $nck, undef ) =
