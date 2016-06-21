@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# xmapisec.pl (first version: 2016_06_17)
+# xmapisec.pl (first version: 2016_06_21)
 # create a molecule ID list from a BNX file
 # parse two 'xmap' files obtained from the MQR alignment of this BNX data against two ref-cmaps
 # identify molecules IDs present in either and both xmap files
@@ -11,7 +11,7 @@
 # 3) molecules aligning to both ref-cmaps
 # 4) molecules that did not align to any ref-cmap
 #
-# Stephane Plaisance (VIB-NC+BITS) 2016/06/17; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2016/06/21; v1.0
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -26,7 +26,7 @@ $|=1;
 # handle command parameters
 getopts('i:a:b:n:c:zh');
 our($opt_i, $opt_a, $opt_b, $opt_n, $opt_c, $opt_z, $opt_h);
-our $version="1.0 (2016-06-17)";
+our $version="1.0 (2016-06-21)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
