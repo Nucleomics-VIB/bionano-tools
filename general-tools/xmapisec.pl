@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 
-# mapisec.pl (first version: 2016_06_17)
+# xmapisec.pl (first version: 2016_06_17)
 # create a molecule ID list from a BNX file
-# parse two 'map' files obtained from the MQR alignment of this BNX data against two ref-cmaps
-# identify molecules IDs present in either and both map files
+# parse two 'xmap' files obtained from the MQR alignment of this BNX data against two ref-cmaps
+# identify molecules IDs present in either and both xmap files
 # <optional> set a minimal confidence required to identify a match
 # split the original BNX data in four new BNX subsets:
 # 1) molecules aligning to ref-cmap#1
@@ -30,13 +30,28 @@ our $version="1.0 (2016-06-17)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
-# Usage: mapisac.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
+# Usage: xmapisac.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
 # script version:".$version."
 # Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
 # -c <minimal confidence score to be considered (default='undef')>
 # -z zip the output to save space> (default OFF)>
 # <-h to display this help>";
+
+# 1 => "XmapEntryID",
+# 2 => "QryContigID",
+# 3 => "RefContigID",
+# 4 => "QryStartPos",
+# 5 => "QryEndPos",
+# 6 => "RefStartPos",
+# 7 => "RefEndPos",
+# 8 => "Orientation",
+# 9 => "Confidence",
+# 10 => "HitEnum",
+# 11 => "QryLen",
+# 12 => "RefLen",
+# 13 => "LabelChannel",
+# 14 => "Alignment"
 
 defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
@@ -65,9 +80,9 @@ my $lst2 = $outbase."_idlist-2.txt";
 my $lst3 = $outbase."_idlist-both.txt";
 my $lst0 = $outbase."_idlist-none.txt";
 
-# parse first map file
+# parse first xmap file
 my $MAP1 = OpenMAP($mapfile1) or die $!;
-print STDERR "# loading MAP#1 aligned molecule IDs into hash#1\n";
+print STDERR "# loading XMAP#1 aligned molecule IDs into hash#1\n";
 
 # variables
 my $first = 1;
@@ -79,11 +94,11 @@ my %in1hash = ();
 while ( my $line = <$MAP1> ) {
 	# count lines
 	$cntln++;
-	# check top lines for "MappedMoleculeId"
+	# check top lines for "# XMAP File Version:    0.2"
 	if ($first == 1) {
-		if ($line !~ /^MappedMoleculeId.*$/) {
-			if ($cntln > 100) {
-				die "## This does not seem to be a map file";
+		if ($line !~ /^#\ XMAP\ File\ Version:\t0.2$/) {
+			if ($cntln > 20) {
+				die "## This does not seem to be a xmap file";
 				} else {
 					next;
 					}
@@ -92,23 +107,26 @@ while ( my $line = <$MAP1> ) {
 	next;
 	}
 
+	# ignore any other comment line
+	next if ($line =~ /^#/);
+	
     # test data consistency
-    $line =~ /^[0-9]+.*/ or die "## does not seem to be a map file";
+    $line =~ /^[0-9]+.*/ or die "## does not seem to be a xmap file";
     $cntali++;
 	@fields = split( /\t/, $line);
 
 	# check confidence cutoff from $confcut
-	if (! defined($confcut) || $fields[4] >= $confcut) {
+	if (! defined($confcut) || $fields[8] >= $confcut) {
 		$in1hash{$fields[1]}++;
     	}
 	}
 
-print STDERR "## finished parsing MAP#1 data for ".$cntali." alignments\n";
+print STDERR "## finished parsing XMAP#1 data for ".$cntali." alignments\n";
 undef $MAP1;
 
-# parse second map file
+# parse second xmap file
 my $MAP2 = OpenMAP($mapfile2) or die $!;
-print STDERR "# loading MAP#2 aligned molecule IDs into hash#2\n";
+print STDERR "# loading XMAP#2 aligned molecule IDs into hash#2\n";
 
 # reuse $first $cntln $cntali @fields
 $first = 1;
@@ -120,11 +138,11 @@ my %in2hash = ();
 while ( my $line = <$MAP2> ) {
 	# count lines
 	$cntln++;
-	# check top lines for "MappedMoleculeId"
+	# check top lines for "# XMAP File Version:    0.2"
 	if ($first == 1) {
-		if ($line !~ /^MappedMoleculeId.*$/) {
+		if ($line !~ /^#\ XMAP\ File\ Version:\t0.2$/) {
 			if ($cntln > 100) {
-				die "## does not seem to be a map file";
+				die "## This does not seem to be a xmap file";
 				} else {
 					next;
 					}
@@ -133,18 +151,21 @@ while ( my $line = <$MAP2> ) {
 	next;
 	}
 
+	# ignore any other comment line
+	next if ($line =~ /^#/);
+
     # test data consistency
-    $line =~ /^[0-9]+.*/ or die "## does not seem to be a map file";
+    $line =~ /^[0-9]+.*/ or die "## does not seem to be a xmap file";
     $cntali++;
 	@fields = split( /\t/, $line);
 
 	# check confidence cutoff from $confcut
-	if (! defined($confcut) || $fields[4] >= $confcut) {
+	if (! defined($confcut) || $fields[8] >= $confcut) {
 		$in2hash{$fields[1]}++;
     	}
     }
 
-print STDERR "## finished parsing MAP#2 data for ".$cntali." alignments\n";
+print STDERR "## finished parsing XMAP#2 data for ".$cntali." alignments\n";
 undef $MAP2;
 
 # create file handles for saving data
@@ -292,14 +313,14 @@ sub OpenMAP {
     my $File = shift;    # filename
     my $FH;              # file handle
 
-    if ( $File =~ /\.map$/ ) {
+    if ( $File =~ /\.xmap$/ ) {
         open( $FH, "cat $File | " ) or die("$!: can't open file $File");
-    } elsif ( $File =~ /\.map\.zip$/ ) {
+    } elsif ( $File =~ /\.xmap\.zip$/ ) {
         open( $FH, "unzip -p $File | " ) or die("$!: can't open file $File");
-    } elsif ( $File =~ /(\.map\.gzip|\.map\.gz)$/ ) {
+    } elsif ( $File =~ /(\.xmap\.gzip|\.xmap\.gz)$/ ) {
         open( $FH, "gzip -dc $File | " ) or die("$!: can't open file $File");
     } else {
-        die("$!: the file $File does not seem to be a 'map' file");
+        die("$!: the file $File does not seem to be a 'xmap' file");
     }
     return $FH;
 }
