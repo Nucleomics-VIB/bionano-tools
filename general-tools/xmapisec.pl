@@ -30,7 +30,7 @@ our $version="1.0 (2016-06-21)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
-# Usage: xmapisac.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
+# Usage: xmapisec.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
 # script version:".$version."
 # Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
@@ -38,20 +38,21 @@ my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or n
 # -z zip the output to save space> (default OFF)>
 # <-h to display this help>";
 
-# 1 => "XmapEntryID",
-# 2 => "QryContigID",
-# 3 => "RefContigID",
-# 4 => "QryStartPos",
-# 5 => "QryEndPos",
-# 6 => "RefStartPos",
-# 7 => "RefEndPos",
-# 8 => "Orientation",
-# 9 => "Confidence",
-# 10 => "HitEnum",
-# 11 => "QryLen",
-# 12 => "RefLen",
-# 13 => "LabelChannel",
-# 14 => "Alignment"
+## xmap fields used in this script
+# 0 => "XmapEntryID",
+## 1 => "QryContigID",
+# 2 => "RefContigID",
+# 3 => "QryStartPos",
+# 4 => "QryEndPos",
+# 5 => "RefStartPos",
+# 6 => "RefEndPos",
+# 7 => "Orientation",
+## 8 => "Confidence",
+# 9 => "HitEnum",
+# 10 => "QryLen",
+# 11 => "RefLen",
+# 12 => "LabelChannel",
+# 13 => "Alignment"
 
 defined($opt_h) && die $usage . "\n";
 my $inputfile = $opt_i || die $usage;
