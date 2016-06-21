@@ -31,7 +31,7 @@ our $version="1.0.1 (2016-06-21)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
-# Usage: mapisac.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
+# Usage: mapisec.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
 # script version:".$version."
 # Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
