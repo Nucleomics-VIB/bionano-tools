@@ -142,7 +142,24 @@ Type the script name followed by -h will list all available parameters
 ```
 ## general-tools
 
+### **xmapisec.pl**
+
+The perl script **[xmapisec.pl](general-tools/xmapisec.pl)** takes information from two MQR runs (from the 'MoleculeQualityReport.xmap' file) to split the corresponding BNX file into molecules that align to either, both, or none of the reference cmaps used for eather MQR. This allows creating subset of a BNX file that may be more specific for one or another reference assembly (which could for example represent parental genomes for a diploid) and make the resulting BNX data accessible for other applications like denovo assembly. An optional parameter allows filtering alignments by their 'Alignment Score' to create more stringent datasets. The MQR runs may be performed using a lower than normal '-T' value in order to keep molecules that align with some degree of divergence (parental genomes are not necessariy identical to the haploid compound of a hybrid genome). *We would welcome your feedback after using this tool and reports of success would be a great reward for the work put into this script.*
+```
+Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
+
+# Usage: xmapisac.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
+# script version:1.0 (2016-06-21)
+# Additional optional parameters are:
+# -n <prefix for the output files> (default='isec_')>
+# -c <minimal confidence score to be considered (default='undef')>
+# -z zip the output to save space> (default OFF)>
+# <-h to display this help>
+```
+
 ### **mapisec.pl**
+
+REM: This script was first developped but should be preferred the upper one using xmap data as imput (.map files are doomed to disappear in a future release)
 
 The perl script **[mapisec.pl](general-tools/mapisec.pl)** takes information from two MQR runs (from the 'MoleculeQualityReport.map' file) to split the corresponding BNX file into molecules that align to either, both, or none of the reference cmaps used for eather MQR. This allows creating subset of a BNX file that may be more specific for one or another reference assembly (which could for example represent parental genomes for a diploid) and make the resulting BNX data accessible for other applications like denovo assembly. An optional parameter allows filtering alignments by their 'Alignment Score' (warning, this score can take negative values!) to create more stringent datasets. The MQR runs may be performed using a lower than normal '-T' value in order to keep molecules that align with some degree of divergence (parental genomes are not necessariy identical to the haploid compound of a hybrid genome). *We would welcome your feedback after using this tool and reports of success would be a great reward for the work put into this script.*
 ```
