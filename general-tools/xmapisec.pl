@@ -88,6 +88,7 @@ print STDERR "# loading XMAP#1 aligned molecule IDs into hash#1\n";
 my $first = 1;
 my $cntln = 0;
 my $cntali = 0;
+my $keptali = 0;
 my @fields = ();
 my %in1hash = ();
 
@@ -116,12 +117,13 @@ while ( my $line = <$MAP1> ) {
 	@fields = split( /\t/, $line);
 
 	# check confidence cutoff from $confcut
-	if (! defined($confcut) || $fields[8] >= $confcut) {
+	if ( (! defined($confcut)) || ($fields[8] >= $confcut) ) {
 		$in1hash{$fields[1]}++;
+		$keptali++;
     	}
-	}
-
-print STDERR "## finished parsing XMAP#1 data for ".$cntali." alignments\n";
+    }
+    
+print STDERR "## finished parsing XMAP#1 data for ".$cntali." alignments (kept: $keptali)\n";
 undef $MAP1;
 
 # parse second xmap file
@@ -132,6 +134,7 @@ print STDERR "# loading XMAP#2 aligned molecule IDs into hash#2\n";
 $first = 1;
 $cntln = 0;
 $cntali = 0;
+$keptali = 0;
 @fields = ();
 my %in2hash = ();
 
@@ -160,12 +163,13 @@ while ( my $line = <$MAP2> ) {
 	@fields = split( /\t/, $line);
 
 	# check confidence cutoff from $confcut
-	if (! defined($confcut) || $fields[8] >= $confcut) {
+	if ( (! defined($confcut)) || ($fields[8] >= $confcut) ) {
 		$in2hash{$fields[1]}++;
+		$keptali++;
     	}
     }
 
-print STDERR "## finished parsing XMAP#2 data for ".$cntali." alignments\n";
+print STDERR "## finished parsing XMAP#2 data for ".$cntali." alignments (kept: $keptali)\n";
 undef $MAP2;
 
 # create file handles for saving data

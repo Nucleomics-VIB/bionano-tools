@@ -12,6 +12,7 @@
 # 4) molecules that did not align to any ref-cmap
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/06/17; v1.0
+# minor edits, 2016/06/21; v1.0.1
 # visit our Git: https://github.com/BITS-VIB
 
 use strict;
@@ -26,7 +27,7 @@ $|=1;
 # handle command parameters
 getopts('i:a:b:n:c:zh');
 our($opt_i, $opt_a, $opt_b, $opt_n, $opt_c, $opt_z, $opt_h);
-our $version="1.0 (2016-06-17)";
+our $version="1.0.1 (2016-06-21)";
 
 my $usage = "Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
@@ -73,6 +74,7 @@ print STDERR "# loading MAP#1 aligned molecule IDs into hash#1\n";
 my $first = 1;
 my $cntln = 0;
 my $cntali = 0;
+my $keptali = 0;
 my @fields = ();
 my %in1hash = ();
 
@@ -100,10 +102,11 @@ while ( my $line = <$MAP1> ) {
 	# check confidence cutoff from $confcut
 	if (! defined($confcut) || $fields[4] >= $confcut) {
 		$in1hash{$fields[1]}++;
+		$keptali++;
     	}
 	}
 
-print STDERR "## finished parsing MAP#1 data for ".$cntali." alignments\n";
+print STDERR "## finished parsing MAP#1 data for ".$cntali." alignments (kept: $keptali)\n";
 undef $MAP1;
 
 # parse second map file
@@ -114,6 +117,7 @@ print STDERR "# loading MAP#2 aligned molecule IDs into hash#2\n";
 $first = 1;
 $cntln = 0;
 $cntali = 0;
+$keptali = 0;
 @fields = ();
 my %in2hash = ();
 
@@ -141,10 +145,11 @@ while ( my $line = <$MAP2> ) {
 	# check confidence cutoff from $confcut
 	if (! defined($confcut) || $fields[4] >= $confcut) {
 		$in2hash{$fields[1]}++;
+		$keptali++;
     	}
     }
 
-print STDERR "## finished parsing MAP#2 data for ".$cntali." alignments\n";
+print STDERR "## finished parsing MAP#2 data for ".$cntali." alignments (kept: $keptali)\n";
 undef $MAP2;
 
 # create file handles for saving data
