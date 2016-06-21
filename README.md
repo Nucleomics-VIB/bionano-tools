@@ -148,7 +148,7 @@ The perl script **[xmapisec.pl](general-tools/xmapisec.pl)** takes information f
 ```
 Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
-# Usage: xmapisac.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
+# Usage: xmapisec.pl <-i bnx-file> <-a first-xmap-file> <-b 2nd-xmap-file>
 # script version:1.0 (2016-06-21)
 # Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
@@ -165,7 +165,7 @@ The perl script **[mapisec.pl](general-tools/mapisec.pl)** takes information fro
 ```
 Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 
-# Usage: mapisac.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
+# Usage: mapisec.pl <-i bnx-file> <-a first-map-file> <-b 2nd-map-file>
 # script version:1.0.1 (2016-06-21)
 # Additional optional parameters are:
 # -n <prefix for the output files> (default='isec_')>
