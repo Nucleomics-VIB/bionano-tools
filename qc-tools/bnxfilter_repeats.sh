@@ -11,15 +11,21 @@
 # visit our Git: https://github.com/BITS-VIB
 
 # check parameters for your system
-TOOLS=/home/bionano/tools
+TOOLS=$BNG_TOOLS
+version="2.1, 2016_06_23"
 
 usage='# Usage: bnxfilter_repeats.sh
+# script version '${version}'
 #  -i <input (bnx file)>
 ## optional parameters (|default value)
 #  -t <stretch tolerance|0.1>
 #  -m <min Repeat Units|5>
 #  -c <choice (1/2/3)|1>
-#  -l <keep log>'
+#  -l <keep log>
+#
+# -c 1 = output only maps which do not contain any repeats
+# -c 2 = output only maps which contain any repeats,
+# -c 3 = output all maps but with all repeats masked (ie, labels removed)'
 
 while getopts "i:t:m:c:lh" opt; do
   case $opt in
