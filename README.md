@@ -98,12 +98,18 @@ You must provide a BNX file with -i
 
 The bash script **[bnxfilter_repeats.sh](qc-tools/bnxfilter_repeats.sh)** filters BNX data to 'remove', 'restrict to' or 'mask' simple repeats. It reflects the Windows version found in Irysview (that generates data with a wrongly formatted header) and works only on your linux server as it makes direct use of RefAligner. The code is simplistic and you could as well type the command in your terminal.
 ```bash
-# Usage: bnxfilter-repeats.sh
-#		-i <input (bnx file)>
-#		[opt -t <stretch tolerance|0.1>]
-#		[opt -m <min Repeat Units|5>]
-#		[opt -c <choice (1/2/3)|1>]
-#		[opt -l <keep log>
+# Usage: bnxfilter_repeats.sh
+# script version 2.1, 2016_06_23
+#  -i <input (bnx file)>
+## optional parameters (|default value)
+#  -t <stretch tolerance|0.1>
+#  -m <min Repeat Units|5>
+#  -c <choice (1/2/3)|1>
+#  -l <keep log>
+#
+# -c 1 = output only maps which do not contain any repeats
+# -c 2 = output only maps which contain any repeats,
+# -c 3 = output all maps but with all repeats masked (ie, labels removed)
 ```
 
 ### **bnxreheader.pl**
@@ -122,6 +128,22 @@ The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
 
 Perform molecule quality report (MQR) at CLI instead of running this under IrysView. One may prefer to perform the MQR directly on his/her Nix server. The main advantage is that one can launch this code in a bash loop and perform all MQR from a list of BNX files (single runs) without supervision.
 
+Parameters added to the MQR comands match those found in the documentation for Irys version 2.4. Some of these parameters WILL change in future version, please check with your current Irys version.
+
+```
+# default MQR parameters recommended for human samples in IrysView v2.4.
+-nosplit 2 -BestRef 1 -biaswt 0 -Mfast 0 -FP 1.5 -FN 0.15
+-sf 0.2 -sd 0.0 -A 5 -outlier 1e-3 -outlierMax 40 -
+endoutlier 1e-4 -S -1000 -sr 0.03 -se 0.2 -MaxSF 0.25 -MaxSE
+0.5 -resbias 4 64 -maxmem 64 -M 3 3 - minlen 150 -T 1e-11
+-maxthreads 32 -hashgen 5 3 2.4 1.5 0.05 5.0 1 1 3 -hash
+-hashdelta 10 -hashoffset 1 -hashmaxmem 64 -insertThreads 4
+-maptype 0 -PVres 2 -PVendoutlier -AlignRes 2.0 -rres 0.9 -
+resEstimate -ScanScaling 2 -RepeatMask 5 0.01 -RepeatRec 0.7
+0.6 1.4 -maxEnd 50 –usecolor 1 -stdout – stderr –randomize
+–subset 1 5000
+```
+
 The following loop will process all BNX files in the current folder and create a MQR (in its own folder) from each BNX and a common reference (more parameters are available).
 ```bash
 for b in *.bnx; do
@@ -132,13 +154,16 @@ done
 Type the script name followed by -h will list all available parameters
 ```bash
 # Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
-#		[optional: -l <minlen|150>]
-#		[optional: -x <maxlen|3000>]
-#		[optional: -a <maxai|0.6>]
-#		[optional: -s <minSNR|3.5>]
-#		[optional: -p <pval|1e-9>]
-#		[optional: -t <max-threads|32> -m <max-ram|64>]
-#		[optional: -n <sample N molecules>]
+# script version 2.1, 2016_06_23
+# [optional: -l <minlen|150>]
+# [optional: -x <maxlen|2000>]
+# [optional: -a <maxai|0.6>]
+# [optional: -s <minSNR|3.5>]
+# [optional: -p <pval|1e-9>]
+# [optional: -u <BestRef (best-only=1; more=0)|1>]
+# [optional: -b <if -u 0, #bestalignments|1>]
+# [optional: -t <max-threads|24> -m <max-ram|64>]
+# [optional: -n <sample N molecules>]
 ```
 ## general-tools
 
