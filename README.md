@@ -155,6 +155,7 @@ Type the script name followed by -h will list all available parameters
 ```bash
 # Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 # script version 2.1, 2016_06_23
+# [optional: -o <outfolder (default to current folder)>]
 # [optional: -l <minlen|150>]
 # [optional: -x <maxlen|2000>]
 # [optional: -a <maxai|0.6>]
@@ -162,7 +163,8 @@ Type the script name followed by -h will list all available parameters
 # [optional: -p <pval|1e-9>]
 # [optional: -u <BestRef (best-only=1; more=0)|1>]
 # [optional: -b <if -u 0, #bestalignments|1>]
-# [optional: -t <max-threads|24> -m <max-ram|64>]
+# [optional: -t <max-threads|24>]
+# [optional: -m <max-ram|64>]
 # [optional: -n <sample N molecules>]
 ```
 ## general-tools
