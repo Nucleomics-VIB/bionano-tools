@@ -38,6 +38,7 @@ version="2.1, 2016_06_23"
 
 usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 # script version '${version}'
+# [optional: -o <outfolder (default to current folder)>]
 # [optional: -l <minlen|150>]
 # [optional: -x <maxlen|2000>]
 # [optional: -a <maxai|0.6>]
@@ -45,14 +46,15 @@ usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 # [optional: -p <pval|1e-9>]
 # [optional: -u <BestRef (best-only=1; more=0)|1>]
 # [optional: -b <if -u 0, #bestalignments|1>]
-# [optional: -t <max-threads|24> -m <max-ram|64>]
+# [optional: -t <max-threads|24>]
+# [optional: -m <max-ram|64>]
 # [optional: -n <sample N molecules>]'
 
 while getopts "i:r:o:l:x:f:g:a:s:p:u:b:t:m:n:h" opt; do
   case $opt in
     i) bnxdata=${OPTARG} ;;
     r) refcmap=${OPTARG} ;;
-    o) outfolder=${OPTARG} ;;
+    o) outfolderpath=${OPTARG} ;;
     l) minimumlen=${OPTARG} ;;
     x) maximumlen=${OPTARG} ;;
     f) minimumlabels=${OPTARG} ;;
@@ -85,7 +87,7 @@ pval=${pvalue:-"1e-9"}
 best=${besthit:-1}
 
 # add max alignment when BestRef (-u) is set to 0
-if [ $best == 1 ]; then
+if [ "$best" == 1 ]; then
 	maxali=''
 else
 	maxali="-bestalignments ${opt_b:-1}"
@@ -102,7 +104,7 @@ then
    exit 1
 fi
 
-if [ ! -f ${bnxdata} ]; then
+if [ ! -f "${bnxdata}" ]; then
 	echo "${bnxdata} file not found!"
 	exit 1
 fi
@@ -114,9 +116,16 @@ then
 	exit 1
 fi
 
-if [ ! -f ${refcmap} ]; then
+if [ ! -f "${refcmap}" ]; then
     echo "${refcmap} file not found!";
     exit 1
+fi
+
+if [ -z "${outfolderpath}" ]
+then
+	outfolder=$(pwd)
+else
+	outfolder=${outfolderpath}
 fi
 
 if [ -z "${molnumber}" ]
@@ -131,7 +140,7 @@ outpath=${outfolder:-'MQR-results'}
 
 if [[ -e "$outpath" ]] ; then
 	i=2
-	while [[ -e $outpath-$i ]] ; do
+	while [[ -e "$outpath-$i" ]] ; do
 		let i++
 	done
 	name=$outpath-$i
@@ -199,5 +208,5 @@ echo "# ${cmd}"
 eval ${cmd}
 
 endts=$(date +%s)
-dur=$(echo ${endts}-${startts} | bc)
+dur=$(echo "${endts}-${startts}" | bc)
 echo "Done in ${dur} sec"
