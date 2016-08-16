@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 ## QC-tools
 *[TOP](#top)*  
 
-*  **[bnxstats.pl](#bnxstatspl)**  
+*  **[bnxstats.pl](#bnxstatspl)**  **[bnx2quantiles.pl](#bnx2quantilespl)**  
 *  **[bnx2quantiles.pl](#bnx2quantilespl)**  
 *  **[bnxfilter.pl](#bnxfilterpl)**  
 *  **[bnxfilter2.pl](#bnxfilter2pl)**  
