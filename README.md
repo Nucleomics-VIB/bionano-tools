@@ -185,24 +185,7 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 *[TOP](#top)*  
 
-*  **[xmapisec.pl](#xmapisecpl)**  
-*  **[mapisec.pl](#mapisecpl)**  
-*  **[bnx0convert.pl](#bnx0convertpl)**  
-*  **[mqr2bnx.pl](#mqr2bnxpl)**  
-*  **[bnxclnheader.pl](#bnxclnheaderpl)**  
-*  **[bnxreheader.pl](#bnxreheaderpl-1)**  
-*  **[bedrename.pl](#bedrenamepl)**  
-*  **[cmap2bed.pl](#cmap2bedpl)**  
-*  **[xmap2bed.pl](#xmap2bedpl)**  
-*  **[xmap2bed12.pl](#xmap2bed12pl)**  
-*  **[smap2bed.pl](#smap2bedpl)**  
-*  **[bnxsplitter.pl](#bnxsplitterpl)**  
-*  **[labeldensity.pl](#labeldensitypl)**  
-*  **[cmap2renum.pl](#cmap2renumpl)**  
-*  **[findnregions.pl](#findnregionspl)**  
-*  **[fastafiltlength.pl](#fastafiltlengthpl)**  
-*  **[fastasortlength.pl](#fastasortlengthpl)**  
-*  **[fastarename.pl](#fastarenamepl)**  
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)**  
 
 ### **xmapisec.pl**
 *[General-tools](#general-tools)*  
@@ -475,7 +458,7 @@ fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 ## SysAdmin-tools
 *[TOP](#top)*  
 
-*  **[logphicards.sh](#logphicardssh)**  
+**[logphicards.sh](#logphicardssh)** -   
 
 Those additional tools that we had to develop to troublechoot problems.
 
