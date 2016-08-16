@@ -183,26 +183,26 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 **[TOP](#top)**  
 
-**[xmapisec.pl](#xmapisecpl)**  
-**[mapisec.pl](#mapisecpl)**  
-**[bnx0convert.pl](#bnx0convertpl)**  
-**[mqr2bnx.pl](#mqr2bnxpl)**  
-**[bnxclnheader.pl](#bnxclnheaderpl)**  
-**[bnxreheader.pl](#bnxreheaderpl-1)**  
-**[bedrename.pl](#bedrenamepl)**  
-**[cmap2bed.pl](#cmap2bedpl)**  
-**[xmap2bed.pl](#xmap2bedpl)**  
-**[xmap2bed12.pl](#xmap2bed12pl)**  
-**[smap2bed.pl](#smap2bedpl)**  
-**[bnxsplitter.pl](#bnxsplitterpl)**  
-**[labeldensity.pl](#labeldensitypl)**  
-**[cmap2renum.pl](#cmap2renumpl)**  
-**[findnregions.pl](#findnregionspl)**  
-**[fastafiltlength.pl](#fastafiltlengthpl)**  
-**[fastasortlength.pl](#fastasortlengthpl)**  
-**[fastarename.pl](#fastarenamepl)**  
+*  **[xmapisec.pl](#xmapisecpl)**  
+*  **[mapisec.pl](#mapisecpl)**  
+*  **[bnx0convert.pl](#bnx0convertpl)**  
+*  **[mqr2bnx.pl](#mqr2bnxpl)**  
+*  **[bnxclnheader.pl](#bnxclnheaderpl)**  
+*  **[bnxreheader.pl](#bnxreheaderpl-1)**  
+*  **[bedrename.pl](#bedrenamepl)**  
+*  **[cmap2bed.pl](#cmap2bedpl)**  
+*  **[xmap2bed.pl](#xmap2bedpl)**  
+*  **[xmap2bed12.pl](#xmap2bed12pl)**  
+*  **[smap2bed.pl](#smap2bedpl)**  
+*  **[bnxsplitter.pl](#bnxsplitterpl)**  
+*  **[labeldensity.pl](#labeldensitypl)**  
+*  **[cmap2renum.pl](#cmap2renumpl)**  
+*  **[findnregions.pl](#findnregionspl)**  
+*  **[fastafiltlength.pl](#fastafiltlengthpl)**  
+*  **[fastasortlength.pl](#fastasortlengthpl)**  
+*  **[fastarename.pl](#fastarenamepl)**  
 
-### **xmapisec.pl**
+### **xmapisec.pl** ([general-tools](#generaltools))  
 
 The perl script **[xmapisec.pl](general-tools/xmapisec.pl)** takes information from two MQR runs (from the 'MoleculeQualityReport.xmap' file) to split the corresponding BNX file into molecules that align to either, both, or none of the reference cmaps used for eather MQR. This allows creating subset of a BNX file that may be more specific for one or another reference assembly (which could for example represent parental genomes for a diploid) and make the resulting BNX data accessible for other applications like denovo assembly. An optional parameter allows filtering alignments by their 'Alignment Score' to create more stringent datasets. The MQR runs may be performed using a lower than normal '-T' value in order to keep molecules that align with some degree of divergence (parental genomes are not necessariy identical to the haploid compound of a hybrid genome). *We would welcome your feedback after using this tool and reports of success would be a great reward for the work put into this script.*
 ```
@@ -217,7 +217,7 @@ Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 # <-h to display this help>
 ```
 
-### **mapisec.pl**
+### **mapisec.pl** ([general-tools](#generaltools))  
 
 **REM: This script was first developped but should be preferred the upper one using xmap data as input because '.map' files are doomed to disappear in a future releases**
 
@@ -455,7 +455,7 @@ fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 ## SysAdmin-tools
 **[TOP](#top)**  
 
-**[logphicards.sh](#logphicardssh)**  
+*  **[logphicards.sh](#logphicardssh)**  
 
 Those additional tools that we had to develop to troublechoot problems.
 
