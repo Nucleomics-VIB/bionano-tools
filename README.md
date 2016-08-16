@@ -5,6 +5,8 @@
 
 Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-tools/wiki)** for examples and workflows.
 
+[TOC]
+
 ## QC-tools
 
 Tools to process and QC BioNanoGenomics data.
