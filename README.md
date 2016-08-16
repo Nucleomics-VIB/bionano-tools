@@ -25,7 +25,7 @@ Tools to process and QC BioNanoGenomics data.
 *Please do dry run or argument '-h' to discover the available options in each command*
 
 ### **bnxstats.pl**
-[QC-tools](qc-tools)  
+*[QC-tools](#qc-tools)*  
 
 The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic stats from a BNX file with size filtering just like what IrysView does under windows (but without the W). This original script was renamed 'bnxstats_v1' and left for reference. A new version of the script **[bnxstats.pl](qc-tools/bnxstats.pl)** allows filtering by size but also by avgIntensity and SNR and returns counts for each filtering subset, it also supports gzipped BNX files which is a nice thing given the huge size these text files tend to develop.
 ```bash
@@ -40,7 +40,7 @@ The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic sta
 ```
 
 ### **bnx2quantiles.pl**
-[QC-tools](qc-tools)  
+*[QC-tools](#qc-tools)*  
 
 The perl script **[bnx2quantiles.pl](qc-tools/bnx2quantiles.pl)** analyze BNX data and return value distributions for the most important measurements. Useful to define cutoffs to be used with **bnxfilter.pl** and **bnxfilter2.pl**. 
 
@@ -77,7 +77,7 @@ example run with BNG demo EColi data
 ```
 
 ### **bnxfilter.pl**
-[QC-tools](qc-tools)  
+*[QC-tools](#qc-tools)*  
 
 The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied. The most recent version of the code supports gzipped data and exports as gzip as option.
 ```bash
@@ -92,7 +92,7 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 ```
 
 ### **bnxfilter2.pl**
-[QC-tools](qc-tools)  
+*[QC-tools](#qc-tools)*  
 
 The perl script **[bnxfilter2.pl](qc-tools/bnxfilter2.pl)** adds to the first version and allows filtering on **label average-intensity** and **label average-snr** (REM: both new parameters are optional and undef by default, please note the difference between molecule [upper-case] and label [lower-case] arguments).
 ```bash
@@ -112,6 +112,7 @@ You must provide a BNX file with -i
 ```
 
 ### **bnxfilter_repeats.pl**
+*[QC-tools](#qc-tools)*  
 
 The bash script **[bnxfilter_repeats.sh](qc-tools/bnxfilter_repeats.sh)** filters BNX data to 'remove', 'restrict to' or 'mask' simple repeats. It reflects the Windows version found in Irysview (that generates data with a wrongly formatted header) and works only on your linux server as it makes direct use of RefAligner. The code is simplistic and you could as well type the command in your terminal.
 ```bash
@@ -130,6 +131,7 @@ The bash script **[bnxfilter_repeats.sh](qc-tools/bnxfilter_repeats.sh)** filter
 ```
 
 ### **bnxreheader.pl**
+*[QC-tools](#qc-tools)*  
 
 The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupported characters in the header of a BNX file by '_' to avoid issue in IrysView (eg MQR returning empty sample name when other chatacters are present). This script should become obsolete when BNG correct their code or validate user input.
 ```bash
@@ -140,6 +142,7 @@ The perl script **[bnxreheader.pl](qc-tools/bnxreheader.pl)** replaces unsupport
 ```
 
 ### **run_MQR.sh**
+*[QC-tools](#qc-tools)*  
 
 The bash script **[run_MQR.sh](qc-tools/run_MQR.sh)**
 
@@ -206,7 +209,8 @@ Type the script name followed by -h will list all available parameters
 *  **[fastasortlength.pl](#fastasortlengthpl)**  
 *  **[fastarename.pl](#fastarenamepl)**  
 
-### **xmapisec.pl** ([general-tools](#generaltools))  
+### **xmapisec.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[xmapisec.pl](general-tools/xmapisec.pl)** takes information from two MQR runs (from the 'MoleculeQualityReport.xmap' file) to split the corresponding BNX file into molecules that align to either, both, or none of the reference cmaps used for eather MQR. This allows creating subset of a BNX file that may be more specific for one or another reference assembly (which could for example represent parental genomes for a diploid) and make the resulting BNX data accessible for other applications like denovo assembly. An optional parameter allows filtering alignments by their 'Alignment Score' to create more stringent datasets. The MQR runs may be performed using a lower than normal '-T' value in order to keep molecules that align with some degree of divergence (parental genomes are not necessariy identical to the haploid compound of a hybrid genome). *We would welcome your feedback after using this tool and reports of success would be a great reward for the work put into this script.*
 ```
@@ -221,7 +225,8 @@ Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 # <-h to display this help>
 ```
 
-### **mapisec.pl** ([general-tools](#generaltools))  
+### **mapisec.pl**
+*[General-tools](#general-tools)*  
 
 **REM: This script was first developped but should be preferred the upper one using xmap data as input because '.map' files are doomed to disappear in a future releases**
 
@@ -239,6 +244,7 @@ Aim: Identify molecules specific to two ref-cmaps, ubiquitous, or not-aligning
 ```
 
 ### **bnx0convert.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[bnx0convert.pl](general-tools/bnx0convert.pl)** converts old BNX version 0.1 data to teh curren tversion 1.2 format. It adds requierd fields with arbitrary values and brings your old data to compatibility with the current IrysView toolshed. Only one label is supported in this script as in all other scripts presented here. If you need to handle more than just one label, you will need to adapt the code by yourself.
 
@@ -251,6 +257,7 @@ Aim: Reformat old BNX 0.1 format to current version 1.2. Arbitrary values are us
 ````
 
 ### **mqr2bnx.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[mqr2bnx.pl](general-tools/mqr2bnx.pl)** uses the xmap and input BNX from a MQR (quasi reference alignment obtained from BNG **RefAligner**) to identify BNX records that show homology to a reference (or genomic locus) and extract them to new BNX file. A minimal mapping confidence can be set to obtain BNX data of higher confidence. Finally, non-alignining molecules can also be saved to a second BNX file. The resulting BNX's can be denovo assembled or used as you wish them to be. Playing with MQR settings should allow producing datasets of variable specificity (to be tested :-)
 ```bash
@@ -263,6 +270,7 @@ The perl script **[mqr2bnx.pl](general-tools/mqr2bnx.pl)** uses the xmap and inp
 ```
 
 ### **bnxclnheader.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/shorten file path in the '# Run Data' lines of a BNX header.
 ```bash
@@ -273,6 +281,7 @@ The perl script **[bnxclnheader.pl](general-tools/bnxclnheader.pl)** will clean/
 ```
 
 ### **bnxreheader.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap the BNX header of a badly formatted BNX file with a correct header from a related BNX file. This script was made to correct multiple syntax issues in headers originated from IrysView 2.4 filtering or masking of repeats.
 ```bash
@@ -283,6 +292,7 @@ The perl script **[bnxreheader.pl](general-tools/bnxreheader.pl)** will swap the
 ```
 
 ### **bedRename.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[bedRename.pl](general-tools/bedRename.pl)** will create a new BED file from a public file and replace the original chromosome names with the BNG translation provided with a key file (first column='official-name', second column='BNG-key' from Knicker). The resulting file can be viewed in **[IGV](https://www.broadinstitute.org/igv/)** together with BNG data.
 ```bash
@@ -292,6 +302,7 @@ bedRename.pl <-i bed file (required)> <-k key file (required)>
 ```
 
 ### **cmap2bed.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[cmap2bed.pl](general-tools/cmap2bed.pl)** will create a BED file from a data.cmap file. The resulting file can be used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further.
 ```bash
@@ -307,6 +318,7 @@ Aim: Convert cmap data to BED5. You must provide a cmap file with -i
 ```
 
 ### **xmap2bed.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[xmap2bed.pl](general-tools/xmap2bed.pl)** will create a BED5 file from a 'xmap' file. Only the part of the query that aligns to the reference is extracted and the result is expressed in REF(=anchor)-coordinates. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in **[IGV](https://www.broadinstitute.org/igv/)** or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x).
 ```bash
@@ -328,6 +340,7 @@ Aim: Convert xmap data to BED5. You must provide a xmap file with -i
 ```
 
 ### **xmap2bed12.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[xmap2bed12.pl](general-tools/xmap2bed12.pl)** will create a BED12 file from a 'xmap' file. The part of the query that aligns to the reference is represented in thick block while additional query ends not matching the reference are produced as thin blocks left and right from the match. Note that a size difference between query and reference matching regions will not be represented since reference coordinates cannot be modified. The resulting file can be viewed in **[IGV](https://www.broadinstitute.org/igv/)** or used with **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Users can filter and keep only alignments with a confidence greater than a given threshold (-x). See some example data **[here](xmap2bed12.pl_example.rmd)**.
 ```bash
@@ -343,6 +356,7 @@ Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 ```
 
 ### **smap2bed.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED file from a 'smap' file. The resulting file can be used with **[IGV](https://www.broadinstitute.org/igv/)** or **[BEDTools](http://bedtools.readthedocs.org/en/latest/)** to go further. Note that we need to work more on that piece of code as the SV data is not straightforward. Any suggestions would be welcome to make this one more useful. The script also reports the distribution of Confidence scores and allows identifying relevant cutoff values for a second run (it is possible to get the cutoff value for any given percentile limit by modifying the '-p' argument).  See some example data **[here](smap2bed.pl_example.rmd)**.
 ```bash
@@ -364,6 +378,7 @@ The perl script **[smap2bed.pl](general-tools/smap2bed.pl)** will create a BED f
 ```
 
 ### **bnxsplitter.pl**
+*[General-tools](#general-tools)*  
 
 The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split data from a BNX file (or archive thereof) into five separate 'invisible' TSV files available for down-processing using **R** (or your favorite script).
 
@@ -381,6 +396,7 @@ Aim: Split a BNX file into its components. You must provide a BNX file with -i
 ```
 
 ### **labeldensity.pl**
+*[General-tools](#general-tools)*  
 
 The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** will find regions of the genome that show abnormal label densities (none or high). 
 
@@ -406,6 +422,7 @@ To achieve this, it proceeds as follows:
 ```
 
 ### **cmap2renum.pl**
+*[General-tools](#general-tools)*  
 
 The perl tool **[cmap2renum.pl](general-tools/cmap2renum.pl)** takes one reference cmap and its matching key-file generated by 'Knicker' and renumbers all cmaps starting from 1 in both files. A new pair of files is saved to disk with added prefix. Such operation is required when the original cmap contained high values for the cmap IDs (over 100,000) which is not supported by downstream steps like hybrid scaffolding). large ID numbers may come from very large contig lists where a number of sequences have been filtered out due to Knicker cutoffs, leaving holes in the ID range and breaching the limit of 100,000.
 ```bash
@@ -418,6 +435,7 @@ The perl tool **[cmap2renum.pl](general-tools/cmap2renum.pl)** takes one referen
 In order to clean your assembly file, you may consider applying the next two perl scripts before using 'Knicker'.
 
 ### **findNregions.pl**
+*[General-tools](#general-tools)*  
 
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
 ```bash
@@ -428,6 +446,7 @@ The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions 
 ```
 
 ### **fastaFiltLength.pl**
+*[General-tools](#general-tools)*  
 
 The BIO-perl script **[fastaFiltLength.pl](fasta-tools/fastaFiltLength.pl)** will filter a multifasta file and keep only sequence with length > min and <max values. Was created to filter genome assemblies containing multiple small files.
 ```bash
@@ -440,6 +459,7 @@ The BIO-perl script **[fastaFiltLength.pl](fasta-tools/fastaFiltLength.pl)** wil
 ```
 
 ### **fastaSortLength.pl**
+*[General-tools](#general-tools)*  
 
 The BIO-perl script **[fastaSortLength.pl](fasta-tools/fastaSortLength.pl)** will sorts a multifasta file by decreasing or increasing order. Was created to clean input fasta files before applying Knicker (BionanoGenomics).
 ```bash
@@ -448,6 +468,7 @@ The BIO-perl script **[fastaSortLength.pl](fasta-tools/fastaSortLength.pl)** wil
 ```
 
 ### **fastaRename.pl**
+*[General-tools](#general-tools)*  
 
 The BIO-perl script **[fastaRename.pl](fasta-tools/fastaRename.pl)** will rename headers of a multifasta file using the index file generated by Knicker (BionanoGenomics). The resulting file can be used with data exported from BNG in **[IGV](https://www.broadinstitute.org/igv/)**.
 ```bash
@@ -464,6 +485,7 @@ fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 Those additional tools that we had to develop to troublechoot problems.
 
 ### **logphicards.sh**
+*[SysAdmin-tools](#sysadmin-tools)*  
 
 The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metrics for the 6 Xeon-phi cards present in our server and stores the results in a text file. The log file is then used to plot the different parameters as shown in a demo report attached **[here](sysadmin/thinkmate_logging.pdf)**.
 ```bash
