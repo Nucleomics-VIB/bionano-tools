@@ -25,6 +25,7 @@ Tools to process and QC BioNanoGenomics data.
 *Please do dry run or argument '-h' to discover the available options in each command*
 
 ### **bnxstats.pl**
+[QC-tools](qc-tools)  
 
 The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic stats from a BNX file with size filtering just like what IrysView does under windows (but without the W). This original script was renamed 'bnxstats_v1' and left for reference. A new version of the script **[bnxstats.pl](qc-tools/bnxstats.pl)** allows filtering by size but also by avgIntensity and SNR and returns counts for each filtering subset, it also supports gzipped BNX files which is a nice thing given the huge size these text files tend to develop.
 ```bash
@@ -39,6 +40,7 @@ The perl script **[bnxstats_v1.pl](qc-tools/bnxstats_v1.pl)** computes basic sta
 ```
 
 ### **bnx2quantiles.pl**
+[QC-tools](qc-tools)  
 
 The perl script **[bnx2quantiles.pl](qc-tools/bnx2quantiles.pl)** analyze BNX data and return value distributions for the most important measurements. Useful to define cutoffs to be used with **bnxfilter.pl** and **bnxfilter2.pl**. 
 
@@ -75,6 +77,7 @@ example run with BNG demo EColi data
 ```
 
 ### **bnxfilter.pl**
+[QC-tools](qc-tools)  
 
 The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based on min- and max-length, max-averageIntensity, min-SNR to generate nicer data for assembly. The avgIntensitty value can be read from a run with **bnxstats.pl**, a default absolute value of '0.6' will otherwise be applied. The most recent version of the code supports gzipped data and exports as gzip as option.
 ```bash
@@ -89,6 +92,7 @@ The perl script **[bnxfilter.pl](qc-tools/bnxfilter.pl)** filters BNX data based
 ```
 
 ### **bnxfilter2.pl**
+[QC-tools](qc-tools)  
 
 The perl script **[bnxfilter2.pl](qc-tools/bnxfilter2.pl)** adds to the first version and allows filtering on **label average-intensity** and **label average-snr** (REM: both new parameters are optional and undef by default, please note the difference between molecule [upper-case] and label [lower-case] arguments).
 ```bash
