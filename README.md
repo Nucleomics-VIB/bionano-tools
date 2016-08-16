@@ -12,13 +12,13 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 
 ## QC-tools
 
- **[bnxstats.pl](#bnxstatspl)**  
- **[bnx2quantiles.pl](#bnx2quantilespl)**  
- **[bnxfilter.pl](#bnxfilterpl)**  
- **[bnxfilter2.pl](#bnxfilter2pl)**  
- **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)**  
- **[bnxreheader.pl](#bnxreheaderpl)**  
- **[run_mqr.sh](#run_mqrsh)**  
+*  **[bnxstats.pl](#bnxstatspl)**  
+*  **[bnx2quantiles.pl](#bnx2quantilespl)**  
+*  **[bnxfilter.pl](#bnxfilterpl)**  
+*  **[bnxfilter2.pl](#bnxfilter2pl)**  
+*  **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)**  
+*  **[bnxreheader.pl](#bnxreheaderpl)**  
+*  **[run_mqr.sh](#run_mqrsh)**  
 
 Tools to process and QC BioNanoGenomics data.
 
