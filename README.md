@@ -8,9 +8,14 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 ### Table of Contents
 **[QC-tools](#qc-tools)**  
 **[General-tools](#general-tools)**  
-**[SysAdmin-tools](#sysAdmin-tools)**  
+**[SysAdmin-tools](#sysadmin-tools)**  
 
 ## QC-tools
+
+**[bnxstats.pl](#bnxstats.pl)**  
+**[bnx2quantiles.pl](#bnx2quantiles.pl)**  
+**[QC-tools](#qc-tools)**  
+**[QC-tools](#qc-tools)**  
 
 Tools to process and QC BioNanoGenomics data.
 
