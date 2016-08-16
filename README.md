@@ -5,7 +5,9 @@
 
 Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-tools/wiki)** for examples and workflows.
 
-[TOC]
+### Table of Contents
+**[QC-tools](#QC-tools)**  
+**[general-tools](#general-tools)**  
 
 ## QC-tools
 
