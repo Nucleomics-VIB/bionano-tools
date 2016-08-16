@@ -11,6 +11,7 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 **[SysAdmin-tools](#sysadmin-tools)**  
 
 ## QC-tools
+**[TOP](#top)**  
 
 *  **[bnxstats.pl](#bnxstatspl)**  
 *  **[bnx2quantiles.pl](#bnx2quantilespl)**  
