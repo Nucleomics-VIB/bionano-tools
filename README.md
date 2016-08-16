@@ -7,7 +7,8 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 
 ### Table of Contents
 **[QC-tools](#QC-tools)**  
-**[general-tools](#general-tools)**  
+**[general-tools](#General-tools)**
+**[SysAdmin-tools](#SysAdmin-tools)**
 
 ## QC-tools
 
@@ -171,7 +172,7 @@ Type the script name followed by -h will list all available parameters
 # [optional: -m <max-ram|64>]
 # [optional: -n <sample N molecules>]
 ```
-## general-tools
+## General-tools
 
 ### **xmapisec.pl**
 
