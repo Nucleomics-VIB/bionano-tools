@@ -173,6 +173,7 @@ Type the script name followed by -h will list all available parameters
 # [optional: -n <sample N molecules>]
 ```
 ## General-tools
+**[TOP](#top)**  
 
 ### **xmapisec.pl**
 
