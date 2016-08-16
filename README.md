@@ -431,9 +431,11 @@ The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metri
 #    -t <log-frequency in sec (default 60sec)>
 ```
 
+<hr>
+
 <h4>Please send comments and feedback to <a href="mailto:nucleomics.bioinformatics@vib.be">nucleomics.bioinformatics@vib.be</a></h4>
 
-------------
+<hr>
 
 ![Creative Commons License](http://i.creativecommons.org/l/by-sa/3.0/88x31.png?raw=true)
 
