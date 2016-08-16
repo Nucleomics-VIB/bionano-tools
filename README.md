@@ -11,7 +11,7 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 **[SysAdmin-tools](#sysadmin-tools)**  
 
 ## QC-tools
-**[TOP](#top)**  
+*[TOP](#top)*  
 
 *  **[bnxstats.pl](#bnxstatspl)**  
 *  **[bnx2quantiles.pl](#bnx2quantilespl)**  
@@ -189,7 +189,7 @@ Type the script name followed by -h will list all available parameters
 # [optional: -n <sample N molecules>]
 ```
 ## General-tools
-**[TOP](#top)**  
+*[TOP](#top)*  
 
 *  **[xmapisec.pl](#xmapisecpl)**  
 *  **[mapisec.pl](#mapisecpl)**  
@@ -479,7 +479,7 @@ fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 ```
 
 ## SysAdmin-tools
-**[TOP](#top)**  
+*[TOP](#top)*  
 
 *  **[logphicards.sh](#logphicardssh)**  
 
