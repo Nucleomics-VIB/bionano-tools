@@ -7,7 +7,7 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 
 ### Table of Contents
 **[QC-tools](#QC-tools)**  
-**[general-tools](#General-tools)**  
+**[General-tools](#General-tools)**  
 **[SysAdmin-tools](#SysAdmin-tools)**  
 
 ## QC-tools
