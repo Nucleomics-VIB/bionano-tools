@@ -12,7 +12,7 @@ Please refer to the accompanying **[wiki](https://github.com/BITS-VIB/bionano-to
 **[SysAdmin-tools](#sysadmin-tools)**  
 
 ## QC-tools
-*[TOP](#top)*  
+*[[back-to-top](#top)]*  
 
 **[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
 
@@ -184,7 +184,7 @@ Type the script name followed by -h will list all available parameters
 # [optional: -n <sample N molecules>]
 ```
 ## General-tools
-*[TOP](#top)*  
+*[[back-to-top](#top)]*  
 
 **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)**  
 
@@ -457,7 +457,7 @@ fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 ```
 
 ## SysAdmin-tools
-*[TOP](#top)*  
+*[[back-to-top](#top)]*  
 
 **[logphicards.sh](#logphicardssh)** -   
 
@@ -471,6 +471,8 @@ The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metri
 # Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>
 ```
+
+*[[back-to-top](#top)]*  
 
 <hr>
 
