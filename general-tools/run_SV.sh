@@ -243,7 +243,7 @@ cmd="python ${script_path}/runSV.py \
 	${cxml_path}"
 
 echo "# ${cmd}" | tee -a ${out_path}_log.txt
-#eval ${cmd}
+eval ${cmd}
 retval=$?
 
 ###############
