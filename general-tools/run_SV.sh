@@ -255,7 +255,7 @@ endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
 echo "Done in ${dur} sec" | tee -a ${out_path}_log.txt
 
-echo "# SV run succeeded, now copying file" | tee -a ${out_path}_log.txt
+echo "# SV run succeeded, now copying file"
 
 # create result folder
 base_folder=$(dirname ${out_path})
@@ -278,7 +278,7 @@ cp ${out_path}/merged_smaps/* ${result_folder}/
 
 # create archive from folder
 tar -zcvf ${result_folder}.tar.gz ${result_folder}
-echo "# SV data was archived in ${result_folder}.tar.gz" | tee -a ${out_path}_log.txt
+echo "# SV data was archived in ${result_folder}.tar.gz"
 
 exit 0
 
