@@ -240,44 +240,40 @@ cmd="python ${script_path}/runSV.py \
 	-E ${errbin_path} \
 	${sv_conf} \
 	${bed_path} \
-	${cxml_path}"
+	${cxml_path} \
+	>>${out_path}_log.txt 2>&1"
 
-echo "# ${cmd}" | tee -a ${out_path}_log.txt
+echo "# ${cmd}" | tee ${out_path}_log.txt
 eval ${cmd}
-retval=$?
 
 ###############
 # post process
 ###############
 
-if [ ${retval} -ne 0 ]; then
-	echo "# SV run failed, please check logs output
-else
-	echo "# SV run succeeded, now copying file"
+echo "# SV run succeeded, now copying file" | tee -a ${out_path}_log.txt
 
-	# create result folder
-	base_folder=$(dirname ${out_path})
-	ref_base=$(basename ${refcmap%%.cmap})
-	ass_base=$(basename ${denovopath})
-	result_folder=${base_folder}/${ref_base}_vs_${ass_base}
-	mkdir -p ${result_folder}
+# create result folder
+base_folder=$(dirname ${out_path})
+ref_base=$(basename ${refcmap%%.cmap})
+ass_base=$(basename ${denovopath})
+result_folder=${base_folder}/SV_${ref_base}_vs_${ass_base}
+mkdir -p ${result_folder}
 
-	# copy various input files
-	cp ${ref_cmap} ${result_folder}/
-	cp ${optarg_path} ${result_folder}/
-	cp ${err_path} ${result_folder}/
-	cp ${errbin_path} ${result_folder}/
-	cp ${query_path}/EXP_REFINEFINAL1.cmap ${result_folder}/
+# copy various input files
+cp ${ref_cmap} ${result_folder}/
+cp ${optarg_path} ${result_folder}/
+cp ${err_path} ${result_folder}/
+cp ${errbin_path} ${result_folder}/
+cp ${query_path}/EXP_REFINEFINAL1.cmap ${result_folder}/
 
-	# copy sv results
-	cp ${out_path}_log.txt ${result_folder}/
-	cp ${out_path}/*.txt ${result_folder}/
-	cp ${out_path}/merged_smaps/* ${result_folder}/
+# copy sv results
+cp ${out_path}_log.txt ${result_folder}/
+cp ${out_path}/*.txt ${result_folder}/
+cp ${out_path}/merged_smaps/* ${result_folder}/
 
-	# zip folder
-	tar -zcvf ${result_folder}.gz ${result_folder}
-	echo "# SV data was archived in ${result_folder}.gz
-fi
+# zip folder
+tar -zcvf ${result_folder}.gz ${result_folder}
+echo "# SV data was archived in ${result_folder}.gz | tee -a ${out_path}_log.txt
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
