@@ -13,6 +13,7 @@
 # a folder with a full de-novo assembly file structure (from IrysSolve)
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
+# copy results to folder and create tar.gz archive; 2016/08/21; v1.1
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -26,7 +27,7 @@ SCRIPTS="/home/bionano/scripts"
 # please do not modify below this limit #
 #########################################
 
-version="1.0, 2016_08_16"
+version="1.1, 2016_08_21"
 
 usage='# Usage: run_SV.sh -r <path to the reference.cmap> -i <assembly-folder>
 # script version '${version}'
@@ -226,7 +227,7 @@ fi
 mkdir -p "$out_path"
 
 # build command and quote weird chars
-echo "# computing SV from the provided data"
+echo "# computing SV using the following command" | tee ${out_path}_log.txt
 cmd="python ${script_path}/runSV.py \
 	-r ${ref_cmap} \
 	-t ${refali_path} \
@@ -243,7 +244,7 @@ cmd="python ${script_path}/runSV.py \
 	${cxml_path} \
 	>>${out_path}_log.txt 2>&1"
 
-echo "# ${cmd}" | tee ${out_path}_log.txt
+echo "# ${cmd}" | tee -a ${out_path}_log.txt
 eval ${cmd}
 
 ###############
@@ -271,9 +272,9 @@ cp ${out_path}_log.txt ${result_folder}/
 cp ${out_path}/*.txt ${result_folder}/
 cp ${out_path}/merged_smaps/* ${result_folder}/
 
-# zip folder
-tar -zcvf ${result_folder}.gz ${result_folder}
-echo "# SV data was archived in ${result_folder}.gz | tee -a ${out_path}_log.txt
+# create archive from folder
+tar -zcvf ${result_folder}.tar.gz ${result_folder}
+echo "# SV data was archived in ${result_folder}.tar.gz" | tee -a ${out_path}_log.txt
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
