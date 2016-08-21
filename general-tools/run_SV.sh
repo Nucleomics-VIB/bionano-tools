@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # script name: run_SV.sh
-# run BioNanoGenomics runSV.py with some help and testing. 
+# run BioNanoGenomics runSV.py with some help and testing.
 # This bash script feeds parameters to the BNG python script runSV.py
 # * it adds a number of additional tests to make sure all inputs are present
 # * it facilitates the typing by resolving file paths automatically
@@ -141,7 +141,7 @@ else
 	if [ ! -d "${denovo_path}" ]; then
    		echo "# ${denovo_path} folder not found!";
 	    exit 1
-	fi	
+	fi
 fi
 
 # query_path folder exists
@@ -206,11 +206,11 @@ fi
 
 # add sv conf if file provided and exists
 if [ ! -z "$svconf+x}" ]; then
-	if [[ $svconf -ge 0 && $svconf -le 2 ]] ; then 
+	if [[ $svconf -ge 0 && $svconf -le 2 ]] ; then
     	sv_conf="-s ${svconf}"
 	else
   		echo "# Invalid -s input: $svconf"
-  		echo "${usage}" 
+  		echo "${usage}"
   		exit 1
 	fi
 else
@@ -249,7 +249,41 @@ cmd="python ${script_path}/runSV.py \
 	${sv_conf}"
 
 echo "# ${cmd}" | tee -a ${out_path}_log.txt
-eval ${cmd}
+#eval ${cmd}
+retval=$?
+
+###############
+# post process
+###############
+
+if [ ${retval} -ne 0 ]; then
+	echo "# SV run failed, please check logs output
+else
+	echo "# SV run succeeded, now copying file"
+
+	# create result folder
+	base_folder=$(dirname ${out_path})
+	ref_base=$(basename ${refcmap%%.cmap})
+	ass_base=$(basename ${denovopath})
+	result_folder=${base_folder}/${ref_base}_vs_${ass_base}
+	mkdir -p ${result_folder}
+
+	# copy various input files
+	cp ${ref_cmap} ${result_folder}/
+	cp ${optarg_path} ${result_folder}/
+	cp ${err_path} ${result_folder}/
+	cp ${errbin_path} ${result_folder}/
+	cp ${query_path}/EXP_REFINEFINAL1.cmap ${result_folder}/
+
+	# copy sv results
+	cp ${out_path}_log.txt ${result_folder}/
+	cp ${out_path}/*.txt ${result_folder}/
+	cp ${out_path}/merged_smaps/* ${result_folder}/
+
+	# zip folder
+	tar -zcvf ${result_folder}.gz ${result_folder}
+	echo "# SV data was archived in ${result_folder}.gz
+fi
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
@@ -262,11 +296,11 @@ exit 0
 #                 [-o OUTPUTDIR] [-p PIPELINEDIR] [-a OPTARGUMENTS]
 #                 [-T NUMTHREADS] [-j MAXTHREADS] [-b BEDFILE] [-e ERRFILE]
 #                 [-E ERRBINFILE] [-C CXML] [-s GROUPSV]
-# 
+#
 # Standalone script for running the SV Module of the Pipeline, ie, aligning
 # genome maps (ie, bioNano contigs as .cmap) to sequence contigs or a reference
 # (.cmap) for the purpose of structural variation (SV) detection.
-# 
+#
 # optional arguments:
 #   -h, --help       show this help message and exit
 #   -t REFALIGNER    Path to RefAligner or dir containing it (required)
