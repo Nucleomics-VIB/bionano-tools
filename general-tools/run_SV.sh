@@ -204,17 +204,11 @@ else
 	cxml_path=''
 fi
 
-# add sv conf if file provided and exists
-if [ ! -z "$svconf+x}" ]; then
-	if [[ $svconf -ge 0 && $svconf -le 2 ]] ; then 
-    	sv_conf="-s ${svconf}"
-	else
-  		echo "# Invalid -s input: $svconf"
-  		echo "${usage}" 
-  		exit 1
-	fi
+# add sv conf if -s provided or default
+if [[ ! -z $svconf ]] && [[ ( "$svconf" -eq 0 ) || ( "$svconf" -eq 1 ) ]]; then
+	sv_conf="-s ${svconf}"
 else
-	sv_conf=''
+	sv_conf="-s 2"
 fi
 
 # create numbered output folder
@@ -244,9 +238,9 @@ cmd="python ${script_path}/runSV.py \
 	-j ${thrperjob} \
 	-e ${err_path} \
 	-E ${errbin_path} \
+	${sv_conf} \
 	${bed_path} \
-	${cxml_path} \
-	${sv_conf}"
+	${cxml_path}"
 
 echo "# ${cmd}" | tee -a ${out_path}_log.txt
 eval ${cmd}
