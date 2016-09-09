@@ -205,11 +205,11 @@ else
 	cxml_path=''
 fi
 
-# add sv conf if -s provided or default
-if [[ ! -z $svconf ]] && [[ ( "$svconf" -eq 0 ) || ( "$svconf" -eq 1 ) ]]; then
+# add sv conf if -s provided or default to 0
+if [[ ! -z $svconf ]] && [[ ( "$svconf" -eq 1 ) || ( "$svconf" -eq 1 ) ]]; then
 	sv_conf="-s ${svconf}"
 else
-	sv_conf="-s 2"
+	sv_conf="-s 0"
 fi
 
 # create numbered output folder
