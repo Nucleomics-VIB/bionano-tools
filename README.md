@@ -14,7 +14,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 ## QC-tools
 *[[back-to-top](#top)]*  
 
-**[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxsubsample.sh](#bnxsubsample.sh)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
+**[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxsubsample.sh](#bnxsubsamplesh)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
 
 Tools to process and QC BioNanoGenomics data.
 
