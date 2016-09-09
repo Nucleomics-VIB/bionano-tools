@@ -14,7 +14,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 ## QC-tools
 *[[back-to-top](#top)]*  
 
-**[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
+**[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxsubsample.sh](#bnxsubsample.sh)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
 
 Tools to process and QC BioNanoGenomics data.
 
@@ -105,6 +105,26 @@ You must provide a BNX file with -i
 # <-m max-labAvgIntensity (undef)>
 # <-z zip results (default OFF)>
 # <-h to display this help>
+```
+
+### **bnxsubsample.sh**
+*[[QC-tools](#qc-tools)]*  
+
+The perl script **[bnxsubsample.sh](qc-tools/bnxsubsample.sh)** also filters molecules but makes use of the Bionano RefAligner executable instead of perl and is much faster; It also creates a subset (random) of molecules that can be usefull when less data is needed.
+
+```bash
+bnxsubsample.sh -i <molecules.bnx>
+# script version 1.0, 2016_09_09
+# [optional: -o <output_prefix|bnx_subset>]
+# [optional: -l <minlen|100>]
+# [optional: -x <maxlen|2500>]
+# [optional: -f <minlabels|5>]
+# [optional: -g <maxlabels|200>]
+# [optional: -a <maxai|0.6>]
+# [optional: -s <minSNR|3.5>]
+# [optional: -t <max-threads|24>]
+# [optional: -m <max-ram|64>]
+# [optional: -n <sample N molecules>]
 ```
 
 ### **bnxfilter_repeats.pl**
