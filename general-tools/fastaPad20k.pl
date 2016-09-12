@@ -2,6 +2,7 @@
 
 # Add N's and nicking site to fasta records shorter that 20k
 # desperate attempt to rescue some of the shorter contigs from a NGS assembly
+# from discussion with Kees-Jan (THX)
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/09/12; v1.0
 #
@@ -59,6 +60,7 @@ while ( my $seq = $seq_in->next_seq() ) {
 	# test size or pad
 	my $seqlen = $seq->length;
  	if ( $seqlen < 20000 ) {
+ 		# make it 21k for good measure
  		my $padlen = 21000 - $seqlen;
  		my $padstring = ("N" x $padlen);
  		my $curseq = $seq->seq();
@@ -66,7 +68,7 @@ while ( my $seq = $seq_in->next_seq() ) {
  		my $newname = ( $seq->display_id()."_20k-padded" );
  		$seq->display_id($newname);
 	}
-	$seq_out->write_seq($seq); 
+	$seq_out->write_seq($seq);
 }
 
 undef $seq_in;
