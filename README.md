@@ -207,7 +207,7 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 *[[back-to-top](#top)]*  
 
-**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)**  
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** -  **[fastaPad20k.pl](#fastaPad20kpl)**
 
 ### **xmapisec.pl**
 *[[General-tools](#general-tools)]*  
@@ -474,6 +474,27 @@ The BIO-perl script **[fastaRename.pl](fasta-tools/fastaRename.pl)** will rename
 ```bash
 ## Usage: 
 fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
+# <-h to display this help>
+```
+
+### **fastaPad20k.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[fastaPad20k.pl](general-tools/fastaPad20k.pl)** adds N's and a nicking motif to sequences shorter than 20k bases. Not sure it will rescue any but this was the idea.
+
+```bash
+## Usage: fastaPad20k.pl
+## script version:1.0
+# <-i fasta_file (required)>
+# <-n nicking motif (required)>
+#   Nt.BspQI: GCTCTTCN
+#   Nt.BbvCI: CCTCAGC
+#   Nb.Bsml: GAATGCN
+#   Nb.BbvCI: CCTCAGC
+#   Nb.BsrD1: GCAATGNN
+#   Nb.BssSI: CACGAG
+# <-o outfile | default from infile name>
+# <-z zip results (default OFF)>
 # <-h to display this help>
 ```
 
