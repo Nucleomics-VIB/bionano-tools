@@ -174,7 +174,7 @@ push (@result, "# input file: ".basename($inputfile));
 
 # print molecule counts in subsets
 push (@result, "# tot-molecules: ".(format_num($counttot)));
-push (@result, "# inputFile size (Gb): ".(sprintf("%.3f", $totnucl/1_000_000_000)) );
+push (@result, "# input file size (Gb): ".(sprintf("%.3f", $totnucl/1_000_000_000)) );
 push (@result, "# additional percentiles:");
 push (@result, "#   low_percentile: ".$lowperc);
 push (@result, "#   high_percentile: ".$highperc);
@@ -182,7 +182,7 @@ push (@result, "#   high_percentile: ".$highperc);
 push (@result, $spacer);
 
 # reports stats for all molecules
-report_stats("All labelled molecules", \@BigArray);
+report_stats("All labeled molecules", \@BigArray);
 
 # output results to screen and file
 print STDOUT join("\n", @result)."\n";
