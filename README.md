@@ -506,6 +506,21 @@ The perl script **[fastaPad20k.pl](general-tools/fastaPad20k.pl)** adds N's and 
 # <-h to display this help>
 ```
 
+### **FastaExtractList.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[FastaExtractList.pl](general-tools/FastaExtractList.pl)** extarcts a list of Fasta records from a multifasta file into a new file.
+
+```bash
+## Usage: FastaExtractList.pl 
+## script version:1.0
+# <-i fasta_file (required)> 
+# <-r record_list file (required)>
+# <-o outfile | (optional) default from infile name>
+# <-z zip results (default OFF)>
+# <-h to display this help>
+```
+
 ## SysAdmin-tools
 *[[back-to-top](#top)]*  
 
