@@ -7,9 +7,10 @@
 Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bionano-tools/wiki)** for examples and workflows.
 
 ### Table of Contents
-**[QC-tools](#qc-tools)**  
-**[General-tools](#general-tools)**
+**[QC-tools](#qc-tools)**
+**[bnxstats.pl](#bnxstatspl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnx2quantiles.pl](#bnx2quantilespl)** - **[bnxfilter.pl](#bnxfilterpl)** - **[bnxfilter2.pl](#bnxfilter2pl)** - **[bnxsubsample.sh](#bnxsubsamplesh)** - **[bnxfilter_repeats.pl](#bnxfilter_repeatspl)** - **[bnxreheader.pl](#bnxreheaderpl)**  - **[run_mqr.sh](#run_mqrsh)**  
 
+**[General-tools](#general-tools)**
 **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)**
 
 **[SysAdmin-tools](#sysadmin-tools)**  
