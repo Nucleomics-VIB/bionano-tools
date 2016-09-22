@@ -8,7 +8,10 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 ### Table of Contents
 **[QC-tools](#qc-tools)**  
-**[General-tools](#general-tools)**  
+**[General-tools](#general-tools)**
+
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)**
+
 **[SysAdmin-tools](#sysadmin-tools)**  
 
 ## QC-tools
@@ -207,7 +210,7 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 *[[back-to-top](#top)]*  
 
-**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** -  **[fastaPad20k.pl](#fastapad20kpl)**
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)**
 
 ### **xmapisec.pl**
 *[[General-tools](#general-tools)]*  
