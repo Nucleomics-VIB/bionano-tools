@@ -509,7 +509,7 @@ The perl script **[fastaPad20k.pl](general-tools/fastaPad20k.pl)** adds N's and 
 ### **FastaExtractList.pl**
 *[[General-tools](#general-tools)]*  
 
-The perl script **[FastaExtractList.pl](general-tools/FastaExtractList.pl)** extarcts a list of Fasta records from a multifasta file into a new file.
+The perl script **[FastaExtractList.pl](general-tools/FastaExtractList.pl)** extracts a list of Fasta records from a multifasta file into a new file.
 
 ```bash
 ## Usage: FastaExtractList.pl 
@@ -524,7 +524,7 @@ The perl script **[FastaExtractList.pl](general-tools/FastaExtractList.pl)** ext
 ### **CmapExtractList.pl**
 *[[General-tools](#general-tools)]*  
 
-The perl script **[CmapExtractList.pl](general-tools/CmapExtractList.pl)** extarcts a list of cmap records from a cmap file into a new file. Can be used to create subset of a optical maps from sequence names returned in a Hybrid-scaffold-not-scaffolded.fasta file.
+The perl script **[CmapExtractList.pl](general-tools/CmapExtractList.pl)** extracts a list of cmap records from a cmap file into a new file. Can be used to create subset of a optical maps from sequence names returned in a Hybrid-scaffold-not-scaffolded.fasta file.
 
 ```bash
 ## Usage: CmapExtractList.pl 
