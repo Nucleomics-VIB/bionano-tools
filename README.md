@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[General-tools](#general-tools)**
 
-- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)**
+- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)**
 
 **[SysAdmin-tools](#sysadmin-tools)**  
 
@@ -518,6 +518,21 @@ The perl script **[FastaExtractList.pl](general-tools/FastaExtractList.pl)** ext
 # <-r record_list file (required)>
 # <-o outfile | (optional) default from infile name>
 # <-z zip results (default OFF)>
+# <-h to display this help>
+```
+
+### **CmapExtractList.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[CmapExtractList.pl](general-tools/CmapExtractList.pl)** extarcts a list of cmap records from a cmap file into a new file. Can be used to create subset of a optical maps from sequence names returned in a Hybrid-scaffold-not-scaffolded.fasta file.
+
+```bash
+## Usage: CmapExtractList.pl 
+## script version:1.0
+# <-i cmap_file (required)> 
+# <-r record_list file (required)>
+# <-k key file (required)>
+# <-o outfile | (optional) default from infile name>
 # <-h to display this help>
 ```
 
