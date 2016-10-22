@@ -5,7 +5,7 @@
 # This bash script feeds parameters to the BNG python script runSV.py
 # * it adds a number of additional tests to make sure all inputs are present
 # * it facilitates the typing by resolving file paths automatically
-# * it remains fully customisable like the original \CodelineIndex
+# * it remains fully customisable like the original code
 
 ## Requirements:
 # a unix computer installed with working bionano code and scripts (version > 2.5; 2.1)
