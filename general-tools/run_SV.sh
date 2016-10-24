@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # script name: run_SV.sh
-# run BioNanoGenomics runSV.py with some help and testing.
+# run BioNanoGenomics runSV.py with some help and testing. 
 # This bash script feeds parameters to the BNG python script runSV.py
 # * it adds a number of additional tests to make sure all inputs are present
 # * it facilitates the typing by resolving file paths automatically
-# * it remains fully customisable like the original code
+# * it remains fully customisable like the original \CodelineIndex
 
 ## Requirements:
 # a unix computer installed with working bionano code and scripts (version > 2.5; 2.1)
@@ -13,7 +13,6 @@
 # a folder with a full de-novo assembly file structure (from IrysSolve)
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
-# copy results to folder and create tar.gz archive; 2016/08/21; v1.1
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -27,7 +26,7 @@ SCRIPTS="/home/bionano/scripts"
 # please do not modify below this limit #
 #########################################
 
-version="1.1, 2016_08_21"
+version="1.0, 2016_08_16"
 
 usage='# Usage: run_SV.sh -r <path to the reference.cmap> -i <assembly-folder>
 # script version '${version}'
@@ -142,7 +141,7 @@ else
 	if [ ! -d "${denovo_path}" ]; then
    		echo "# ${denovo_path} folder not found!";
 	    exit 1
-	fi
+	fi	
 fi
 
 # query_path folder exists
@@ -205,11 +204,17 @@ else
 	cxml_path=''
 fi
 
-# add sv conf if -s provided or default to 0
-if [[ ! -z $svconf ]] && [[ ( "$svconf" -eq 1 ) || ( "$svconf" -eq 1 ) ]]; then
-	sv_conf="-s ${svconf}"
+# add sv conf if file provided and exists
+if [ ! -z "$svconf+x}" ]; then
+	if [[ $svconf -ge 0 && $svconf -le 2 ]] ; then 
+    	sv_conf="-s ${svconf}"
+	else
+  		echo "# Invalid -s input: $svconf"
+  		echo "${usage}" 
+  		exit 1
+	fi
 else
-	sv_conf="-s 0"
+	sv_conf=''
 fi
 
 # create numbered output folder
@@ -227,7 +232,7 @@ fi
 mkdir -p "$out_path"
 
 # build command and quote weird chars
-echo "# computing SV using the following command" | tee ${out_path}_log.txt
+echo "# computing SV from the provided data"
 cmd="python ${script_path}/runSV.py \
 	-r ${ref_cmap} \
 	-t ${refali_path} \
@@ -239,46 +244,16 @@ cmd="python ${script_path}/runSV.py \
 	-j ${thrperjob} \
 	-e ${err_path} \
 	-E ${errbin_path} \
-	${sv_conf} \
 	${bed_path} \
 	${cxml_path} \
-	>>${out_path}_log.txt 2>&1"
+	${sv_conf}"
 
-echo "# ${cmd}" | tee -a ${out_path}_log.txt
+echo "# ${cmd}" 2>&1 | tee -a ${out_path}_log.txt
 eval ${cmd}
-
-###############
-# post process
-###############
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
 echo "Done in ${dur} sec" | tee -a ${out_path}_log.txt
-
-echo "# SV run succeeded, now copying file"
-
-# create result folder
-base_folder=$(dirname ${out_path})
-ref_base=$(basename ${refcmap%%.cmap})
-ass_base=$(basename ${denovopath})
-result_folder=${base_folder}/SV_${ref_base}_vs_${ass_base}
-mkdir -p ${result_folder}
-
-# copy various input files
-cp ${ref_cmap} ${result_folder}/
-cp ${optarg_path} ${result_folder}/
-cp ${err_path} ${result_folder}/
-cp ${errbin_path} ${result_folder}/
-cp ${query_path}/EXP_REFINEFINAL1.cmap ${result_folder}/
-
-# copy sv results
-cp ${out_path}_log.txt ${result_folder}/
-cp ${out_path}/*.txt ${result_folder}/
-cp ${out_path}/merged_smaps/* ${result_folder}/
-
-# create archive from folder
-tar -zcvf ${result_folder}.tar.gz ${result_folder}
-echo "# SV data was archived in ${result_folder}.tar.gz"
 
 exit 0
 
@@ -287,11 +262,11 @@ exit 0
 #                 [-o OUTPUTDIR] [-p PIPELINEDIR] [-a OPTARGUMENTS]
 #                 [-T NUMTHREADS] [-j MAXTHREADS] [-b BEDFILE] [-e ERRFILE]
 #                 [-E ERRBINFILE] [-C CXML] [-s GROUPSV]
-#
+# 
 # Standalone script for running the SV Module of the Pipeline, ie, aligning
 # genome maps (ie, bioNano contigs as .cmap) to sequence contigs or a reference
 # (.cmap) for the purpose of structural variation (SV) detection.
-#
+# 
 # optional arguments:
 #   -h, --help       show this help message and exit
 #   -t REFALIGNER    Path to RefAligner or dir containing it (required)
