@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[General-tools](#general-tools)**
 
-- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)**
+- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](run_svsh)** - **[run_HS.sh](run_hssh)**
 
 **[SysAdmin-tools](#sysadmin-tools)**  
 
@@ -215,7 +215,7 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 *[[back-to-top](#top)]*  
 
-**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)**
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastarename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](run_svsh)** - **[run_HS.sh](run_hssh)**
 
 ### **xmapisec.pl**
 *[[General-tools](#general-tools)]*  
@@ -396,7 +396,7 @@ The perl script **[bnxsplitter.pl](general-tools/bnxsplitter.pl)** will split da
 * .qx11.tsv
 * .qx12.tsv
 
-The files are created next to the input file and are made invisible with a starting '.'. This can easily be changed in the code.
+The files are created next to the input file and are made invisible with a starting -dot- This can easily be changed in the code.
 ```bash
 Aim: Split a BNX file into its components. You must provide a BNX file with -i
 ## Usage: bnxsplitter.pl <-i bnx-file>
@@ -415,6 +415,7 @@ To achieve this, it proceeds as follows:
 * Create windows for each chromosome / contig in teh former file and save in BED format (required: **bedtools makewindows**)
 * Compare the first and last BED files and record the count of nicking sites in each bin (required: **bedtools map**)
 * Sort the obtained BED file naturally (requires a recent version of **GNU sort**) for visualisation (eg. **[IGV](https://www.broadinstitute.org/igv/)**).
+
 ```bash
 ## Usage: labeldensity.pl <-i fasta-file> <-n 'nicker(s)'>
 # multiple allowed separated by ',')>
@@ -433,6 +434,7 @@ To achieve this, it proceeds as follows:
 *[[General-tools](#general-tools)]*  
 
 The perl tool **[cmap2renum.pl](general-tools/cmap2renum.pl)** takes one reference cmap and its matching key-file generated by 'Knicker' and renumbers all cmaps starting from 1 in both files. A new pair of files is saved to disk with added prefix. Such operation is required when the original cmap contained high values for the cmap IDs (over 100,000) which is not supported by downstream steps like hybrid scaffolding). large ID numbers may come from very large contig lists where a number of sequences have been filtered out due to Knicker cutoffs, leaving holes in the ID range and breaching the limit of 100,000.
+
 ```bash
 # Usage: cmap2renum.pl <-c cmap-file> <-k key-file>
 # Optional parameters:
@@ -446,6 +448,7 @@ In order to clean your assembly file, you may consider applying the next two per
 *[[General-tools](#general-tools)]*  
 
 The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions of N's from a reference multi-fasta file and the corresponding knicker key table. It stores the coordinate of all hits to BED for loading in IrysView as track with sequence titles renamed using the key file. Such track may prove useful to identify issues associated with sequence gaps of incorrect size introduced in assemblies.
+
 ```bash
 ## Usage: findNregions.pl <-i fasta-file> <-k key-file to rename contigs>
 # Additional optional parameters are:
@@ -456,7 +459,8 @@ The perl tool **[findNregions.pl](general-tools/findNregions.pl)** find regions 
 ### **fastaFiltLength.pl**
 *[[General-tools](#general-tools)]*  
 
-The BIO-perl script **[fastaFiltLength.pl](fasta-tools/fastaFiltLength.pl)** will filter a multifasta file and keep only sequence with length > min and <max values. Was created to filter genome assemblies containing multiple small files.
+The BIO-perl script **[fastaFiltLength.pl](fasta-tools/fastaFiltLength.pl)** will filter a multifasta file and keep only sequence with length &gt; min and $lt; max values. Was created to filter genome assemblies containing multiple small files.
+
 ```bash
 ## Usage: fastaFiltLength.pl <-i fasta_file (required)>
 # Additional optional parameters are:
@@ -534,6 +538,59 @@ The perl script **[CmapExtractList.pl](general-tools/CmapExtractList.pl)** extra
 # <-k key file (required)>
 # <-o outfile | (optional) default from infile name>
 # <-h to display this help>
+```
+
+### **run_SV.sh**
+*[[General-tools](#general-tools)]*  
+
+The bash script **[run_SV.sh](general-tools/run_SV.sh)** runs SV analysis from files obtained in denovo assembly.
+
+```bash
+# Usage: run_SV.sh -r <path to the reference.cmap> -i <assembly-folder>
+# script version 1.0, 2016_08_16
+# [optional: -t <path to Refaligner (default to "/home/bionano/tools")>]
+# [optional: -q <query_path containing assembly cmaps (default to <assembly>/output/contigs/exp_refineFinal1)>]
+# [optional: -o <output folder (defaults in input map folder with same name + suffix "_sv")>]
+# [optional: -p <path to the python script "runSV.py" (default to "/home/bionano/scripts")>]
+# [optional: -a <optArgument.xml (default to "<assembly-folder>/optArguments_XXX.xml")>]
+# [optional: -T <number of threads to use (default=4)>]
+# [optional: -j <threads per job (default=4)>]
+# [optional: -b <BED file with GAPs (unset by default)>]
+# [optional: -e <.err file (defaults to <query_path>/alignref_final/EXP_REFINEFINAL1.err)>]
+# [optional: -E <.errbin file (defaults to <query_path>/alignref_final/EXP_REFINEFINAL1.errbin)>]
+# [optional: -C <CXML file for running on cluster (unset by default)>]
+# [optional: -s <SV job configuration 0="single job" (default), 1="single job per contig" (not recommended), 2="grouped">
+# [-h for this help]
+```
+
+### **run_HS.sh**
+*[[General-tools](#general-tools)]*  
+
+The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold analysis from files obtained in denovo assembly. The manual hybridscazffold using edited conflicts is not yet supported by this code which does only the regular HS.
+
+```bash
+run_HS.sh
+! # -i folder not found!
+# Usage: run_HS.sh
+# script version 1.0, 2016_10_22
+## input files
+# [required: -i <assembly-folder> (used for other paths below)]
+# [required: -n <sequence fasta file>]
+# [required: -b <BioNano CMAP file: exp_refineFinal1_contigs.cmap>]
+# [required: -m <molecule BNX file to align molecules to genome maps and hybrid scaffolds>]
+## conflict filtering: 1=no filter, 2=cut contig at conflict, 3=exclude conflicting contig 
+# [-B <1|2|3 (filter for optical maps: default=2)>]
+# [-N <1|2|3 (filter for sequences: default=2)>]
+## required config settings with default values
+# [-q <optArgument.xml (default to <assembly-folder>/optArguments_XXX.xml)>]
+# [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
+# [-c <hybridScaffold_config.xml (default to <assembly-folder>/hybridScaffold_config.xml)>]
+## other parameters with default values
+# [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
+# [-p <path to Scripts (default to $SCRIPTS)>]
+# [-s <hybridScafffold.pl file (default to $SCRIPTS/HybridScaffold/hybridScafffold.pl)>]
+# [-r <RefAligner binary file (default to $TOOLS/RefAligner)>]
+# [-h for this help]
 ```
 
 ## SysAdmin-tools
