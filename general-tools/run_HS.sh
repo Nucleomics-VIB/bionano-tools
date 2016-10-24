@@ -184,6 +184,9 @@ testfileexist "${optarg_path}" "-q"
 filt_bnx=${filtbnx:-2}
 filt_seq=${filtseq:-2}
 
+# create (0-based) array for reporting
+declare -a filters=(null '1=no filter' '2=cut contig at conflict' '3=exclude conflicting contig')
+
 ##############################################
 # create numbered hybridscaffold output folder
 ##############################################
@@ -225,6 +228,8 @@ cmd="perl ${hybridscaff_path} \
 # print cmd to log
 echo "# ${cmd}"
 echo
+echo "## filtering optical maps with "${filters["${filt_bnx}"]}
+echo "## filtering NGS maps with "${filters["${filt_seq}"]}
 
 # execute cmd
 ${cmd}
