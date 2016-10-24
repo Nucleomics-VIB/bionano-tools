@@ -192,20 +192,24 @@ declare -a filters=(null '1=no filter' '2=cut contig at conflict' '3=exclude con
 ##############################################
 
 out_path=${outpath:-"${denovopath}/hybridscaffold"}
-if [[ -e "$out_path" ]] ; then
+if [[ -e "$out_path" ]]
+then
 	i=2
-	while [[ -e "$out_path-$i" ]] ; do
+	while [[ -e "$out_path-$i" ]]
+	do
 		let i++
 	done
 	name="$out_path-$i"
 	out_path=${name}
 fi
-mkdir -f -p "$out_path"
+echo ${out_path}
+mkdir -p "${out_path}"
 
 # from here down, redirect all outputs to log file
-exec > >(tee -a ${out_path}_log.txt) 2>&1
+log_file="${out_path}/HYBRID_SCAFFOLD_log.txt"
+exec > >(tee -a ${log_file}) 2>&1
 
-#echo "# computing HS using the command:" | tee ${out_path}_log.txt
+echo "# $(date)"
 echo "# computing HS using the command:"
 
 # build hs command
@@ -227,6 +231,7 @@ cmd="perl ${hybridscaff_path} \
 
 # print cmd to log
 echo "# ${cmd}"
+
 echo
 echo "## filtering optical maps with "${filters["${filt_bnx}"]}
 echo "## filtering NGS maps with "${filters["${filt_seq}"]}
@@ -234,7 +239,7 @@ echo "## filtering NGS maps with "${filters["${filt_seq}"]}
 # execute cmd
 ${cmd}
 
-if [ ! $? -eq 0 ]; then
+if [ $? -ne 0 ] ; then
 	echo "! hybridscaffold command failed, please check your parameters"
 	exit 1
 fi
@@ -257,8 +262,9 @@ base_folder=$(dirname ${out_path})
 hs_base=$(basename ${out_path})
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
+
 result_folder=${base_folder}/hs_${hs_base}/${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}
-mkdir -p ${result_folder}
+mkdir -p ${result_folder}/output
 
 # copy various input files
 cp ${fasta_seq} ${result_folder}/
@@ -272,7 +278,7 @@ cp ${errbin_path} ${result_folder}/
 cp ${out_path}_log.txt ${result_folder}/
 
 # copy folder content if not empty
-[ "$(ls -A ${out_path})" ] && cp -r ${out_path}/* ${result_folder}/
+[ "$(ls -A ${out_path})" ] && cp -r ${out_path}/* ${result_folder}/output
 
 # create archive from folder then delete original
 tar -zcvf ${denovo_path}/${result_folder}.tgz ${result_folder} && rm -rf ${result_folder}
