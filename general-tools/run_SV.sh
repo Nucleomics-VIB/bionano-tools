@@ -19,6 +19,7 @@
 # check and adapt the following parameters for your system
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
 # make sure you point to the latest code version !!
+
 TOOLS="/home/bionano/tools"
 SCRIPTS="/home/bionano/scripts"
 

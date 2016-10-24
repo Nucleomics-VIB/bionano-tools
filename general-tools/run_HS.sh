@@ -20,6 +20,7 @@
 # check and adapt the following parameters for your system
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
 # make sure you point to the latest code version !!
+
 TOOLS="/home/bionano/tools"
 SCRIPTS="/home/bionano/scripts"
 
@@ -165,17 +166,14 @@ testvariabledef "${bnx_file}" "-m"
 testfileexist "${bnx_file}" "-m"
 
 # check autoNoise1.errbin
-#errbin_path=${errbin_path:-"${denovo_path}/hybridscaffold/output/auto_noise/contigs/auto_noise/autoNoise1.errbin"}
 errbin_path=${errbin_path:-$(find . -name "autoNoise1.errbin" -print | head -n 1 | sed -e 's/\.\///')}
 testfileexist "${errbin_path}" "-e"
 
 # check hybridScaffold_config.xml
-#hybscaf_xml=${hybscafxml:-"${denovo_path}/hybridscaffold/hybridScaffold_config.xml"}
 hybscaf_xml=${hybscafxml:-$(find . -name "hybridScaffold_config.xml" -print | head -n 1 | sed -e 's/\.\///')}
 testfileexist "${hybscaf_xml}" "-c"
 
 # check optArguments_XXX.xml
-#optarg_path=${optargpath:-$(ls ${denovo_path}/hybridscaffold/optArguments*.xml)}
 optarg_path=${optargpath:-$(find . -name "optArguments*.xml" -print | head -n 1 | sed -e 's/\.\///')}
 testfileexist "${optarg_path}" "-q"
 
@@ -224,10 +222,7 @@ cmd="perl ${hybridscaff_path} \
 	-q ${optarg_path} \
 	-e ${errbin_path}"
 
-#	2>&1 | tee -a ${out_path}_log.txt"
-
 # print cmd to log
-#echo "# ${cmd}" 2>&1 | tee -a ${out_path}_log.txt
 echo "# ${cmd}"
 echo
 
@@ -248,6 +243,7 @@ dur=$(echo "${endts}-${startts}" | bc)
 
 echo
 echo "HS Done in ${dur} sec"
+
 echo
 echo "# now copying and archiving results"
 
@@ -303,5 +299,4 @@ exit 0
 #       -q    : Input de novo assembly pipeline optArguments XML script [optional; only required for -x option]
 #       -e    : Input de novo assembly noise parameter .errbin or .err file [optional; recommended for -y option but not required]
 #       -v    : Print pipeline version information
-#       -M    : Input a conflict resolution file indicating which NGS and BioNano conflicting contigs to be cut [optional] 
-      
+#       -M    : Input a conflict resolution file indicating which NGS and BioNano conflicting contigs to be cut [optional]
