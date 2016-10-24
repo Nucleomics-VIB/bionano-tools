@@ -105,7 +105,7 @@ function testfileexist ()
 {
 if [ ! -e "${1}" ]
 then
-	echo "! # ${1} file not found, provide with $2"
+	echo "! # ${1} file not found, provide with ${2}"
 	echo "${usage}"
 	exit 1
 else
@@ -201,9 +201,13 @@ if [[ -e "$out_path" ]] ; then
 fi
 mkdir -f -p "$out_path"
 
-# build command and quote weird chars
-echo "# computing HS using the command:" | tee ${out_path}_log.txt
+# from here down, redirect all outputs to log file
+exec > >(tee -a ${out_path}_log.txt) 2>&1
 
+#echo "# computing HS using the command:" | tee ${out_path}_log.txt
+echo "# computing HS using the command:"
+
+# build hs command
 cmd="perl ${hybridscaff_path} \
 	-n ${fasta_seq} \
 	-b ${ref_cmap} \
@@ -218,17 +222,20 @@ cmd="perl ${hybridscaff_path} \
 	-y \
 	-p ${SCRIPTS} \
 	-q ${optarg_path} \
-	-e ${errbin_path} \
-	2>&1 | tee -a ${out_path}_log.txt"
-	
-# store cmd in log
-echo "# ${cmd}" 2>&1 | tee -a ${out_path}_log.txt
+	-e ${errbin_path}"
+
+#	2>&1 | tee -a ${out_path}_log.txt"
+
+# print cmd to log
+#echo "# ${cmd}" 2>&1 | tee -a ${out_path}_log.txt
+echo "# ${cmd}"
+echo
 
 # execute cmd
 ${cmd}
 
 if [ ! $? -eq 0 ]; then
-    echo "! hybridscaffold command failed, please check your parameters"
+	echo "! hybridscaffold command failed, please check your parameters"
 	exit 1
 fi
 
@@ -238,8 +245,10 @@ fi
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
-echo "HS Done in ${dur} sec" | tee -a ${out_path}_log.txt
 
+echo
+echo "HS Done in ${dur} sec"
+echo
 echo "# now copying and archiving results"
 
 # create result folder
@@ -260,10 +269,14 @@ cp ${errbin_path} ${result_folder}/
 
 # copy HS results
 cp ${out_path}_log.txt ${result_folder}/
-cp -r ${out_path}/* ${result_folder}/
+
+# copy folder content if not empty
+[ "$(ls -A ${out_path})" ] && cp -r ${out_path}/* ${result_folder}/
 
 # create archive from folder then delete original
 tar -zcvf ${denovo_path}/${result_folder}.tgz ${result_folder} && rm -rf ${result_folder}
+
+echo
 echo "# HS data was archived in ${result_folder}.tgz"
 
 exit 0

@@ -231,8 +231,12 @@ fi
 
 mkdir -p "$out_path"
 
+# from here down, redirect all outputs to log file
+exec > >(tee -a ${out_path}_log.txt) 2>&1
+
 # build command and quote weird chars
 echo "# computing SV from the provided data"
+echo
 cmd="python ${script_path}/runSV.py \
 	-r ${ref_cmap} \
 	-t ${refali_path} \
@@ -248,12 +252,13 @@ cmd="python ${script_path}/runSV.py \
 	${cxml_path} \
 	${sv_conf}"
 
-echo "# ${cmd}" 2>&1 | tee -a ${out_path}_log.txt
+echo "# ${cmd}"
 eval ${cmd}
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
-echo "Done in ${dur} sec" | tee -a ${out_path}_log.txt
+echo
+echo "Done in ${dur} sec"
 
 exit 0
 
