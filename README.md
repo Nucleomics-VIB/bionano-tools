@@ -566,13 +566,11 @@ The bash script **[run_SV.sh](general-tools/run_SV.sh)** runs SV analysis from f
 ### **run_HS.sh**
 *[[General-tools](#general-tools)]*  
 
-The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold analysis from files obtained in denovo assembly. The manual hybridscazffold using edited conflicts is not yet supported by this code which does only the regular HS.
+The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold analysis from files obtained in denovo assembly. The manual hybridscaffold using edited conflicts (-M) is not yet supported by this code which does only the regular HS. Please check that the default used xml files match your genome properties or link to the correct files.
 
 ```bash
-run_HS.sh
-! # -i folder not found!
 # Usage: run_HS.sh
-# script version 1.0, 2016_10_22
+# script version 1.1, 2016_10_22
 ## input files
 # [required: -i <assembly-folder> (used for other paths below)]
 # [required: -n <sequence fasta file>]
@@ -582,14 +580,18 @@ run_HS.sh
 # [-B <1|2|3 (filter for optical maps: default=2)>]
 # [-N <1|2|3 (filter for sequences: default=2)>]
 ## required config settings with default values
-# [-q <optArgument.xml (default to <assembly-folder>/optArguments_XXX.xml)>]
+# [-q <optArgument.xml (default to $SCRIPTS/optArguments_haplotype.xml)>]
 # [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
-# [-c <hybridScaffold_config.xml (default to <assembly-folder>/hybridScaffold_config.xml)>]
+# [-c <hybridScaffold_config.xml (default to $SCRIPTS/hybridScaffold/hybridScaffold_config.xml)>]
+# [-a use the _aggressive version (default OFF)]
 ## other parameters with default values
 # [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
 # [-p <path to Scripts (default to $SCRIPTS)>]
 # [-s <hybridScafffold.pl file (default to $SCRIPTS/HybridScaffold/hybridScafffold.pl)>]
 # [-r <RefAligner binary file (default to $TOOLS/RefAligner)>]
+## by-default parameters or arguments not accessible using this script
+# [-f and -x are set by default and not modifiable using this script]
+# [-M cannot be set here (run with manually edited conflicts.txt for secondary HS run]
 # [-h for this help]
 ```
 
