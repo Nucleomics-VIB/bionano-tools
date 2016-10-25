@@ -28,7 +28,7 @@ SCRIPTS="/home/bionano/scripts"
 # please do not modify below this limit #
 #########################################
 
-version="1.1, 2016_10_22"
+version="1.1, 2016_10_25"
 
 usage='# Usage: run_HS.sh
 # script version '${version}'
