@@ -591,7 +591,7 @@ The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold a
 # [-r <RefAligner binary file (default to $TOOLS/RefAligner)>]
 ## by-default parameters or arguments not accessible using this script
 # [-f and -x are set by default and not modifiable using this script]
-# [-M cannot be set here (run with manually edited conflicts.txt for secondary HS run]
+# [-M cannot be set here (run secondary HS with manually edited conflicts.txt)]
 # [-h for this help]
 ```
 
