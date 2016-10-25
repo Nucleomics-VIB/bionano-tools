@@ -51,14 +51,15 @@ usage='# Usage: run_HS.sh
 # [-r <RefAligner binary file (default to $TOOLS/RefAligner)>]
 # [-h for this help]'
 
-while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:h" opt; do
+while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
   case $opt in
     i) denovopath=${OPTARG} ;;
     n) fastaseq=${OPTARG} ;;
     b) refcmap=${OPTARG} ;;
-	m) bnxfile=${OPTARG} ;;
+    m) bnxfile=${OPTARG} ;;
     B) filtbnx=${OPTARG} ;;
     N) filtseq=${OPTARG} ;;
+    a) aggressive=${OPTARG} ;;
     q) optargpath=${OPTARG} ;;
     e) errbinfile=${OPTARG} ;;
     o) outpath=${OPTARG} ;;
@@ -169,8 +170,15 @@ testfileexist "${bnx_file}" "-m"
 errbin_path=${errbin_path:-$(find . -name "autoNoise1.errbin" -print | head -n 1 | sed -e 's/\.\///')}
 testfileexist "${errbin_path}" "-e"
 
-# check hybridScaffold_config.xml
-hybscaf_xml=${hybscafxml:-$(find . -name "hybridScaffold_config.xml" -print | head -n 1 | sed -e 's/\.\///')}
+# check hybridScaffold_config.xml or hybridScaffold_config_aggressive.xml
+if [ -z "${aggressive+x}" ]
+then
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | head -n 1 | sed -e 's/\.\///')}
+else
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | head -n 1 | sed -e 's/\.\///')}
+fi
+
+# check if hybridScaffold_config file is present
 testfileexist "${hybscaf_xml}" "-c"
 
 # check optArguments_XXX.xml
@@ -192,6 +200,7 @@ declare -a filters=(null '1=no filter' '2=cut contig at conflict' '3=exclude con
 ##############################################
 
 out_path=${outpath:-"${denovopath}/hybridscaffold"}
+
 if [[ -e "$out_path" ]]
 then
 	i=2
@@ -202,15 +211,19 @@ then
 	name="$out_path-$i"
 	out_path=${name}
 fi
-echo ${out_path}
-mkdir -p "${out_path}"
+
+mkdir -p "${out_path}/output"
 
 # from here down, redirect all outputs to log file
 log_file="${out_path}/HYBRID_SCAFFOLD_log.txt"
-exec > >(tee -a ${log_file}) 2>&1
+touch ${log_file}
 
-echo "# $(date)"
-echo "# computing HS using the command:"
+echo "# $(date)" | tee -a ${log_file}
+echo "# using hybridScaffold.pl version: $(perl ${hybridscaff_path} -v)" | tee -a ${log_file}
+echo | tee -a ${log_file}
+
+echo "# computing HS using the command:" | tee -a ${log_file}
+echo | tee -a ${log_file}
 
 # build hs command
 cmd="perl ${hybridscaff_path} \
@@ -219,28 +232,29 @@ cmd="perl ${hybridscaff_path} \
 	-m ${bnx_file} \
 	-c ${hybscaf_xml} \
 	-r ${refali_path} \
-	-o ${out_path} \
+	-o ${out_path}/output \
 	-f \
 	-B ${filt_bnx} \
 	-N ${filt_seq} \
 	-x \
-	-y \
 	-p ${SCRIPTS} \
 	-q ${optarg_path} \
-	-e ${errbin_path}"
+	-e ${errbin_path} "
 
 # print cmd to log
-echo "# ${cmd}"
+echo "# ${cmd}" | tee -a ${log_file}
 
-echo
-echo "## filtering optical maps with "${filters["${filt_bnx}"]}
-echo "## filtering NGS maps with "${filters["${filt_seq}"]}
+echo | tee -a ${log_file}
+echo "## filtering optical maps with "${filters["${filt_bnx}"]} | tee -a ${log_file}
+echo "## filtering NGS maps with "${filters["${filt_seq}"]} | tee -a ${log_file}
+echo "## using scaffolding settings from ${hybscaf_xml}" | tee -a ${log_file}
+echo | tee -a ${log_file}
 
 # execute cmd
-${cmd}
+{ ${cmd}; } 2>&1 | tee -a ${log_file}
 
 if [ $? -ne 0 ] ; then
-	echo "! hybridscaffold command failed, please check your parameters"
+	echo "! hybridscaffold command failed, please check your parameters" | tee -a ${log_file}
 	exit 1
 fi
 
@@ -251,45 +265,41 @@ fi
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
 
-echo
-echo "HS Done in ${dur} sec"
+echo | tee -a ${log_file}
+echo "HS Done in ${dur} sec" | tee -a ${log_file}
 
-echo
-echo "# now copying and archiving results"
+echo | tee -a ${log_file}
+echo "# now copying raw data and archiving results" | tee -a ${log_file}
 
-# create result folder
-base_folder=$(dirname ${out_path})
-hs_base=$(basename ${out_path})
+# add raw data and archive
+cp ${fasta_seq} ${out_path}/
+cp ${ref_cmap} ${out_path}/
+cp ${bnx_file} ${out_path}/
+cp ${hybscaf_xml} ${out_path}/
+cp ${optarg_path} ${out_path}/
+cp ${errbin_path} ${out_path}/
+
+# create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
+arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 
-result_folder=${base_folder}/hs_${hs_base}/${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}
-mkdir -p ${result_folder}/output
 
-# copy various input files
-cp ${fasta_seq} ${result_folder}/
-cp ${ref_cmap} ${result_folder}/
-cp ${bnx_file} ${result_folder}/
-cp ${hybscaf_xml} ${result_folder}/
-cp ${optarg_path} ${result_folder}/
-cp ${errbin_path} ${result_folder}/
+# archive with tar and pigz if present
+if hash pigz 2>/dev/null
+then
+	tar --use-compress-program="pigz -p8" -vf ${denovo_path}/${arch_file} ${out_path}
+else
+	tar -zcvf ${denovo_path}/${arch_file} ${out_path}
+fi
 
-# copy HS results
-cp ${out_path}_log.txt ${result_folder}/
-
-# copy folder content if not empty
-[ "$(ls -A ${out_path})" ] && cp -r ${out_path}/* ${result_folder}/output
-
-# create archive from folder then delete original
-tar -zcvf ${denovo_path}/${result_folder}.tgz ${result_folder} && rm -rf ${result_folder}
-
-echo
-echo "# HS data was archived in ${result_folder}.tgz"
+echo | tee -a ${log_file}
+echo "# HS data was archived in ${arch_file}" | tee -a ${log_file}
 
 exit 0
 
 # perl /home/mic_common/scripts_fresh/HybridScaffold/hybridScaffold.pl -h
-# 	
+#
 # Usage: perl hybridScaffold.pl <-h> 
 #	<-n ngs_file> <-b bng_cmap_file> <-c hybrid_config_xml> <-o output_folder> 
 #	<-B conflict_filter_level> <-N conflict_filter_level> <-f> 
