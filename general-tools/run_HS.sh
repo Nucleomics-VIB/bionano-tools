@@ -13,7 +13,7 @@
 # a folder with a full de-novo assembly file structure (from IrysSolve)
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
-# copy results to folder and create tar.gz archive; 2016/08/21; v1.1
+# add more control and parameter checking; 2016/10/25; v1.1
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -28,7 +28,7 @@ SCRIPTS="/home/bionano/scripts"
 # please do not modify below this limit #
 #########################################
 
-version="1.0, 2016_10_22"
+version="1.1, 2016_10_22"
 
 usage='# Usage: run_HS.sh
 # script version '${version}'
@@ -41,14 +41,18 @@ usage='# Usage: run_HS.sh
 # [-B <1|2|3 (filter for optical maps: default=2)>]
 # [-N <1|2|3 (filter for sequences: default=2)>]
 ## required config settings with default values
-# [-q <optArgument.xml (default to <assembly-folder>/optArguments_XXX.xml)>]
+# [-q <optArgument.xml (default to $SCRIPTS/optArguments_haplotype.xml)>]
 # [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
-# [-c <hybridScaffold_config.xml (default to <assembly-folder>/hybridScaffold_config.xml)>]
+# [-c <hybridScaffold_config.xml (default to $SCRIPTS/hybridScaffold/hybridScaffold_config.xml)>]
+# [-a use the _aggressive version (default OFF)]
 ## other parameters with default values
 # [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
 # [-p <path to Scripts (default to $SCRIPTS)>]
 # [-s <hybridScafffold.pl file (default to $SCRIPTS/HybridScaffold/hybridScafffold.pl)>]
 # [-r <RefAligner binary file (default to $TOOLS/RefAligner)>]
+## by-default parameters or arguments not accessible using this script
+# [-f and -x are set by default and not modifiable using this script]
+# [-M cannot be set here (run with manually edited conflicts.txt for secondary HS run]
 # [-h for this help]'
 
 while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
@@ -181,8 +185,8 @@ fi
 # check if hybridScaffold_config file is present
 testfileexist "${hybscaf_xml}" "-c"
 
-# check optArguments_XXX.xml
-optarg_path=${optargpath:-$(find . -name "optArguments*.xml" -print | head -n 1 | sed -e 's/\.\///')}
+# check optArguments_haplotype.xml
+optarg_path=${optargpath:-$(find ${script_path}/ -name "optArguments_haplotype.xml" -print | head -n 1 | sed -e 's/\.\///')}
 testfileexist "${optarg_path}" "-q"
 
 ######################################
@@ -247,7 +251,8 @@ echo "# ${cmd}" | tee -a ${log_file}
 echo | tee -a ${log_file}
 echo "## filtering optical maps with "${filters["${filt_bnx}"]} | tee -a ${log_file}
 echo "## filtering NGS maps with "${filters["${filt_seq}"]} | tee -a ${log_file}
-echo "## using scaffolding settings from ${hybscaf_xml}" | tee -a ${log_file}
+echo "## using assembly settings from ${optarg_path} (use -q to change)" | tee -a ${log_file}
+echo "## using scaffolding settings from ${hybscaf_xml} (use -c to change)" | tee -a ${log_file}
 echo | tee -a ${log_file}
 
 # execute cmd
