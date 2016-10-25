@@ -570,7 +570,7 @@ The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold a
 
 ```bash
 # Usage: run_HS.sh
-# script version 1.1, 2016_10_22
+# script version 1.1, 2016_10_25
 ## input files
 # [required: -i <assembly-folder> (used for other paths below)]
 # [required: -n <sequence fasta file>]
