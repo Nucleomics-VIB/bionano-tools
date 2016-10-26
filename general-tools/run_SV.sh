@@ -5,7 +5,7 @@
 # This bash script feeds parameters to the BNG python script runSV.py
 # * it adds a number of additional tests to make sure all inputs are present
 # * it facilitates the typing by resolving file paths automatically
-# * it remains fully customisable like the original \CodelineIndex
+# * it remains fully customisable like the original code
 
 ## Requirements:
 # a unix computer installed with working bionano code and scripts (version > 2.5; 2.1)
@@ -206,16 +206,17 @@ else
 fi
 
 # add sv conf if file provided and exists
-if [ ! -z "$svconf+x}" ]; then
+zero=0
+if [ -z "$svconf+x}" ]; then
 	if [[ $svconf -ge 0 && $svconf -le 2 ]] ; then 
-    	sv_conf="-s ${svconf}"
+    	sv_conf="${svconf}"
 	else
   		echo "# Invalid -s input: $svconf"
   		echo "${usage}" 
   		exit 1
 	fi
 else
-	sv_conf=''
+	sv_conf="${zero}"
 fi
 
 # create numbered output folder
@@ -233,16 +234,19 @@ fi
 mkdir -p "$out_path"
 
 # from here down, redirect all outputs to log file
-exec > >(tee -a ${out_path}_log.txt) 2>&1
+log_file="${out_path}/SV-analysis_log.txt"
+touch ${log_file}
 
 # build command and quote weird chars
-echo "# computing SV from the provided data"
-echo
+echo "# computing SV from the provided data" | tee -a ${log_file}
+echo | tee -a ${log_file}
+
 cmd="python ${script_path}/runSV.py \
 	-r ${ref_cmap} \
 	-t ${refali_path} \
 	-q ${query_path} \
 	-o ${out_path} \
+	-s ${sv_conf} \
 	-p ${script_path} \
 	-a ${optarg_path} \
 	-T ${maxthr} \
@@ -250,16 +254,23 @@ cmd="python ${script_path}/runSV.py \
 	-e ${err_path} \
 	-E ${errbin_path} \
 	${bed_path} \
-	${cxml_path} \
-	${sv_conf}"
+	${cxml_path}"
 
-echo "# ${cmd}"
-eval ${cmd}
+echo "# ${cmd}" | tee -a ${log_file}
+
+# execute cmd
+{ ${cmd}; } 2>&1 | tee -a ${log_file}
+
+if [ $? -ne 0 ] ; then
+	echo "! SV-analysis command failed, please check your parameters" | tee -a ${log_file}
+	exit 1
+fi
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
-echo
-echo "Done in ${dur} sec"
+
+echo | tee -a ${log_file}
+echo "Done in ${dur} sec" | tee -a ${log_file}
 
 exit 0
 

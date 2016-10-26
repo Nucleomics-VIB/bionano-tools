@@ -289,7 +289,6 @@ ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
 arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 
-
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
