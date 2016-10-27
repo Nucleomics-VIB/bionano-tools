@@ -220,8 +220,9 @@ else
 fi
 
 # create numbered output folder
-out_path="${outpath:-${denovopath}/${denovopath}_sv}"
-
+bng_base=$(basename ${denovo_path})
+ref_base=$(basename ${ref_cmap%.cmap})
+out_path="${outpath:-${denovopath}/SV_${denovopath}_vs_${ref_base}}"
 if [[ -e "$out_path" ]] ; then
 	i=2
 	while [[ -e "$out_path-$i" ]] ; do
