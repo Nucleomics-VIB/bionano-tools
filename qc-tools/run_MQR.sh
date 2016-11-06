@@ -41,7 +41,7 @@ usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 # script version '${version}'
 # [optional: -o <outfolder (default to current folder)>]
 # [optional: -l <minlen|150>]
-# [optional: -x <maxlen|2000>]
+# [optional: -x <maxlen|2500>]
 # [optional: -a <maxai|0.6>]
 # [optional: -s <minSNR|3.5>]
 # [optional: -p <pval|1e-9>]
