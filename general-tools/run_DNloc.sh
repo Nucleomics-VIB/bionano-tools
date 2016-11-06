@@ -117,11 +117,11 @@ fi
 #############################
 
 # check RefAligner in <TOOLS>
-refali_path=${"${TOOLS}/RefAligner"}
+refali_path="${TOOLS}/RefAligner"
 testexecutable "${refali_path}"
 
 # check Assembler in <TOOLS>
-assembl_path=${"${TOOLS}/Assembler"}
+assembl_path="${TOOLS}/Assembler"
 testexecutable "${assembl_path}"
 
 # locate pipelineCL in <SCRIPTS>
