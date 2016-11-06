@@ -11,9 +11,7 @@
 # a unix computer installed with working bionano code and scripts (version > 2.5; 2.1)
 # python present and working
 #
-# Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
-# add more control and parameter checking; 2016/10/25; v1.1
-#
+# Stephane Plaisance (VIB-NC+BITS) 2016/11/06; v1.0#
 # visit our Git: https://github.com/BITS-VIB
 
 # check and adapt the following parameters for your system
