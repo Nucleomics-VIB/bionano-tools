@@ -23,7 +23,7 @@
 # edit the following variables to match your system
 TOOLS="/home/bionano/tools"
 SCRIPTS="/home/bionano/scripts"
-pipelineCL=$SCRIPTS/pipelineCL.py
+pipelineCL="$SCRIPTS/pipelineCL.py"
 
 #########################################
 # please do not modify below this limit #
