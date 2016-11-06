@@ -595,7 +595,7 @@ The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold a
 # [-h for this help]
 ```
 
-### **run_HS.sh**
+### **run_DNloc.sh**
 *[[General-tools](#general-tools)]*  
 
 The bash script **[run_DNloc.sh](general-tools/run_DNloc.sh)** runs a denovo assembly using only local cpu (for servers without Xeon-Phi cards). Please read the full man page of the **pipelineCL.py** python command for more arguments.
