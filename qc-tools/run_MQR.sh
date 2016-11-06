@@ -16,6 +16,7 @@
 # added quoting paths to avoid issues with spaces
 # added more filtering options, 2015/09/20; v2.0
 # updated v2.4 parameters and added non-unique alignments, 2016-06-23; v2.1
+# added archiving at end of process, 2016-11-06; v2.2
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -34,7 +35,7 @@
 
 # check parameters for your system
 TOOLS=$BNG_TOOLS
-version="2.1, 2016_06_23"
+version="2.2, 2016_11_06"
 
 usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
 # script version '${version}'
@@ -78,7 +79,7 @@ startts=$(date +%s)
 
 # user-provided variables or defaults
 minlen=${minimumlen:-150}
-maxlen=${maximumlen:-2000}
+maxlen=${maximumlen:-2500}
 minsites=${minimumlabels:-5}
 maxsites=${maximumlabels:-200}
 maxai=${maxaverageint:-0.6}
@@ -121,13 +122,6 @@ if [ ! -f "${refcmap}" ]; then
     exit 1
 fi
 
-if [ -z "${outfolderpath}" ]
-then
-	outfolder=$(pwd)
-else
-	outfolder=${outfolderpath}
-fi
-
 if [ -z "${molnumber}" ]
 then
 	lim=''
@@ -135,8 +129,15 @@ else
 	lim="-randomize 1 -subset 1 ${molnumber}"
 fi
 
+if [ -z "${outfolderpath}" ]
+then
+	outfolder=$(pwd)
+else
+	outfolder=${outfolderpath}
+fi
+
 # create result folder
-outpath=${outfolder:-'MQR-results'}
+outpath=${outfolder}/MQR-results
 
 if [[ -e "$outpath" ]] ; then
 	i=2
@@ -147,7 +148,7 @@ if [[ -e "$outpath" ]] ; then
 	outpath=${name}
 fi
 
-mkdir "$outpath"
+mkdir -p ${outpath}
 
 # build command and quote weird chars
 echo "# computing MQR from basename(${bnxdata})"
@@ -182,7 +183,7 @@ cmd="${TOOLS}/RefAligner -f \
 	-minSNR ${minsnr} \
 	-MaxIntensity ${maxai} \
 	-T ${pval} \
-	-maxthreads ${maxthr} 
+	-maxthreads ${maxthr}
 	-hashgen 5 3 2.4 1.5 0.05 5.0 1 1 3 \
 	-hash \
 	-hashdelta 10 \
@@ -210,3 +211,28 @@ eval ${cmd}
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
 echo "Done in ${dur} sec"
+
+###############
+# post process
+###############
+
+echo "# now archiving results"
+echo
+
+# create archive from ${out_path} folder
+ref_base=$(basename ${ref_cmap%.cmap})
+bnx_base=$(basename ${bnxdata%.bnx})
+arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
+
+# archive with tar and pigz if present
+if hash pigz 2>/dev/null
+then
+	tar --use-compress-program="pigz -p8" -vf ${outfolder}/${arch_file} ${outpath}
+else
+	tar -zcvf ${outfolder}/${arch_file} ${outpath}
+fi
+
+echo
+echo "# MQR data was archived in ${outfolder}/${arch_file}"
+
+exit 0
