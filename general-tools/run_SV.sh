@@ -20,8 +20,13 @@
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
 # make sure you point to the latest code version !!
 
-TOOLS="/home/bionano/tools"
-SCRIPTS="/home/bionano/scripts"
+# edit the following variables to match your system
+#TOOLS="/home/bionano/tools"
+#SCRIPTS="/home/bionano/scripts"
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+SCRIPTS=$(echo $TOOLS | sed -e 's/tools$/scripts/')
 
 #########################################
 # please do not modify below this limit #
@@ -98,7 +103,7 @@ fi
 # server settings (adapt to your environment
 ############################################
 
-refali_path=${refalipath:-$BNGTOOLS}
+refali_path=${refalipath:-$TOOLS}
 if [[ ! -x "$refali_path/RefAligner" ]]
 then
 	echo "# RefAligner is not executable or found"

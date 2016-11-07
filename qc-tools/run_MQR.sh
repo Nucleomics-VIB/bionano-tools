@@ -206,7 +206,14 @@ cmd="${TOOLS}/RefAligner -f \
 	${lim}"
 
 echo "# ${cmd}"
-eval ${cmd}
+
+# execute cmd
+{ ${cmd}; } 2>&1
+
+if [ $? -ne 0 ] ; then
+	echo "! MQR command failed, please check your parameters"
+	exit 1
+fi
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)

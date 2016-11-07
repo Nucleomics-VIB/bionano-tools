@@ -19,8 +19,12 @@
 # make sure you point to the latest code version !!
 
 # edit the following variables to match your system
-TOOLS="/home/bionano/tools"
-SCRIPTS="/home/bionano/scripts"
+#TOOLS="/home/bionano/tools"
+#SCRIPTS="/home/bionano/scripts"
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+SCRIPTS=$(echo $TOOLS | sed -e 's/tools$/scripts/')
 pipelineCL="$SCRIPTS/pipelineCL.py"
 
 #########################################
