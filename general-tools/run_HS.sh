@@ -47,9 +47,8 @@ usage='# Usage: run_HS.sh
 # [-N <1|2|3 (filter for sequences: default=2)>]
 ## required config settings with default values
 # [-q <optArgument.xml (default to $SCRIPTS/optArguments_haplotype.xml)>]
+# [-a use the hybscaf.xml _aggressive_ version (default OFF)]
 # [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
-# [-c <hybridScaffold_config.xml (default to $SCRIPTS/hybridScaffold/hybridScaffold_config.xml)>]
-# [-a use the _aggressive version (default OFF)]
 ## other parameters with default values
 # [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
 # [-p <path to Scripts (default to $SCRIPTS)>]
@@ -60,7 +59,7 @@ usage='# Usage: run_HS.sh
 # [-M cannot be set here (run secondary HS with manually edited conflicts.txt)]
 # [-h for this help]'
 
-while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
+while getopts "i:n:b:m:B:N:q:e:o:p:s:c:r:ah" opt; do
   case $opt in
     i) denovopath=${OPTARG} ;;
     n) fastaseq=${OPTARG} ;;
@@ -72,9 +71,9 @@ while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
     q) optargpath=${OPTARG} ;;
     e) errbinfile=${OPTARG} ;;
     o) outpath=${OPTARG} ;;
-    c) hybscafxml=${OPTARG} ;;
     p) scriptpath=${OPTARG} ;;
     s) hybridscapath=${OPTARG} ;;
+    c) hybscafxml=${OPTARG} ;;
     r) refalipath=${OPTARG} ;;
     h) echo "${usage}" >&2; exit 0 ;;
     \?) echo "Invalid option: -${OPTARG}" >&2; exit 1 ;;
@@ -176,22 +175,26 @@ testvariabledef "${bnx_file}" "-m"
 testfileexist "${bnx_file}" "-m"
 
 # check autoNoise1.errbin
-errbin_path=${errbin_path:-$(find . -name "autoNoise1.errbin" -print | head -n 1 | sed -e 's/\.\///')}
+errbin_path=${errbin_path:-$(find ${denovopath} -name "autoNoise1.errbin" -print | \
+	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${errbin_path}" "-e"
 
 # check hybridScaffold_config.xml or hybridScaffold_config_aggressive.xml
 if [ -z "${aggressive+x}" ]
 then
-	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | head -n 1 | sed -e 's/\.\///')}
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | \
+		head -n 1 | sed -e 's/\.\///')}
 else
-	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | head -n 1 | sed -e 's/\.\///')}
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | \
+		head -n 1 | sed -e 's/\.\///')}
 fi
 
 # check if hybridScaffold_config file is present
 testfileexist "${hybscaf_xml}" "-c"
 
 # check optArguments_haplotype.xml
-optarg_path=${optargpath:-$(find ${script_path}/ -name "optArguments_haplotype.xml" -print | head -n 1 | sed -e 's/\.\///')}
+optarg_path=${optargpath:-$(find ${script_path}/ -name "optArguments_haplotype.xml" -print | \
+	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${optarg_path}" "-q"
 
 ######################################
