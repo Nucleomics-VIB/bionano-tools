@@ -237,7 +237,7 @@ if [[ -e "$out_path" ]] ; then
 	out_path=${name}
 fi
 
-mkdir -p "$out_path"
+mkdir -p "${out_path}"
 
 # from here down, redirect all outputs to log file
 log_file="${out_path}/SV-analysis_log.txt"
@@ -278,6 +278,27 @@ dur=$(echo "${endts}-${startts}" | bc)
 
 echo | tee -a ${log_file}
 echo "Done in ${dur} sec" | tee -a ${log_file}
+
+###############
+# post process
+###############
+
+echo "# now archiving results"
+echo
+
+# create archive from ${out_path} folder
+arch_base=$(basename ${out_path})
+
+# archive with tar and pigz if present
+if hash pigz 2>/dev/null
+then
+	tar --use-compress-program="pigz -p8" -cvf ${denovopath}/${arch_base}.tgz ${out_path}
+else
+	tar -zcvf ${denovopath}/${arch_base}.tgz ${out_path}
+fi
+
+echo
+echo "# MQR data was archived in ${outfolder}/${arch_file}"
 
 exit 0
 

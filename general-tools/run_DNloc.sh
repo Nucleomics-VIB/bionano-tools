@@ -244,36 +244,27 @@ echo "# now copying raw data and archiving results" | tee -a ${log_file}
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
-arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
-
-# compress using pigz if present
-if hash pigz 2>/dev/null
-then
-	tar_option='--use-compress-program="pigz -p8"'
-else
-	tar_option=''
-fi
+arch_base=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}
 
 # add selected files to archive
 outf=$outfolder/output
 
 find ${outf} -maxdepth 1 -type f -print0 | \
-	xargs -0 { tar ${tar_option} \
-	--exclude='*.tar.gz' \
+	xargs -0 { tar --exclude='*.tar.gz' \
 	--exclude='*_of_*.bnx' \
 	--exclude='*.map' \
 	--exclude='*_refined_*' \
 	--exclude='*_group*' \
 	--exclude='all_sorted.bnx' \
-	-cf ${denovo_path}/${arch_file} ;}
+	-cvf ${denovo_path}/${arch_base}.tar ;}
 
-tar ${tar_option} \
-	--exclude='*.tar.gz' \
+tar --exclude='*.tar.gz' \
 	--exclude='*.map' \
 	--exclude='*_refined_*' \
 	--exclude='*_group*' \
 	--append \
-	--file=${denovo_path}/${arch_file} \
+	--verbose \
+	--file=${denovo_path}/${arch_base}.tar \
 	${outf}/ref \
 	${outf}/contigs/alignmolvref/merge \
 	${outf}/contigs/exp_refineFinal1 \
@@ -281,22 +272,30 @@ tar ${tar_option} \
 
 # test if 'copynumber' folder is present
 if [ -d "${outf}/contigs/alignmolvref/copynumber" ]
-	tar ${tar_option} \
-		--exclude='*.tar.gz' \
+	tar --exclude='*.tar.gz' \
 		--exclude='*.map' \
 		--exclude='*_refined_*' \
 		--exclude='*_group*' \
 		--append \
-		--file=${denovo_path}/${arch_file} \
+		--verbose \
+		--file=${denovo_path}/${arch_base}.tar \
 		${outf}/contigs/alignmolvref/copynumber \
 else
 	echo "# no copy number data available" | tee -a ${log_file}
 fi
 
-tar ${tar_option} \
-	--append \
-	--file=${denovo_path}/${arch_file} \
+tar --append \
+	--verbose \
+	--file=${denovo_path}/${arch_base}.tar \
 	${outf}/contigs/exp_refineFinal1/alignmol/merge/EXP_REFINEFINAL1_merge.map
+
+# compress using pigz if present
+if hash pigz 2>/dev/null
+then
+	pigz -p8 ${arch_base}.tar
+else
+	gzip ${arch_base}.tar
+fi
 
 echo | tee -a ${log_file}
 echo "# denovo-assembly data was archived in ${arch_file}" | tee -a ${log_file}

@@ -238,18 +238,10 @@ arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -vf ${outfolder}/${arch_file} ${outpath}
-	tar --use-compress-program="pigz -p8" \
-		--append \
-		--file=${outfolder}/${arch_file} \
-		${refcmap} \
-		${bnxdata}
+	tar --use-compress-program="pigz -p8" -cvf ${outfolder}/${arch_file} \
+		${outpath}
 else
 	tar -zcvf ${outfolder}/${arch_file} ${outpath}
-	tar --append \
-		--file=${outfolder}/${arch_file} \
-		${refcmap} \
-		${bnxdata}
 fi
 
 echo

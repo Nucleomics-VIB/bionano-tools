@@ -297,7 +297,7 @@ arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -vf ${denovo_path}/${arch_file} ${out_path}
+	tar --use-compress-program="pigz -p8" -cvf ${denovo_path}/${arch_file} ${out_path}
 else
 	tar -zcvf ${denovo_path}/${arch_file} ${out_path}
 fi
