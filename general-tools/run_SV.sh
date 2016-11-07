@@ -298,7 +298,7 @@ else
 fi
 
 echo
-echo "# MQR data was archived in ${outfolder}/${arch_file}"
+echo "# MQR data was archived in ${denovopath}/${arch_base}.tgz"
 
 exit 0
 

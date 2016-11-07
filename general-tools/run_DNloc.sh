@@ -35,11 +35,12 @@ version="1.0, 2016_11_06"
 
 usage='# Usage: run_DNloc.sh
 # script version '${version}'
-## arguments
+## required arguments:
 # [required: -b <molecule BNX file to assemble>]
 # [required: -r <BioNano ref CMAP file for noise computation and stats>]
 # [required: -x <optArgument.xml>]
-# [optional: -o <assembly-base-folder (default current folder)>]
+## optional arguments:
+# [optional: -o <assembly-base-folder (default: denovo_assembly_loc)>]
 # [optional: -s <pipelineCL.py path (required if not in the default location)]
 # [optional: -t <max-threads | 8>]
 # [optional: -j <max-jobs (max-thread/2) | 4 >]
@@ -134,15 +135,14 @@ testfileexist "${pipelineCL}" "-s"
 max_thr=${maxthreads:-4}
 
 # max half the previous argument (dual thread jobs from '-N')
-max_jobs=${maxjobs:-2}
+max_job=${maxjobs:-2}
 
 ###########################################
 # minimal arguments provided and path exist
 ###########################################
 
-# check denovo_path
-denovo_path=${denovopath}
-testfolderexist "${denovo_path}" "-o"
+# set denovo_path
+denovo_path=${denovopath:-"denovo_assembly_loc"}
 
 # check molecules.bnx
 bnx_file=${bnxpath}
@@ -163,7 +163,7 @@ testfileexist "${opt_args}" "-x"
 # create numbered hybridscaffold output folder
 ##############################################
 
-out_path=${outpath:-"${denovopath}/denovo_assembly"}
+out_path=${outpath:-"${denovo_path}"}
 
 if [[ -e "$out_path" ]]
 then
@@ -179,7 +179,7 @@ fi
 mkdir -p "${out_path}/output"
 
 # copy data to ${out_path} folder
-cp ${cmap_ref} ${out_path}/
+cp ${ref_cmap} ${out_path}/
 cp ${bnx_file} ${out_path}/
 cp ${opt_args} ${out_path}/
 
@@ -202,12 +202,13 @@ cmd="python ${pipelineCL} \
  	-j ${max_job} \
  	-N 2 \
  	-i 5 \
- 	-a $BNG_SETTINGS/${opt_args} \
+ 	-a ${out_path}/${opt_args} \
  	-w \
+ 	-y \
  	-t $BNG_TOOLS/ \
- 	-l $outfolder/output \
- 	-b $outfolder/${bnx_file} \
- 	-r $outfolder/${cmap_ref}"
+ 	-l ${out_path}/output \
+ 	-b ${out_path}/${bnx_file} \
+ 	-r ${out_path}/${ref_cmap}"
 
 # print cmd to log
 echo "# ${cmd}" | tee -a ${log_file}
@@ -215,8 +216,8 @@ echo "# ${cmd}" | tee -a ${log_file}
 echo | tee -a ${log_file}
 echo "## using assembly settings from ${opt_args}" | tee -a ${log_file}
 echo "## using molecules from ${bnx_file}" | tee -a ${log_file}
-echo "## using reference cmap ${cmap_ref}" | tee -a ${log_file}
-echo "## using ${max_thr} thread for ${max_job} jobs" | tee -a ${log_file}
+echo "## using reference cmap ${ref_cmap}" | tee -a ${log_file}
+echo "## using ${max_thr} threads for ${max_job} jobs" | tee -a ${log_file}
 echo | tee -a ${log_file}
 
 # execute cmd
