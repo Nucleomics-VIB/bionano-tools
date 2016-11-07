@@ -34,7 +34,11 @@
 # –subset 1 5000
 
 # check parameters for your system
-TOOLS=$BNG_TOOLS
+#TOOLS=$BNG_TOOLS
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+
 version="2.2, 2016_11_06"
 
 usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
