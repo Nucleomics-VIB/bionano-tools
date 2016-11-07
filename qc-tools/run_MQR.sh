@@ -231,7 +231,7 @@ echo "# now archiving results"
 echo
 
 # create archive from ${out_path} folder
-ref_base=$(basename ${ref_cmap%.cmap})
+ref_base=$(basename ${refcmap%.cmap})
 bnx_base=$(basename ${bnxdata%.bnx})
 arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
 
@@ -239,8 +239,17 @@ arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
 if hash pigz 2>/dev/null
 then
 	tar --use-compress-program="pigz -p8" -vf ${outfolder}/${arch_file} ${outpath}
+	tar --use-compress-program="pigz -p8" \
+		--append \
+		--file=${outfolder}/${arch_file} \
+		${refcmap} \
+		${bnxdata}
 else
 	tar -zcvf ${outfolder}/${arch_file} ${outpath}
+	tar --append \
+		--file=${outfolder}/${arch_file} \
+		${refcmap} \
+		${bnxdata}
 fi
 
 echo
