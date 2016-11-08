@@ -616,10 +616,8 @@ REM: The denovo assembly is here done with a reference cmap and computing autono
 # [-h for this help]
 ```
 
-BioNano Genomics ManPage for pipelineCL.py
 <details>
-  <summary>Click to expand</summary>
-
+<summary>**BioNano Genomics ManPage for pipelineCL.py** (Click to expand)</summary>
 ```bash
 usage: pipelineCL.py [-h] [-T T] [-j MAXTHREADS] [-N N] [-G BED] [-i ITER]
                      [-I IMG] [-b BNX] [-l LOCAL] [-t TOOLS] [-B BYPASS]
@@ -703,7 +701,6 @@ optional arguments:
                      Analysis/SV/CopyNumberProfiles/DATA. Overrides -r
                      argument.
 ```
-
 </details>
 
 ## SysAdmin-tools
