@@ -1,6 +1,8 @@
 Applying the smap2bed.pl scripts to a smap sample data
 ==========
 
+REM: Since I made this script and page, BNG released a tool to convert smap to VCF. Please find it on their GitHub (https://github.com/bionanogenomics)
+
 A test data was extracted from some smap file generated with Irys as well as the graphical representation of all cmaps aligning to the test scaffold.
 ![xmap example](pictures/smap_example.png)
 
