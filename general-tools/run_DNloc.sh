@@ -42,7 +42,7 @@ usage='# Usage: run_DNloc.sh
 ## optional arguments:
 # [optional: -o <assembly-base-folder (default: denovo_assembly_loc)>]
 # [optional: -s <pipelineCL.py path (required if not in the default location)]
-# [optional: -t <max-threads | 8>]
+# [optional: -t <max-threads | 8 >]
 # [optional: -j <max-jobs (max-thread/2) | 4 >]
 # [-h for this help]'
 
