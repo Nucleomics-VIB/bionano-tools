@@ -598,7 +598,9 @@ The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold a
 ### **run_DNloc.sh**
 *[[General-tools](#general-tools)]*  
 
-The bash script **[run_DNloc.sh](general-tools/run_DNloc.sh)** runs a denovo assembly using only local cpu (for servers without Xeon-Phi cards). Please read the full man page of the **pipelineCL.py** python command for more arguments.
+The bash script **[run_DNloc.sh](general-tools/run_DNloc.sh)** runs a denovo assembly using only local cpu resources (for servers without Xeon-Phi cards). Please read the output of **python ${SCRIPTS}/pipelineCL.py -help**  for more arguments. 
+
+REM: The denovo assembly is here done with a reference cmap and computing autonoise against it. When your reference is not that good, please run a manual command instead of this script and omit the reference (-r) and the autonoise (-y) arguments. You can also limit the refinements to -i 3 to obtain a rough unsupervised assembly that can be used as reference for autonoise in a subsequent denovo run.
 
 ```bash
 # Usage: run_DNloc.sh
