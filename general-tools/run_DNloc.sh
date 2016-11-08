@@ -206,8 +206,7 @@ cmd="python ${pipelineCL} \
  	-t $BNG_TOOLS/ \
  	-l ${out_path}/output \
  	-b ${out_path}/${bnx_file} \
- 	-r ${out_path}/${ref_cmap} \
- 	/"
+ 	-r ${out_path}/${ref_cmap}"
 
 # print cmd to log
 echo "# ${cmd}" | tee -a ${log_file}
