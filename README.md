@@ -616,6 +616,96 @@ REM: The denovo assembly is here done with a reference cmap and computing autono
 # [-h for this help]
 ```
 
+BioNano Genomics ManPage for pipelineCL.py
+<details>
+  <summary>Click to expand</summary>
+
+```bash
+usage: pipelineCL.py [-h] [-T T] [-j MAXTHREADS] [-N N] [-G BED] [-i ITER]
+                     [-I IMG] [-b BNX] [-l LOCAL] [-t TOOLS] [-B BYPASS]
+                     [-e EXP] [-r REF] [-s GROUPSV] [-n] [-x] [-c CLEANUP]
+                     [-g SIZE] [-C CXML] [-w] [-a XML] [-L LAMBDAREF]
+                     [-p PERF] [-d] [-f NGSARG] [-F] [-u] [-U [GROUPCONTIGS]]
+                     [-v [VERSION]] [-S] [-V RUNSV] [-A] [-y] [-Y] [-m] [-H]
+
+Pipeline for de novo assembly - BioNano Genomics
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -T T               Available threads per Node [default 1]
+  -j MAXTHREADS      Threads per job [default 1]
+  -N N               Number of split bnx files; number of pairwise jobs is
+                     N*(N-1)/2 (optional, default: -T)
+  -G BED             Bed file for gaps, used in structural variation (SV)
+                     detection to check for SV overlap with reference gaps
+  -i ITER            Number of extension and merge iterations (default=1, must
+                     be in range [0,10], use 0 to skip)
+  -I IMG             File with listed paths for image processing; no longer
+                     supported--do not use (use without .bnx)
+  -b BNX             Input molecule (.bnx) file, required
+  -l LOCAL           Location of output files root directory, required, will
+                     be created if does not exist; if does exist, will
+                     overwrite contents (may be error-prone)
+  -t TOOLS           Location of executable files (RefAligner and Assembler,
+                     required)
+  -B BYPASS          Skip steps, using previous result. <= 0:None,
+                     1:ImgDetect, 2:NoiseChar/Subsample, 3:Pairwise,
+                     4:Assembly, 5:RefineA, 6:RefineB, (7:RefineNGS -f only),
+                     7:merge0, 8+(i-1)*2:Ext(i), 9+(i-1)*2:Mrg(i),
+                     N+1:alignmol
+  -e EXP             Output file prefix (optional, default = exp)
+  -r REF             Reference file (must be .cmap), to compare resulting
+                     contigs (optional)
+  -s GROUPSV         SV jobs configuration: 0 = single job (required for
+                     correct haplotype calls), 1 = single job per contig (not
+                     recommended), 2 = grouped (default 0; optional)
+  -n                 Evaluate single molecule noise characterization
+  -x                 Exit after auto noise (noise characterization), do not
+                     preform de novo assembly
+  -c CLEANUP         Remove contig results (0 - keep all (default), 1 - remove
+                     intermediate files, 2 - store in sqlite, 3 - store in
+                     sqlite and remove)
+  -g SIZE            Organism genome size estimate in megabases, used for
+                     tuning assembly parameters [optional, if > 0, will modify
+                     parameters, if == 0, ignored, must be float]
+  -C CXML            Run on cluster, read XML file for submission arguments
+                     (optional--will not use cluster submission if absent)
+  -w                 Wipe clean previous contig results
+  -a XML             Read XML file for parameters (required)
+  -L LAMBDAREF       Lambda phage is spiked in, used for molecule scaling
+                     (only used with -I input)
+  -p PERF            Log performance in pipelineReport 0=None, 1=time, 2=perf,
+                     3=time&perf (default=1)
+  -d                 Retired option (contig subdirectories), always enabled.
+  -f NGSARG          Directory which contains NGS contigs as cmaps for use in
+                     refineNGS (no longer supported).
+  -F                 When using -f, disable min contigs check for all stages
+                     prior to refineNGS (no longer supported).
+  -u                 Do not perform final refinement (not recommended).
+  -U [GROUPCONTIGS]  Group contigs in refinement and extension stages [default
+                     ON, use 0 to disable]
+  -v [VERSION]       Print version; exit if argument > 1 supplied.
+  -S                 Log stdout/stderr of all RefAligner calls in files with
+                     same names as output files and suffix .stdout (default on
+                     --use this flag to turn off).
+  -V RUNSV           Detect structural variations. Default: only after final
+                     stage (normally refineFinal); if argument 2, also after
+                     refineB; if argument 0, disable.
+  -A                 Align molcules to final contigs (ON by default, use this
+                     to turn off).
+  -y                 Automatically determine noise parameters (requires
+                     reference; optional, default off)
+  -Y                 Disable scan scaling in auto noise (default on with
+                     reference and -y)
+  -m                 Disable molecule vs reference alignments (default on with
+                     reference)
+  -H                 Use HG19 (human genome) as reference, loaded from
+                     Analysis/SV/CopyNumberProfiles/DATA. Overrides -r
+                     argument.
+```
+
+</details>
+
 ## SysAdmin-tools
 *[[back-to-top](#top)]*  
 
