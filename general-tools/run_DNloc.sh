@@ -51,7 +51,7 @@ while getopts "b:r:x:o:s:t:j:h" opt; do
     b) bnxpath=${OPTARG} ;;
     r) refcmappath=${OPTARG} ;;
     x) optargpath=${OPTARG} ;;
-    o) denovopath=${OPTARG} ;;
+    o) outpath=${OPTARG} ;;
     s) pipelineCLpath=${OPTARG} ;;
     t) maxthreads=${OPTARG} ;;
     j) maxjobs=${OPTARG} ;;
@@ -141,9 +141,6 @@ max_job=${maxjobs:-2}
 # minimal arguments provided and path exist
 ###########################################
 
-# set denovo_path
-denovo_path=${denovopath:-"denovo_assembly_loc"}
-
 # check molecules.bnx
 bnx_file=${bnxpath}
 testvariabledef "${bnx_file}" "-b"
@@ -160,19 +157,20 @@ testvariabledef "${opt_args}" "-x"
 testfileexist "${opt_args}" "-x"
 
 ##############################################
-# create numbered hybridscaffold output folder
+# create numbered denovo assembly output folder
 ##############################################
 
-out_path=${outpath:-"${denovo_path}"}
+# set denovo_path
+out_path=${outpath:-"loc-denovo_assembly"}
 
-if [[ -e "$out_path" ]]
+if [[ -e "${out_path}" ]]
 then
 	i=2
-	while [[ -e "$out_path-$i" ]]
+	while [[ -e "${out_path}-$i" ]]
 	do
 		let i++
 	done
-	name="$out_path-$i"
+	name="${out_path}-$i"
 	out_path=${name}
 fi
 
@@ -208,7 +206,8 @@ cmd="python ${pipelineCL} \
  	-t $BNG_TOOLS/ \
  	-l ${out_path}/output \
  	-b ${out_path}/${bnx_file} \
- 	-r ${out_path}/${ref_cmap}"
+ 	-r ${out_path}/${ref_cmap} \
+ 	/"
 
 # print cmd to log
 echo "# ${cmd}" | tee -a ${log_file}
@@ -244,20 +243,21 @@ echo "# now copying raw data and archiving results" | tee -a ${log_file}
 
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
-seq_base=$(basename ${fasta_seq%.f*})
-arch_base=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}
+bnx_base=$(basename ${bnx_file%.bnx})
+arch_base=${bnx_base}_vs_${ref_base}_loc-denovo
 
 # add selected files to archive
-outf=$outfolder/output
+outf=${out_path}/output
 
 find ${outf} -maxdepth 1 -type f -print0 | \
-	xargs -0 { tar --exclude='*.tar.gz' \
+xargs -r0 tar \
+	--exclude='*.tar.gz' \
 	--exclude='*_of_*.bnx' \
 	--exclude='*.map' \
 	--exclude='*_refined_*' \
 	--exclude='*_group*' \
 	--exclude='all_sorted.bnx' \
-	-cvf ${denovo_path}/${arch_base}.tar ;}
+	-cvf ${out_path}/${arch_base}.tar
 
 tar --exclude='*.tar.gz' \
 	--exclude='*.map' \
@@ -265,37 +265,37 @@ tar --exclude='*.tar.gz' \
 	--exclude='*_group*' \
 	--append \
 	--verbose \
-	--file=${denovo_path}/${arch_base}.tar \
+	--file=${out_path}/${arch_base}.tar \
 	${outf}/ref \
 	${outf}/contigs/alignmolvref/merge \
 	${outf}/contigs/exp_refineFinal1 \
 	${outf}/contigs/exp_refineFinal1_sv
 
 # test if 'copynumber' folder is present
-if [ -d "${outf}/contigs/alignmolvref/copynumber" ]
+if [ -d "${outf}/contigs/alignmolvref/copynumber" ] ; then
 	tar --exclude='*.tar.gz' \
 		--exclude='*.map' \
 		--exclude='*_refined_*' \
 		--exclude='*_group*' \
 		--append \
 		--verbose \
-		--file=${denovo_path}/${arch_base}.tar \
-		${outf}/contigs/alignmolvref/copynumber \
+		--file=${out_path}/${arch_base}.tar \
+		${outf}/contigs/alignmolvref/copynumber
 else
 	echo "# no copy number data available" | tee -a ${log_file}
 fi
 
 tar --append \
 	--verbose \
-	--file=${denovo_path}/${arch_base}.tar \
+	--file=${out_path}/${arch_base}.tar \
 	${outf}/contigs/exp_refineFinal1/alignmol/merge/EXP_REFINEFINAL1_merge.map
 
 # compress using pigz if present
 if hash pigz 2>/dev/null
 then
-	pigz -p8 ${arch_base}.tar
+	pigz -p8 ${out_path}/${arch_base}.tar
 else
-	gzip ${arch_base}.tar
+	gzip ${out_path}/${arch_base}.tar
 fi
 
 echo | tee -a ${log_file}

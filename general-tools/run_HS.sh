@@ -38,9 +38,9 @@ version="1.1, 2016_10_25"
 usage='# Usage: run_HS.sh
 # script version '${version}'
 ## input files
-# [required: -i <assembly-folder> (used for other paths below)]
+# [required: -i <assembly-folder> (containing the output folder)]
 # [required: -n <sequence fasta file>]
-# [required: -b <BioNano CMAP file: exp_refineFinal1_contigs.cmap>]
+# [required: -b <BioNano CMAP file: EXP_REFINEFINAL1.cmap>]
 # [required: -m <molecule BNX file to align molecules to genome maps and hybrid scaffolds>]
 ## conflict filtering: 1=no filter, 2=cut contig at conflict, 3=exclude conflicting contig 
 # [-B <1|2|3 (filter for optical maps: default=2)>]
@@ -193,7 +193,7 @@ fi
 testfileexist "${hybscaf_xml}" "-c"
 
 # check optArguments_haplotype.xml
-optarg_path=${optargpath:-$(find ${script_path}/ -name "optArguments_haplotype.xml" -print | \
+optarg_path=${optargpath:-$(find ${denovopath}/ -name "optArguments*.xml" -print | \
 	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${optarg_path}" "-q"
 
@@ -295,7 +295,7 @@ cp ${errbin_path} ${out_path}/
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
-arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
+arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
