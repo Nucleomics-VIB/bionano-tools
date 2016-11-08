@@ -611,7 +611,7 @@ REM: The denovo assembly is here done with a reference cmap and computing autono
 # [required: -x <optArgument.xml>]
 # [optional: -o <assembly-base-folder (default current folder)>]
 # [optional: -s <pipelineCL.py path (required if not in the default location)]
-# [optional: -t <max-threads | 8>]
+# [optional: -t <max-threads | 8 >]
 # [optional: -j <max-jobs (max-thread/2) | 4 >]
 # [-h for this help]
 ```
