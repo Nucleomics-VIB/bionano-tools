@@ -184,9 +184,11 @@ if [ -z "${aggressive+x}" ]
 then
 	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | \
 		head -n 1 | sed -e 's/\.\///')}
+	nametag=""
 else
 	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | \
 		head -n 1 | sed -e 's/\.\///')}
+	nametag="_aggressive"
 fi
 
 # check if hybridScaffold_config file is present
@@ -227,7 +229,7 @@ fi
 mkdir -p "${out_path}/output"
 
 # from here down, redirect all outputs to log file
-log_file="${out_path}/HYBRID_SCAFFOLD_log.txt"
+log_file="${out_path}/HYBRID_SCAFFOLD.log"
 touch ${log_file}
 
 echo "# $(date)" | tee -a ${log_file}
@@ -295,7 +297,7 @@ cp ${errbin_path} ${out_path}/
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
-arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
+arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}${nametag}.tgz
 
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
