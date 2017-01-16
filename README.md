@@ -570,20 +570,19 @@ The bash script **[run_HS.sh](general-tools/run_HS.sh)** runs a hybridScaffold a
 
 ```bash
 # Usage: run_HS.sh
-# script version 1.1, 2016_10_25
+# script version 1.2, 2017_01_15
 ## input files
-# [required: -i <assembly-folder> (used for other paths below)]
+# [required: -i <assembly-folder> (containing the output folder)]
 # [required: -n <sequence fasta file>]
-# [required: -b <BioNano CMAP file: exp_refineFinal1_contigs.cmap>]
+# [required: -b <BioNano CMAP file: EXP_REFINEFINAL1.cmap>]
 # [required: -m <molecule BNX file to align molecules to genome maps and hybrid scaffolds>]
 ## conflict filtering: 1=no filter, 2=cut contig at conflict, 3=exclude conflicting contig 
 # [-B <1|2|3 (filter for optical maps: default=2)>]
 # [-N <1|2|3 (filter for sequences: default=2)>]
 ## required config settings with default values
 # [-q <optArgument.xml (default to $SCRIPTS/optArguments_haplotype.xml)>]
+# [-a use the hybscaf.xml _aggressive_ version (default OFF)]
 # [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
-# [-c <hybridScaffold_config.xml (default to $SCRIPTS/hybridScaffold/hybridScaffold_config.xml)>]
-# [-a use the _aggressive version (default OFF)]
 ## other parameters with default values
 # [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
 # [-p <path to Scripts (default to $SCRIPTS)>]
