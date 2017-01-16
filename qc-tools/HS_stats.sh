@@ -14,16 +14,18 @@
 # visit our Git: https://github.com/BITS-VIB
 
 # run within the assembly folder (root of all HS runs)
+# give the HS result folder as argument
+
 infolder=$1
 refcmap="$(ls *.cmap)"
 infasta="$(basename $(ls ${infolder}/*.fa* | head -1))"
 incmap="$(basename $(ls ${infolder}/output/fa2cmap/*.cmap))"
-results="${infolder}/HS_stats_${infasta}.txt"
+results="${infolder}/HS_stats_${infasta%%.fa*}_vs_${refcmap%%.cmap}.txt"
 
 # edit if required
 BNG_HSSCRIPTS=$BNG_SCRIPTS/HybridScaffold/scripts
 
-echo "# computing HS stats for ${infasta} vs ${refmap}"
+echo "# computing HS stats for ${infasta} vs ${refcmap}"
 
 (echo -n "${infasta}"$'\t'; perl $BNG_HSSCRIPTS/calc_cmap_stats.pl ${refcmap} | tr "=" "\t" | transpose -t | head -1 | sed -e 's/ \+/_/g' | sed -e 's/_\b//g' | column -t) > ${results}
 (echo -n "${refcmap}"$'\t'; perl $BNG_HSSCRIPTS/calc_cmap_stats.pl ${refcmap} | tr "=" "\t" | transpose -t | tail -1 | column -t) >>  ${results}
@@ -32,3 +34,5 @@ echo "# computing HS stats for ${infasta} vs ${refmap}"
 (echo -n "filtered-not-used NGS"$'\t'; perl $BNG_HSSCRIPTS/calc_cmap_stats.pl ${infolder}/output/align_final/filtered_not_used_NGS.cmap | tr "=" "\t" | transpose -t | tail -1 | column -t) >> ${results}
 (echo -n "filtered BNG"$'\t'; perl $BNG_HSSCRIPTS/calc_cmap_stats.pl ${infolder}/output/align_final/filtered_BNG.cmap | tr "=" "\t" | transpose -t | tail -1 | column -t) >> ${results}
 (echo -n "filtered-not-used BNG"$'\t'; perl $BNG_HSSCRIPTS/calc_cmap_stats.pl ${infolder}/output/align_final/filtered_not_used_BNG.cmap | tr "=" "\t" | transpose -t | tail -1 | column -t) >> ${results}
+
+cat ${results}
