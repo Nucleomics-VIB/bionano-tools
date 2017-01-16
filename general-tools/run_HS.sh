@@ -14,6 +14,7 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
 # add more control and parameter checking; 2016/10/25; v1.1
+# correct errbin typo; v1.2
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -33,7 +34,7 @@ SCRIPTS=$(echo $TOOLS | sed -e 's/tools$/scripts/')
 # please do not modify below this limit #
 #########################################
 
-version="1.1, 2016_10_25"
+version="1.2, 2017_01_15"
 
 usage='# Usage: run_HS.sh
 # script version '${version}'
@@ -69,7 +70,7 @@ while getopts "i:n:b:m:B:N:q:e:o:p:s:c:r:ah" opt; do
     N) filtseq=${OPTARG} ;;
     a) aggressive=${OPTARG} ;;
     q) optargpath=${OPTARG} ;;
-    e) errbinfile=${OPTARG} ;;
+    e) errbinpath=${OPTARG} ;;
     o) outpath=${OPTARG} ;;
     p) scriptpath=${OPTARG} ;;
     s) hybridscapath=${OPTARG} ;;
@@ -175,7 +176,7 @@ testvariabledef "${bnx_file}" "-m"
 testfileexist "${bnx_file}" "-m"
 
 # check autoNoise1.errbin
-errbin_path=${errbin_path:-$(find ${denovopath} -name "autoNoise1.errbin" -print | \
+errbin_path=${errbinpath:-$(find ${denovopath} -name "autoNoise1.errbin" -print | \
 	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${errbin_path}" "-e"
 
@@ -184,11 +185,9 @@ if [ -z "${aggressive+x}" ]
 then
 	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | \
 		head -n 1 | sed -e 's/\.\///')}
-	nametag=""
 else
 	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | \
 		head -n 1 | sed -e 's/\.\///')}
-	nametag="_aggressive"
 fi
 
 # check if hybridScaffold_config file is present
@@ -229,7 +228,7 @@ fi
 mkdir -p "${out_path}/output"
 
 # from here down, redirect all outputs to log file
-log_file="${out_path}/HYBRID_SCAFFOLD.log"
+log_file="${out_path}/HYBRID_SCAFFOLD_log.txt"
 touch ${log_file}
 
 echo "# $(date)" | tee -a ${log_file}
@@ -297,12 +296,12 @@ cp ${errbin_path} ${out_path}/
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
-arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}${nametag}.tgz
+arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -cvf ${denovo_path}/${arch_file} ${out_path}
+	tar --use-compress-program="pigz" -cvf ${denovo_path}/${arch_file} ${out_path}
 else
 	tar -zcvf ${denovo_path}/${arch_file} ${out_path}
 fi
