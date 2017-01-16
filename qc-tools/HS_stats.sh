@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Compute stats for all cmap files after HS run using the BNG calc_cmap.pl
 # return all results in a transposed tab-separated table
 #
@@ -20,6 +19,9 @@ refcmap="$(ls *.cmap)"
 infasta="$(basename $(ls ${infolder}/*.fa* | head -1))"
 incmap="$(basename $(ls ${infolder}/output/fa2cmap/*.cmap))"
 results="${infolder}/HS_stats_${infasta}.txt"
+
+# edit if required
+BNG_HSSCRIPTS=$BNG_SCRIPTS/HybridScaffold/scripts
 
 echo "# computing HS stats for ${infasta} vs ${refmap}"
 
