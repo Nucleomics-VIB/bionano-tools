@@ -14,6 +14,7 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
 # add more control and parameter checking; 2016/10/25; v1.1
+# correct errbin typo; v1.2
 #
 # visit our Git: https://github.com/BITS-VIB
 
@@ -21,30 +22,34 @@
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
 # make sure you point to the latest code version !!
 
-TOOLS="/home/bionano/tools"
-SCRIPTS="/home/bionano/scripts"
+# edit the following variables to match your system
+#TOOLS="/home/bionano/tools"
+#SCRIPTS="/home/bionano/scripts"
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+SCRIPTS=$(echo $TOOLS | sed -e 's/tools$/scripts/')
 
 #########################################
 # please do not modify below this limit #
 #########################################
 
-version="1.1, 2016_10_25"
+version="1.2, 2017_01_15"
 
 usage='# Usage: run_HS.sh
 # script version '${version}'
 ## input files
-# [required: -i <assembly-folder> (used for other paths below)]
+# [required: -i <assembly-folder> (containing the output folder)]
 # [required: -n <sequence fasta file>]
-# [required: -b <BioNano CMAP file: exp_refineFinal1_contigs.cmap>]
+# [required: -b <BioNano CMAP file: EXP_REFINEFINAL1.cmap>]
 # [required: -m <molecule BNX file to align molecules to genome maps and hybrid scaffolds>]
 ## conflict filtering: 1=no filter, 2=cut contig at conflict, 3=exclude conflicting contig 
 # [-B <1|2|3 (filter for optical maps: default=2)>]
 # [-N <1|2|3 (filter for sequences: default=2)>]
 ## required config settings with default values
 # [-q <optArgument.xml (default to $SCRIPTS/optArguments_haplotype.xml)>]
+# [-a use the hybscaf.xml _aggressive_ version (default OFF)]
 # [-e <errbin file (defaults to <assembly-folder>/output/contigs/auto_noise/autoNoise1.errbin)>]
-# [-c <hybridScaffold_config.xml (default to $SCRIPTS/hybridScaffold/hybridScaffold_config.xml)>]
-# [-a use the _aggressive version (default OFF)]
 ## other parameters with default values
 # [-o <output folder (default to <assembly-folder>/hybridscaffold#>]
 # [-p <path to Scripts (default to $SCRIPTS)>]
@@ -55,7 +60,7 @@ usage='# Usage: run_HS.sh
 # [-M cannot be set here (run secondary HS with manually edited conflicts.txt)]
 # [-h for this help]'
 
-while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
+while getopts "i:n:b:m:B:N:q:e:o:p:s:c:r:ah" opt; do
   case $opt in
     i) denovopath=${OPTARG} ;;
     n) fastaseq=${OPTARG} ;;
@@ -65,11 +70,11 @@ while getopts "i:n:b:m:B:N:q:e:o:c:p:s:r:ah" opt; do
     N) filtseq=${OPTARG} ;;
     a) aggressive=${OPTARG} ;;
     q) optargpath=${OPTARG} ;;
-    e) errbinfile=${OPTARG} ;;
+    e) errbinpath=${OPTARG} ;;
     o) outpath=${OPTARG} ;;
-    c) hybscafxml=${OPTARG} ;;
     p) scriptpath=${OPTARG} ;;
     s) hybridscapath=${OPTARG} ;;
+    c) hybscafxml=${OPTARG} ;;
     r) refalipath=${OPTARG} ;;
     h) echo "${usage}" >&2; exit 0 ;;
     \?) echo "Invalid option: -${OPTARG}" >&2; exit 1 ;;
@@ -171,22 +176,26 @@ testvariabledef "${bnx_file}" "-m"
 testfileexist "${bnx_file}" "-m"
 
 # check autoNoise1.errbin
-errbin_path=${errbin_path:-$(find . -name "autoNoise1.errbin" -print | head -n 1 | sed -e 's/\.\///')}
+errbin_path=${errbinpath:-$(find ${denovopath} -name "autoNoise1.errbin" -print | \
+	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${errbin_path}" "-e"
 
 # check hybridScaffold_config.xml or hybridScaffold_config_aggressive.xml
 if [ -z "${aggressive+x}" ]
 then
-	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | head -n 1 | sed -e 's/\.\///')}
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config.xml" -print | \
+		head -n 1 | sed -e 's/\.\///')}
 else
-	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | head -n 1 | sed -e 's/\.\///')}
+	hybscaf_xml=${hybscafxml:-$(find ${script_path}/HybridScaffold -name "hybridScaffold_config_aggressive.xml" -print | \
+		head -n 1 | sed -e 's/\.\///')}
 fi
 
 # check if hybridScaffold_config file is present
 testfileexist "${hybscaf_xml}" "-c"
 
 # check optArguments_haplotype.xml
-optarg_path=${optargpath:-$(find ${script_path}/ -name "optArguments_haplotype.xml" -print | head -n 1 | sed -e 's/\.\///')}
+optarg_path=${optargpath:-$(find ${denovopath}/ -name "optArguments*.xml" -print | \
+	head -n 1 | sed -e 's/\.\///')}
 testfileexist "${optarg_path}" "-q"
 
 ######################################
@@ -287,12 +296,12 @@ cp ${errbin_path} ${out_path}/
 # create archive from ${out_path} folder
 ref_base=$(basename ${ref_cmap%.cmap})
 seq_base=$(basename ${fasta_seq%.f*})
-arch_file=${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
+arch_file=HS-${ref_base}_vs_${seq_base}_B${filt_bnx}_N${filt_seq}.tgz
 
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -vf ${denovo_path}/${arch_file} ${out_path}
+	tar --use-compress-program="pigz" -cvf ${denovo_path}/${arch_file} ${out_path}
 else
 	tar -zcvf ${denovo_path}/${arch_file} ${out_path}
 fi

@@ -20,8 +20,13 @@
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
 # make sure you point to the latest code version !!
 
-TOOLS="/home/bionano/tools"
-SCRIPTS="/home/bionano/scripts"
+# edit the following variables to match your system
+#TOOLS="/home/bionano/tools"
+#SCRIPTS="/home/bionano/scripts"
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+SCRIPTS=$(echo $TOOLS | sed -e 's/tools$/scripts/')
 
 #########################################
 # please do not modify below this limit #
@@ -98,7 +103,7 @@ fi
 # server settings (adapt to your environment
 ############################################
 
-refali_path=${refalipath:-$BNGTOOLS}
+refali_path=${refalipath:-$TOOLS}
 if [[ ! -x "$refali_path/RefAligner" ]]
 then
 	echo "# RefAligner is not executable or found"
@@ -232,7 +237,7 @@ if [[ -e "$out_path" ]] ; then
 	out_path=${name}
 fi
 
-mkdir -p "$out_path"
+mkdir -p "${out_path}"
 
 # from here down, redirect all outputs to log file
 log_file="${out_path}/SV-analysis_log.txt"
@@ -273,6 +278,27 @@ dur=$(echo "${endts}-${startts}" | bc)
 
 echo | tee -a ${log_file}
 echo "Done in ${dur} sec" | tee -a ${log_file}
+
+###############
+# post process
+###############
+
+echo "# now archiving results"
+echo
+
+# create archive from ${out_path} folder
+arch_base=$(basename ${out_path})
+
+# archive with tar and pigz if present
+if hash pigz 2>/dev/null
+then
+	tar --use-compress-program="pigz -p8" -cvf ${denovopath}/${arch_base}.tgz ${out_path}
+else
+	tar -zcvf ${denovopath}/${arch_base}.tgz ${out_path}
+fi
+
+echo
+echo "# MQR data was archived in ${denovopath}/${arch_base}.tgz"
 
 exit 0
 

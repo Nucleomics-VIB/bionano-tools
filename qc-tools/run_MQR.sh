@@ -34,7 +34,11 @@
 # –subset 1 5000
 
 # check parameters for your system
-TOOLS=$BNG_TOOLS
+#TOOLS=$BNG_TOOLS
+
+# try auto-detect (RefAligner is in PATH!)
+TOOLS=$(dirname $(which RefAligner))
+
 version="2.2, 2016_11_06"
 
 usage='# Usage: runMQR.sh -i <molecules.bnx> -r <reference.cmap>
@@ -206,7 +210,14 @@ cmd="${TOOLS}/RefAligner -f \
 	${lim}"
 
 echo "# ${cmd}"
-eval ${cmd}
+
+# execute cmd
+{ ${cmd}; } 2>&1
+
+if [ $? -ne 0 ] ; then
+	echo "! MQR command failed, please check your parameters"
+	exit 1
+fi
 
 endts=$(date +%s)
 dur=$(echo "${endts}-${startts}" | bc)
@@ -220,14 +231,15 @@ echo "# now archiving results"
 echo
 
 # create archive from ${out_path} folder
-ref_base=$(basename ${ref_cmap%.cmap})
+ref_base=$(basename ${refcmap%.cmap})
 bnx_base=$(basename ${bnxdata%.bnx})
 arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
 
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -vf ${outfolder}/${arch_file} ${outpath}
+	tar --use-compress-program="pigz -p8" -cvf ${outfolder}/${arch_file} \
+		${outpath}
 else
 	tar -zcvf ${outfolder}/${arch_file} ${outpath}
 fi
