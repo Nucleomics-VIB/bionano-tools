@@ -16,7 +16,7 @@
 # add more control and parameter checking; 2016/10/25; v1.1
 # correct errbin typo; v1.2
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # check and adapt the following parameters for your system
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
