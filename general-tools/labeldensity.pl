@@ -16,7 +16,8 @@
 # restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/BITS-VIB/ngs-tools)
 # bedtools (from: https://github.com/arq5x/bedtools2/releases)
 # 2histo.R (https://github.com/BITS-VIB/plotting-tools)
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use warnings;
 use strict;

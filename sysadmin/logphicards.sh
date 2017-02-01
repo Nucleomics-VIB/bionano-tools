@@ -9,6 +9,8 @@
 #
 # Stephane Plaisance VIB-BITS march-14-2016 v1.0
 # fixed small bugs (v1.1; 2016-03-15)
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 usage='# Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>'

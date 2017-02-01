@@ -10,7 +10,7 @@
 # Stephane Plaisance (VIB-NC+BITS) 2016/06/01; v1.2
 # handle no label case leading to div/0 error (empty rows X11 and X12)
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

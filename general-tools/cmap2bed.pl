@@ -6,7 +6,8 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/12/02; v1.3
 # added field-name as name in BED
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

@@ -19,7 +19,7 @@
 # + allow 10 additional header lines before '# BNX' 
 #   when cli manipulations have added more comment rows
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

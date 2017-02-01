@@ -9,7 +9,8 @@
 # added field-name as name in BED
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/27; v1.1
 # added translate BNG keys back to real names in Fasta assembly
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

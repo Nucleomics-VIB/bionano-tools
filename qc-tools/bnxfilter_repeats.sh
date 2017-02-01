@@ -8,7 +8,7 @@
 
 # Stephane Plaisance (VIB-NC+BITS) 2016/03/04; v1.0
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # check parameters for your system
 TOOLS=$BNG_TOOLS

@@ -8,7 +8,7 @@ use Data::Dumper;
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/12/08; v1.0
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 getopts('i:h');
 our($opt_i, $opt_h);

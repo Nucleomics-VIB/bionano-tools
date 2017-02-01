@@ -7,7 +7,8 @@
 ## supports gzipped BNX files
 
 # Stephane Plaisance (VIB-NC+BITS) 2015/12/01; v1.0
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

@@ -11,7 +11,7 @@
 
 # Stephane Plaisance (VIB-NC+BITS) 2016/12/05; v1.0
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # run within the assembly folder (root of all HS runs)
 # give the HS result folder as argument

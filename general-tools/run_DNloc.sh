@@ -11,8 +11,9 @@
 # a unix computer installed with working bionano code and scripts (version > 2.5; 2.1)
 # python present and working
 #
-# Stephane Plaisance (VIB-NC+BITS) 2016/11/06; v1.0#
-# visit our Git: https://github.com/BITS-VIB
+# Stephane Plaisance (VIB-NC+BITS) 2016/11/06; v1.0
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # check and adapt the following parameters for your system
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")

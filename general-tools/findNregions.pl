@@ -16,7 +16,8 @@ use File::Tee qw(tee);
 # support for archives 2015/06/30 v1.03
 #
 # handle complex fasta headers including description
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # disable buffering to get output during long process (loop)
 $|=1;

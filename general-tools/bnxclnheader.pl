@@ -8,7 +8,8 @@
 ## designed to work with BNX 1.2 format
 
 # Stephane Plaisance (VIB-NC+BITS) 2015/06/13; v1.0
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

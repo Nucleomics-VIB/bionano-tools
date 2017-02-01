@@ -22,7 +22,8 @@
 
 # Stephane Plaisance (VIB-NC+BITS) 2016/05/30; v2.0.0
 # + added filter label average-snr and label average-ai
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

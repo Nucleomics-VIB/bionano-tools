@@ -6,7 +6,8 @@
 # adds X11 and X12 rows and fill with arbitrary values
 
 # Stephane Plaisance (VIB-NC+BITS) 2016/06/13; v1.0
-# visit our Git: https://github.com/BITS-VIB
+#
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

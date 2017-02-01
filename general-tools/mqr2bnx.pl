@@ -7,7 +7,7 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/06/12; v1.0
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;

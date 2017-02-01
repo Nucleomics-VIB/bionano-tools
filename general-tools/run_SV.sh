@@ -14,7 +14,7 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2016/08/18; v1.0
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 # check and adapt the following parameters for your system
 # TIP: the paths may start with "/home/mic_common/" (with aliases in "/home/bionano")
