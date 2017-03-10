@@ -21,7 +21,8 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[Shiny-apps](#shiny-apps)**  
 
-- **[BNX_viewer.shinyapp](#BNX_viewer.shinyapp)** -
+- **[BNX_viewer.shinyapp](#bnx_viewershinyapp)** -
+
 
 ## QC-tools
 *[[back-to-top](#top)]*  
