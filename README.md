@@ -725,12 +725,13 @@ The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metri
 
 Those additional tools belong on a Shiny server and will execute R code in a interactive manner (please refder to https://shiny.rstudio.com/ for info about Shiny).
 
-### **BNX_viewer.shinyapp 
-
-This app loads BNX data and creates scattreplots with filtering (no export at this point, one can easily use built-in functions for that purpose).
-
-
+### **BNX_viewer.shinyapp** 
 *[[Shiny-apps](#shiny-apps)]*
+
+The **[BNX_viewer.shinyapp](shiny-apps/BNX_viewer.shinyapp)** app loads BNX data and creates scattreplots with filtering (no export at this point, one can easily use built-in functions for that purpose).
+
+
+
 
 
 ### **logphicards.sh**
