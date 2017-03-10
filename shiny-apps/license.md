@@ -1,6 +1,5 @@
 <a href="https://www.bits.vib.be" target="_blank"><a href="http://www.nucleomics.be/" target="_blank"><img src="http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png"\>
-![Nucleomics-Core](pictures/NC_logo.png)
-![pacbio-tools](pictures/pacbio_icon.png)
+![Nucleomics-Core](../pictures/NC_logo.png)
 
 This work is owned by **<a href="http://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, the 'sequencing' facility of **<a href="http://www.vib.be" target="_blank">VIB</a>**.
 
