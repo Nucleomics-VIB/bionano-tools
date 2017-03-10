@@ -731,15 +731,6 @@ Those additional tools belong on a Shiny server and will execute R code in a int
 The **[BNX_viewer.shinyapp](shiny-apps/BNX_viewer.shinyapp)** app loads BNX data and creates scattreplots with filtering (no export at this point, one can easily use built-in functions for that purpose).
 
 
-
-
-
-### **logphicards.sh**
-*[[SysAdmin-tools](#sysadmin-tools)]*  
-
-
-
-
 *[[back-to-top](#top)]*  
 
 <hr>
