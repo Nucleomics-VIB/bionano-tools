@@ -14,7 +14,10 @@ library("ggplot2")
 library("data.table")
 
 # limit upload to 1GB
-options(shiny.maxRequestSize=1000*1024^2) 
+# the limit was kept low to make the online shiniapps.io version work with a sample BNX file
+# such sample can be downloaded from the github page (look into the BNX_viewer.shinyapp Data folder)
+# you may uncomment the next line to allow large input files
+#options(shiny.maxRequestSize=1000*1024^2) 
 script.version="1.0"
 
 # defaults for controllers
