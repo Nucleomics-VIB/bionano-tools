@@ -1,4 +1,4 @@
-<a href="https://www.bits.vib.be" target="_blank"><a href="http://www.nucleomics.be/" target="_blank"><img src="../pictures/NC_logo.png" width=160 height=60\> 
+<a href="https://www.bits.vib.be" target="_blank"><a href="http://www.nucleomics.be/" target="_blank"><img src="../pictures/NC_logo.png" width=160 height=60\></a>
 
 This work is owned by **<a href="http://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, the 'sequencing' facility of **<a href="http://www.vib.be" target="_blank">VIB</a>**.
 
