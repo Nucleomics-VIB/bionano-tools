@@ -19,6 +19,10 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 - **[logphicards.sh](#logphicardssh)** -
 
+**[Shiny-apps](#shiny-apps)**  
+
+- **[BNX_viewer.shinyapp](#BNX_viewer.shinyapp)** -
+
 ## QC-tools
 *[[back-to-top](#top)]*  
 
@@ -705,8 +709,6 @@ optional arguments:
 ## SysAdmin-tools
 *[[back-to-top](#top)]*  
 
-**[logphicards.sh](#logphicardssh)** -   
-
 Those additional tools that we had to develop to troublechoot problems.
 
 ### **logphicards.sh**
@@ -717,6 +719,25 @@ The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metri
 # Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>
 ```
+
+## Shiny-apps
+*[[back-to-top](#top)]*  
+
+Those additional tools belong on a Shiny server and will execute R code in a interactive manner (please refder to https://shiny.rstudio.com/ for info about Shiny).
+
+### **BNX_viewer.shinyapp 
+
+This app loads BNX data and creates scattreplots with filtering (no export at this point, one can easily use built-in functions for that purpose).
+
+
+*[[Shiny-apps](#shiny-apps)]*
+
+
+### **logphicards.sh**
+*[[SysAdmin-tools](#sysadmin-tools)]*  
+
+
+
 
 *[[back-to-top](#top)]*  
 
