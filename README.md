@@ -729,7 +729,7 @@ Those additional tools belong on a Shiny server and will execute R code in a int
 ### **BNX_viewer.shinyapp** 
 *[[Shiny-apps](#shiny-apps)]*
 
-The **[BNX_viewer.shinyapp](shiny-apps/BNX_viewer.shinyapp)** app loads BNX data and creates scattreplots with filtering (no export at this point, one can easily use built-in functions for that purpose). A live version was posted to https://nucleomics-core.shinyapps.io/bnx_filter/ (this version is size limited, please use only small BNX files to keep this server alive). A sample BNX file is present in the 'Data' subfolder for your convenience [(sample.bnx)](https://github.com/Nucleomics-VIB/bionano-tools/raw/master/shiny-apps/BNX_viewer.shinyapp/Data/sample.bnx).
+The **[BNX_viewer.shinyapp](shiny-apps/BNX_viewer.shinyapp)** app loads BNX data from a file and creates scatterplots or histograms with filtering (no export at this point, one can easily use built-in functions for that purpose). A live version was posted to https://nucleomics-core.shinyapps.io/bnx_filter/ (the hosted version is size limited due to the hosting policy but accepts large BNX files when hosted on your own servzer or run locally). A sample BNX file can be downloaded from the App or '''[here](https://github.com/Nucleomics-VIB/bionano-tools/raw/master/shiny-apps/BNX_viewer.shinyapp/Data/sample.bnx)''' for testing.
 
 
 *[[back-to-top](#top)]*  
