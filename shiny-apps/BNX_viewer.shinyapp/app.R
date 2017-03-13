@@ -1,5 +1,5 @@
 # BNX_viewer.shinyapp
-# A R/shiny tool to create a scatterplot from BNX data
+# A R/shiny tool to create scatterplots or histograms from BNX data
 # designed to work with BNX 1.2 format
 #
 # Stephane Plaisance, VIB Nucleomics Core
