@@ -1,3 +1,4 @@
+![nclogo](http://www.vib.be/VIBMediaLibrary/Logos/Service_facilities/BITS_website.jpg)
 <a href="https://www.bits.vib.be" target="_blank"><img src="http://www.vib.be/VIBMediaLibrary/Logos/Service_facilities/BITS_website.jpg"\></a>
 &nbsp;-&nbsp;
 <a href="http://www.nucleomics.be/" target="_blank"><img src="http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png"\></a>
