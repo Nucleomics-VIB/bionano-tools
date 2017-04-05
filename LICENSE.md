@@ -1,5 +1,6 @@
+<a href="http://www.nucleomics.be/" target="_blank">
 ![nclogo](http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png)
-<a href="http://www.nucleomics.be/" target="_blank"><img src="http://www.nucleomics.be/wp-content/uploads/logo_nucleomics_core_208_61_transparant_bigLetters.png"\></a>
+</a>
 
 This work is owned by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, and/or by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**; the 'sequencing' and 'bioinformatics training' facilities of **<a href="http://www.vib.be" target="_blank">VIB</a>** respectively.
 
