@@ -1,5 +1,4 @@
-<a href="http://www.nucleomics.be/" target="_blank"><img src="https://github.com/Nucleomics-VIB/bionano-tools/blob/master/NC_logo.png"\></a>
-![NClogo](https://github.com/Nucleomics-VIB/NC_logo.png)
+<p><a href="http://www.nucleomics.be/" target="_blank"><img src="NC_logo.png"\></a></po>
 This work is owned by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, and/or by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**; the 'sequencing' and 'bioinformatics training' facilities of **<a href="http://www.vib.be" target="_blank">VIB</a>** respectively.
 
 This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
