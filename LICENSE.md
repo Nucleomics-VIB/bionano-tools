@@ -1,4 +1,4 @@
-<p><a href="http://www.nucleomics.be/" target="_blank"><img src="NC_logo.png"\></a></po>
+<p><a href="http://www.nucleomics.be/" target="_blank"><img src="NC_logo.png" width=200 height=78\></a></p>
 This work is owned by **<a href="https://www.nucleomics.be" target="_blank">the Nucleomics Core</a>**, and/or by **<a href="https://www.bits.vib.be" target="_blank">BITS</a>**; the 'sequencing' and 'bioinformatics training' facilities of **<a href="http://www.vib.be" target="_blank">VIB</a>** respectively.
 
 This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
