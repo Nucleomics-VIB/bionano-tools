@@ -620,6 +620,28 @@ REM: The denovo assembly is here done with a reference cmap and computing autono
 # [-h for this help]
 ```
 
+### **agp2bed.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[agp2bed.pl](general-tools/agp2bed.pl)** converts AGP files from hybriscaffolding to BED format to recover information about the original sequences.
+
+```bash
+Aim: Convert AGP data to BED. You must provide a AGP file with -i
+## Usage: agp2bed.pl <-i AGP-file>
+# <-h to display this help>
+```
+
+### **dovetail2bed.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[dovetail2bed.pl](general-tools/dovetail2bed.pl)** converts Dovetail text files describing ID mappings to BED format to recover information about the original sequences.
+
+```bash
+Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder) to BED.
+## Usage: dovetail2bed.pl <-i XXX.table.txt or XXX.input_breaks.txt>
+# <-h to display this help>
+```
+
 ## SysAdmin-tools
 *[[back-to-top](#top)]*  
 
