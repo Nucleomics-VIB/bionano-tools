@@ -16,6 +16,7 @@ use Getopt::Std;
 my $usage="## Usage: 
 fastaCleanHeader.pl <-i fasta_file (required)>
 # <-o output file name (default to \"cleaned_\"<infile>; optional)>
+# <-c keep only the leftmost word (display_id field; optional)>
 # <-d delimiter (default to \'|\'; optional)>
 # <-z to compress results with bgzip>
 # <-h to display this help>";
@@ -23,14 +24,14 @@ fastaCleanHeader.pl <-i fasta_file (required)>
 ####################
 # declare variables
 ####################
-getopts('i:o:d:zh');
-our ($opt_i, $opt_o, $opt_d, $opt_z, $opt_h);
+getopts('i:o:d:czh');
+our ($opt_i, $opt_o, $opt_d, $opt_c, $opt_z, $opt_h);
 
 my $infile = $opt_i || die $usage."\n";
 (my $base = $infile) =~ s/\.f[nasta]+(.*z.*)?$//;
-
 my $outfile = $opt_o || $base."_cleaned";
 my $delim = $opt_d || "|";
+my $clean = $opt_c || undef;
 my $zipit = defined($opt_z) || undef;
 defined($opt_h) && die $usage."\n";
 
@@ -40,7 +41,6 @@ my @header = "";
 # process multifasta
 my $seq_in = OpenArchiveFile($infile);
 my $seq_out;
-
 if ( defined($zipit) ) {
 	$seq_out = Bio::SeqIO -> new( -format => 'Fasta', -file => "|bgzip -c >$outfile.fa.gz" );
 } else {
@@ -48,7 +48,14 @@ if ( defined($zipit) ) {
 }
 
 while ( my $seq = $seq_in->next_seq() ) {
-	my $curname = $seq->display_id()." ".$seq->accession_number()." ".$seq->desc();
+	my $curname;
+	if ( defined($clean) ) {
+	$curname = $seq->display_id();
+	} else {
+	$curname = $seq->display_id()." ".$seq->accession_number()." ".$seq->desc();
+	}
+	
+	# further clean spaces
 	(my $newname = $curname) =~ s/[ ]+/$delim/g;
 
 	# echo changes
