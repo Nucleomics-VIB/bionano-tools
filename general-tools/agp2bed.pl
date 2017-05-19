@@ -6,7 +6,7 @@
 ## deduce true coordinates from '_subseq_start:end'
 
 # Stephane Plaisance (VIB-NC+BITS) 2017/05/09; v1.0
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
 use warnings;
