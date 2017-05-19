@@ -645,7 +645,7 @@ Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder)
 ### **HSlog2report.pl**
 *[[General-tools](#general-tools)]* 
 
-The perl script converts HYBRID_SCAFFOLD.log to hybrid_scaffold_informatics_report.txt. The obtained report file is absent when working on IrysSolve and required for BN-access.
+The perl script **[HSlog2report.pl](general-tools/HSlog2report.pl)** converts HYBRID_SCAFFOLD.log to hybrid_scaffold_informatics_report.txt. The obtained report file is absent when working on IrysSolve and required for BN-access.
 
 ```bash
 Usage: move to where HYBRID_SCAFFOLD.log is located and run /path_to/HSlog2report.pl
