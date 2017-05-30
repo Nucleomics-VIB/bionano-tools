@@ -4,6 +4,13 @@
 #
 # Stephane Plaisance (VIB-NC+BITS) 2015/12/04; v1.0
 # supports compressed files (zip, gzip, bgzip)
+# the key file can be produced using the faSize tool (Jim Kent)
+## create key file from fasta file
+## asm=<assembly file>
+## c=0; 
+## while read id l; do c=$((c+1)); 
+## echo -e "$c\t$id\t$l"; 
+## done < <(faSize -detailed ${asm}) > ${asm}.keys.txt
 #
 # visit our Git: https://github.com/Nucleomics-VIB
 
