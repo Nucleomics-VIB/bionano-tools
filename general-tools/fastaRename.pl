@@ -14,17 +14,19 @@ use Getopt::Std;
 
 my $usage="## Usage: 
 fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
+# <-r reverse convertion (optional, default to forward)>
 # <-h to display this help>";
 
 ####################
 # declare variables
 ####################
-getopts('i:o:k:h');
-our ($opt_i, $opt_o, $opt_k, $opt_h);
+getopts('i:o:k:rh');
+our ($opt_i, $opt_o, $opt_k, $opt_r, $opt_h);
 
 my $infile = $opt_i || die $usage."\n";
 my $outfile = $opt_o || "renamed_".$infile;
 my $keyfile = $opt_k || die $usage."\n";
+my $reverse = defined($opt_r) || undef;
 defined($opt_h) && die $usage."\n";
 
 # load keys from keyfile
@@ -37,12 +39,18 @@ open KEYS, $keyfile or die $!;
 while (my $line = <KEYS>) {
 	$line =~ s/\s+$//;
 	next if ($line =~ /^#|^$|^CompntId/);
-	#next if ($line =~ /^$/);
-	#next if ($line =~ /^CompntId/);
+
 	# fill a hash with replacement numbers
 	my @keys = split /\t/, $line;
-	$translate{$keys[1]} = $keys[0];
-	print STDOUT $keys[1]." => ".$translate{$keys[1]}."\n";
+	if ( defined($reverse) ) {
+		# forward renaming: CompntId to CompntName
+		$translate{$keys[0]} = $keys[1];
+		print STDOUT "\"".$keys[0]."\" => \"".$translate{$keys[0]}."\"\n";
+	} else {
+		# reverse renaming: CompntName to CompntId
+		$translate{$keys[1]} = $keys[0];
+		print STDOUT "\"".$keys[1]."\" => \"".$translate{$keys[1]}."\"\n";
+	}
 }
 close KEYS;
 print STDOUT "\n";
@@ -54,6 +62,8 @@ my $seq_out = Bio::SeqIO -> new( -format => 'Fasta', -file => ">$outfile" );
 
 while ( my $seq = $seq_in->next_seq() ) {
 	my $curname = $seq->display_id()." ".$seq->desc;
+	# trim spaces around
+	$curname =~ s/^\s+|\s+$//g;
 	my $newname = $translate{$curname};
 	print STDOUT "# renaming: \"".$curname."\" to ".$newname."\n";
 	$seq->display_id($newname);
@@ -62,7 +72,7 @@ while ( my $seq = $seq_in->next_seq() ) {
 	$seq_out->write_seq($seq); 
 	}
 
-close $seq_in;
+undef $seq_in;
 
 exit 0;
 
