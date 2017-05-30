@@ -19,8 +19,7 @@ use strict;
 use Bio::SeqIO;
 use Getopt::Std;
 
-my $usage="## Usage: 
-fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
+my $usage="## Usage: fastaRename.pl <-i fasta_file (required)> <-k key file (required)>
 # <-r reverse convertion (optional, default to forward)>
 # <-h to display this help>";
 
