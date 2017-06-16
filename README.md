@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[General-tools](#general-tools)**
 
-- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[HSlog2report.pl](#hslog2reportpl)**
+- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)**
 
 **[SysAdmin-tools](#sysadmin-tools)**  
 
@@ -651,6 +651,18 @@ You can copy this file in the Access **C:\Bionano\access\web\Server\databaseFile
 
 ```bash
 Usage: move to where HYBRID_SCAFFOLD.log is located and run /path_to/HSlog2report.pl
+```
+
+### **Gff3ToUCSCBed9.pl**
+*[[General-tools](#general-tools)]* 
+The perl script **[Gff3ToUCSCBed9.pl](general-tools/HSlog2report.pl)** converts **GFF** formatted annotations to a **BED**-9 file that can be loaded in Bionano Access. It requires a key file translating original NGS contigs names into IDs (should match what was used for assembly and HS).
+
+```bash
+# Gff3ToUCSCBed9.pl (version 1.0, 2017-06-16)
+## Usage: Gff3ToUCSCBed9.pl <-i gff3 file (required)> <-k key file (required)>
+# optional <-o name for bed output>
+# optional <-f feature type (default to gene, can be exon, cds, ...)>
+# <-h to display this help>
 ```
 
 ## SysAdmin-tools
