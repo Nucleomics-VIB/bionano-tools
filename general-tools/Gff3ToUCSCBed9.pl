@@ -5,15 +5,16 @@ use warnings;
 use File::Basename;
 use Getopt::Std;
 
-# convert GFF3 annotations to UCSC bed-12 format for Bionano access
+# convert GFF3 annotations to UCSC bed-9 format for Bionano access
+# also convert original contigs names to BioNano IDs from a matching key file
 #
 # Stephane Plaisance (VIB-NC) initial version 2017-06-16; v1.0
 # visit our Git: https://github.com/Nucleomics-VIB
 
 my $version ="1.0, 2017-06-16";
 
-my $usage="# Gff3ToUCSCBed12.pl (version $version)
-## Usage: Gff3ToUCSCBed12.pl <-i gff3 file (required)> <-k key file (required)>
+my $usage="# Gff3ToUCSCBed9.pl (version $version)
+## Usage: Gff3ToUCSCBed9.pl <-i gff3 file (required)> <-k key file (required)>
 # optional <-o name for bed output>
 # optional <-f feature type (default to gene, can be exon, cds, ...)>
 # <-h to display this help>";
