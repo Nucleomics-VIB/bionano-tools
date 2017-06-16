@@ -654,7 +654,8 @@ Usage: move to where HYBRID_SCAFFOLD.log is located and run /path_to/HSlog2repor
 ```
 
 ### **Gff3ToUCSCBed9.pl**
-*[[General-tools](#general-tools)]* 
+*[[General-tools](#general-tools)]*
+
 The perl script **[Gff3ToUCSCBed9.pl](general-tools/HSlog2report.pl)** converts **GFF** formatted annotations to a **BED**-9 file that can be loaded in Bionano Access. It requires a key file translating original NGS contigs names into IDs (should match what was used for assembly and HS).
 
 ```bash
@@ -674,6 +675,7 @@ Those additional tools that we had to develop to troublechoot problems.
 *[[SysAdmin-tools](#sysadmin-tools)]*  
 
 The perl script **[logphicards.sh](sysadmin/logphicards.sh)** logs several metrics for the 6 Xeon-phi cards present in our server and stores the results in a text file. The log file is then used to plot the different parameters as shown in a demo report attached **[here](sysadmin/thinkmate_logging.pdf)**.
+
 ```bash
 # Usage: logphicards.sh
 #    -t <log-frequency in sec (default 60sec)>
