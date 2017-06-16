@@ -3,13 +3,13 @@
 # designed to work with BNX 1.2 format
 #
 # Stephane Plaisance, VIB Nucleomics Core
-# visit our Git: https://github.com/Nucleomics-VIB 
+# visit our Git: https://github.com/Nucleomics-VIB
 # version: 2017-03-10_v1.0
 # version 1.1, added density histogram
 # version 1.2, added L50 and N50 data and lines
 # © by using this tool, you accept the licence saved under ./www/licence.pdf
 
-library(shiny)
+library("shiny")
 library("readr")
 library("stringr")
 library("ggplot2")
@@ -45,8 +45,8 @@ def.val3 <- c(0, 100)
 convert.magic <- function(obj, types){
   for (i in 1:length(obj)){
     FUN <- switch(types[i],
-                  character = as.character, 
-                  numeric = as.numeric, 
+                  character = as.character,
+                  numeric = as.numeric,
                   factor = as.factor)
     obj[,i] <- FUN(obj[,i])
   }
@@ -62,7 +62,7 @@ calc.n50 <- function (x){
     gt.avg <- as.vector(csum >= avg.len)
     L50 <- min(which(gt.avg == TRUE))
     N50 <- round(sorted[L50], 1)
-  } else { 
+  } else {
     L50=NA
     N50=NA
   }
@@ -71,31 +71,31 @@ calc.n50 <- function (x){
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-  
-  # Application header 
+
+  # Application header
   headerPanel(
   "BNX molecule distribution viewer"
   ),
-  
+
   # Application title
   titlePanel(
     windowTitle = "BNX molecule distribution and filtering",
     tags$a(href="https://corefacilities.vib.be/nc", target="_blank", img(src='logo.png', align = "right", width="150", height="58.5", alt="VIB Nucleomics Core"))
   ),
-  
+
   # Choose input BNX file
   sidebarLayout(
-    # show file import and molecule filters 
+    # show file import and molecule filters
     sidebarPanel(
       tags$h4(paste("code version: ", script.version, sep="")),
       downloadButton("downloadData", label = "Download test data"),
       tags$br(),
       tags$a(href="license.pdf", target="_blank", "usage licence"),
-      hr(),
+      tags$hr(),
       fileInput('file1', 'Choose BNX File', accept='.bnx'),
 
       tags$h4("choose different axes for the scatterplot"),
-      
+
       selectInput('Xaxis', 'X-axis:',
                   c("Molecule length" = "molLength",
                     "Molecule Average Intensity" = "molAvgIntensity",
@@ -104,7 +104,7 @@ ui <- fluidPage(
                     "labels per 100k" = "label100kdens"),
                   selected = def.selin1
       ),
-      
+
       selectInput('Yaxis', 'Y-axis:',
                   c("Molecule length" = "molLength",
                     "Molecule Average Intensity" = "molAvgIntensity",
@@ -114,39 +114,39 @@ ui <- fluidPage(
                     "NA: histogram density for the X-axis" = "histo"),
                   selected = def.selin2
       ),
-      
+
       hr(),
       tags$h4("modify ranges below and click ", tags$em("Calculate & Plot")),
-      
-      sliderInput('length', 
-                  "Molecule length (kb):", 
-                  min = def.min1, 
-                  max = def.max1, 
-                  step = 10, 
+
+      sliderInput('length',
+                  "Molecule length (kb):",
+                  min = def.min1,
+                  max = def.max1,
+                  step = 10,
                   value = def.val1
       ),
-      
-      sliderInput('mAI', 
-                  "Molecule AvgIntensity (au):", 
-                  min = def.min2, 
-                  max = def.max2, 
-                  step = 0.05, 
+
+      sliderInput('mAI',
+                  "Molecule AvgIntensity (au):",
+                  min = def.min2,
+                  max = def.max2,
+                  step = 0.05,
                   value = def.val2
       ),
-      
-      sliderInput('mSNR', 
-                  "Molecule SNR (au):", 
-                  min = def.min3, 
-                  max = def.max3, 
-                  step = 1, 
+
+      sliderInput('mSNR',
+                  "Molecule SNR (au):",
+                  min = def.min3,
+                  max = def.max3,
+                  step = 1,
                   value = def.val3
       ),
-      
+
       hr(),
 
       actionButton(inputId='goButton', "Calculate & Plot", style='padding:4px; font-weight: bold; font-size:150%')
     ),
-    
+
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput('plot1'),
@@ -172,57 +172,57 @@ server <- function(input, output) {
     filename <- function() {
       paste("sample", "bnx", sep=".")
     },
-    
+
   content <- function(file) {
       file.copy("Data/sample.bnx", file)
     },
     contentType = "application/zip"
   )
-  
-  output$min1 <- renderText({ 
+
+  output$min1 <- renderText({
     paste("min length set to: ", min(input$length))
   })
-  
-  output$max1 <- renderText({ 
+
+  output$max1 <- renderText({
     paste("max length set to: ", max(input$length))
   })
-  
-  output$min2 <- renderText({ 
+
+  output$min2 <- renderText({
     paste("min AvgIntensity set to: ", min(input$mAI))
   })
-  
-  output$max2 <- renderText({ 
+
+  output$max2 <- renderText({
     paste("max AvgIntensity set to: ", max(input$mAI))
   })
-  
-  output$min3 <- renderText({ 
+
+  output$min3 <- renderText({
     paste("min SNR set to: ", min(input$mSNR))
   })
-  
-  output$max3 <- renderText({ 
+
+  output$max3 <- renderText({
     paste("max SNR set to: ", max(input$mSNR))
   })
-  
+
   load.data <- reactive({
     inFile <- input$file1
     if (is.null(inFile)) return(NULL)
     dat <- readLines(inFile$datapath, skipNul=TRUE)
     dat <- dat[grepl("^0\t*", dat, perl = TRUE)]
-    dat <- data.frame(do.call('rbind', strsplit(as.character(dat),'\t', fixed=TRUE)), 
+    dat <- data.frame(do.call('rbind', strsplit(as.character(dat),'\t', fixed=TRUE)),
                       stringsAsFactors=FALSE)
     # adjust data type per column
     dat <- convert.magic(dat, c(rep('numeric', 9), 'character', rep('numeric',3)))
-    colnames(dat) <- c("LabelChannel", "MoleculeId", "molLength", "molAvgIntensity", 
-                       "labelSNR", "NumberofLabels", "OriginalMoleculeId", "ScanNumber", "ScanDirection", 
+    colnames(dat) <- c("LabelChannel", "MoleculeId", "molLength", "molAvgIntensity",
+                       "labelSNR", "NumberofLabels", "OriginalMoleculeId", "ScanNumber", "ScanDirection",
                        "ChipId", "Flowcell", "RunId", "GlobalScanNumber")
     # add label dentity per 100k
     dat$label100kdens <- 100000*dat$NumberofLabels/dat$molLength
     dat
   })
-  
+
   filter.data <- eventReactive(input$goButton, {
     if (is.null(load.data())) return(NULL)
-    
+
     # set filters for length & AI & SNR from UI
     minlen <- min(input$length)
     maxlen <- max(input$length)
@@ -230,13 +230,13 @@ server <- function(input, output) {
     maxAI <- max(input$mAI)
     minSNR <- min(input$mSNR)
     maxSNR <- max(input$mSNR)
-    
+
     # subset
-    subset(load.data(), ( load.data()$molLength>=minlen*1000 & 
-                            load.data()$molLength<=maxlen*1000 & 
-                            load.data()$molAvgIntensity>=minAI & 
+    subset(load.data(), ( load.data()$molLength>=minlen*1000 &
+                            load.data()$molLength<=maxlen*1000 &
+                            load.data()$molAvgIntensity>=minAI &
                             load.data()$molAvgIntensity<=maxAI &
-                            load.data()$labelSNR>=minSNR & 
+                            load.data()$labelSNR>=minSNR &
                             load.data()$labelSNR<=maxSNR) )
   })
 
@@ -244,12 +244,12 @@ server <- function(input, output) {
     if (is.null(filter.data())) return(NULL)
     paste("molecules in plot: ", nrow(filter.data()))
   })
-  
+
   sumData <- reactive({
     if (is.null(filter.data())) return(NULL)
     sum <- as.data.frame(
-      do.call(cbind, 
-              lapply(filter.data(), 
+      do.call(cbind,
+              lapply(filter.data(),
                      summary)))
     col.names <- c(row.names(sum), "L50", "N50")
     # add L50 and N50
@@ -260,26 +260,26 @@ server <- function(input, output) {
     colnames(sum) <- col.names
     sum
   })
-  
-  output$summaryzero <- renderTable({ 
-    sumData() 
+
+  output$summaryzero <- renderTable({
+    sumData()
   }, rownames=TRUE, colnames=TRUE, digits=2)
-  
+
   # output N50 and L50 values as separate text lines
   output$n50x <- renderText({
     if (is.null(sumData()[input$Xaxis,8])) return(NULL)
     paste("N50 for '",input$Xaxis, "': ", sumData()[input$Xaxis,8], " (L50=", sumData()[input$Xaxis,7], ") is shown with the grey dashed line.", sep="")
     })
-  
+
   output$n50y <- renderText({
     if (input$Yaxis != 'histo') {
     paste("N50 for '",input$Yaxis, "': ", sumData()[input$Yaxis,8], " (L50=", sumData()[input$Yaxis,7], ") is shown with the grey dashed line.", sep="")
     }
   })
-  
+
   output$plot1 <- renderPlot({
     if (is.null(filter.data())) return(NULL)
-    
+
     # test plot type from X and Y
     if (input$Yaxis != 'histo') {
       # scatterplot
@@ -300,5 +300,5 @@ server <- function(input, output) {
   })
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)

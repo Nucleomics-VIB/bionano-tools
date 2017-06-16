@@ -73,8 +73,8 @@ while ( my $line = <$FILE> ) {
 	chomp($line);
 	my @field = split("\t", $line);
 	
-	# case N-gap
-	if ($field[6] eq "scaffold"){
+	# skip N-gaps
+	if ($field[5] eq "N"){
 		# this is a GAP
 		next;
 		}

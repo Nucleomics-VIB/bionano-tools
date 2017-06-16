@@ -49,7 +49,7 @@ while (my $line = <KEYS>) {
 close KEYS;
 print STDOUT "\n";
 
-# process multifasta
+# process BED
 my $bed_in = OpenArchiveFile($infile);
 open OUT, "> $outfile" || die $!;
 
