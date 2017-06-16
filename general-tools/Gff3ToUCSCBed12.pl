@@ -74,6 +74,7 @@ while ( my $line = <$gff_in> ) {
 		}
 	}
 print STDOUT "# ".$cnt." features of type \'".$feature."\' have been converted\n";
+print STDOUT "# consider sorting your results with \'cat $outfile | sort -k1n,1 -k2n,2 > sorted_$outfile\'\n";
 
 undef $gff_in;
 
