@@ -166,8 +166,8 @@ while (my $line = <FILE>) {
 #print Dumper \@stats;
 #print Dumper \@stagest;
 #print Dumper \@stages;
-print Dumper \@alignst;
-print Dumper \@aligns;
+#print Dumper \@alignst;
+#print Dumper \@aligns;
 #print Dumper \@svres;
 
 close FILE;
