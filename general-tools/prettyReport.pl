@@ -166,8 +166,8 @@ while (my $line = <FILE>) {
 #print Dumper \@stats;
 #print Dumper \@stagest;
 #print Dumper \@stages;
-#print Dumper \@alignst;
-#print Dumper \@aligns;
+print Dumper \@alignst;
+print Dumper \@aligns;
 #print Dumper \@svres;
 
 close FILE;
@@ -182,7 +182,7 @@ print OUT "\n# Pipeline version :".$pipelineversion."\n";
 
 
 # print stats results
-print OUT "\n# Molecule Alignment Results\n";
+print OUT "\n# Molecule Stats\n";
 print OUT join("\t", "stats", @{@{$stats[0]}[0]}, "cvg (x)") . "\n";
 for (my $idx=0; $idx < scalar @stats; $idx++) {
     print OUT join("\n", join("\t", $statst[$idx], @{@{$stats[$idx]}[1]})) . "\n";
@@ -202,7 +202,7 @@ for (my $idx=0; $idx < scalar @final; $idx++) {
     print OUT join("\n", join("\t", $finalt[$idx], @{@{$final[$idx]}[1]})) . "\n";
 }
 
-# print final stats results
+# print alignment results
 print OUT "\n# Molecule alignments\n";
 print OUT join("\t", "alignments", @{@{$aligns[0]}[0]}) . "\n";
 for (my $idx=0; $idx < scalar @aligns; $idx++) {
