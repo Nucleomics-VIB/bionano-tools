@@ -6,17 +6,18 @@ use File::Basename;
 use Getopt::Std;
 
 # convert GFF3 annotations to UCSC bed-9 format for Bionano access
-# also convert original contigs names to BioNano IDs from a matching key file
+# also convert original contigs names to BioNano IDs from a MATCHING key file
 #
 # Stephane Plaisance (VIB-NC) initial version 2017-06-16; v1.0
+# v1.1: sort output by chr,start,end coordinates
 # visit our Git: https://github.com/Nucleomics-VIB
 
-my $version ="1.0, 2017-06-16";
+my $version ="1.1, 2017-06-21";
 
 my $usage="# Gff3ToUCSCBed9.pl (version $version)
 ## Usage: Gff3ToUCSCBed9.pl <-i gff3 file (required)> <-k key file (required)>
 # optional <-o name for bed output>
-# optional <-f feature type (default to gene, can be exon, cds, ...)>
+# optional <-f feature type (default to gene, can also be exon, CDS, ...)>
 # <-h to display this help>";
 
 ####################
@@ -39,19 +40,21 @@ $|=1;
 my @header = "";
 my @keys = ();
 my %translate = ();
+my @results = ();
 
 print STDOUT "\n# loading key pairs\n";
 open KEYS, $keyfile or die $!;
-
+my $keycnt = 0;
 while (my $line = <KEYS>) {
 	$line =~ s/\s+$//;
 	next if ($line =~ /^#|^$|^CompntId/);
+	$keycnt++;
 	# fill a hash with replacement numbers
 	my @keys = split /\t/, $line;
 	$translate{$keys[1]} = $keys[0];
 	print STDOUT $keys[1]." => ".$translate{$keys[1]}."\n";
 }
-print STDOUT "\n";
+print STDOUT "\n# $keycnt key pairs loaded\n";
 
 close KEYS;
 
@@ -64,18 +67,28 @@ while ( my $line = <$gff_in> ) {
 	# pass comment lines
 	next if $line =~ /^#/;
 	# split in array
+	chomp($line);
 	my @data = split("\t", $line);
 	# is of feature type & contig/chr has a key?
 	if ( $data[2] =~ m/$feature/i && defined($translate{$data[0]}) ) {
 		# replace by key ID
 		$data[0] = $translate{$data[0]};
 		$cnt++;
-		#print STDOUT join("\t", @data)."\n";
+		# convert to BED and add to @results
 		convert_to_bed($cnt, @data);
 		}
 	}
+	
+# Sort results and output
+@results = arraysort(@results);
+for my $row (@results) {
+    print OUT join("\t", @{$row}), "\n";
+}
+
+close OUT;
+
 print STDOUT "# ".$cnt." features of type \'".$feature."\' have been converted\n";
-print STDOUT "# consider sorting your results with \'cat $outfile | sort -k1n,1 -k2n,2 > sorted_$outfile\'\n";
+print STDOUT "# The $outfile file is sorted by 1st..3rd columns in the new coordinate system\n";
 
 undef $gff_in;
 
@@ -85,23 +98,36 @@ exit 0;
 sub convert_to_bed {
 my ($cnt, @data) = @_;
 my @bed = ();
-my $name = "na";
+
+# my $name = "na";
 # extract name from col9
-if ($data[8] =~ /(^.*;Name=)([^;]*)(;.*$)/) {
-	$name = $2;
-	}
+#if ($data[8] =~ /(^.*;Name=)([^;]*)(;.*$)/) {
+#	$name = $2;
+#	}
+#$bed[3] = $name;
+
 # order BED fields
 $bed[0] = $data[0];
 $bed[1] = $data[3]-1;
 $bed[2] = $data[4];
-$bed[3] = $name;
+$bed[3] = $data[8];
 $bed[4] = $cnt;
 $bed[5] = $data[6];
 $bed[6] = $data[3]-1;
 $bed[7] = $data[4];
 $bed[8] = "10,0,255";
-# output results
-print OUT join("\t", @bed)."\n";
+# add to @results
+push @results, [@bed];
+}
+
+sub arraysort {
+	# sort the @results array by chromosome, start, end coordinate
+	my @data = @_;
+	my @sorted = sort { $a->[0] <=> $b->[0] 
+		|| $a->[1] <=> $b->[1] 
+		|| $a->[2] <=> $b->[2]
+		} @data;
+	return @sorted;
 }
 
 sub OpenArchiveFile {
