@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-# Print pretty TEXT report from BioNano 'exp_informaticsReport.txt'
-# Takes haploid reports as well as diploid ones
+# Print prettier TEXT report from BioNano 'exp_informaticsReport.txt'
+# Should take haploid reports as well as diploid ones regardless fo the chosen iteration count
 # Stephane Plaisance (VIB-NC+BITS) 2017/06/20; v1.0
 # visit our Git: https://github.com/BITS-VIB
 
@@ -86,7 +86,7 @@ while (my $line = <FILE>) {
 		}
 
 	if ($line =~ m/Stage\ Summary\:\ Characterize(.*\ refineFinal1)$/) {
-		# last two blocks
+		# refineFinal1 stages
 		chomp($line);
 		my $source = $1;
 		push @finalt, $source;
@@ -130,6 +130,7 @@ while (my $line = <FILE>) {
 		}
 
 	if ($line =~ m/Molecules\ Aligned\ to\ (.*)\:/) {
+		# molecule alignment tests
 		chomp($line);
 		my $source = $1;
 		push @alignst, $source;
@@ -151,6 +152,7 @@ while (my $line = <FILE>) {
 		}
 
 	if ($line =~ m/SV\ detect\:\ svdetect_exp_refineFinal1_sv/) {
+		# SV block as-is
 		readline(FILE);
 		my @data = ();
 		while ( $line = <FILE> ) {
@@ -172,7 +174,10 @@ while (my $line = <FILE>) {
 
 close FILE;
 
-# print results to OUT
+########################
+# print results to OUT #
+########################
+
 open OUT, "> $outfile" || die $!;
 
 # print command and version
@@ -181,7 +186,7 @@ print OUT "\n# Assembly Command :".$command."\n";
 print OUT "\n# Pipeline version :".$pipelineversion."\n";
 
 
-# print stats results
+# print molecule noise parameters & stats results
 print OUT "\n# Molecule Stats\n";
 print OUT join("\t", "stats", @{@{$stats[0]}[0]}, "cvg (x)") . "\n";
 for (my $idx=0; $idx < scalar @stats; $idx++) {
@@ -202,7 +207,7 @@ for (my $idx=0; $idx < scalar @final; $idx++) {
     print OUT join("\n", join("\t", $finalt[$idx], @{@{$final[$idx]}[1]})) . "\n";
 }
 
-# print alignment results
+# print molecule alignment results
 print OUT "\n# Molecule alignments\n";
 print OUT join("\t", "alignments", @{@{$aligns[0]}[0]}) . "\n";
 for (my $idx=0; $idx < scalar @aligns; $idx++) {
@@ -211,9 +216,11 @@ for (my $idx=0; $idx < scalar @aligns; $idx++) {
 
 # print SV results
 print OUT "\n# Structural differences with the provided Reference\n";
+# remove outer-spaces in titles
 @svres = map {s/^\s+|\s+$//g; $_; } @svres;
-
 for (my $idx=0; $idx < scalar @svres; $idx++) {
     print OUT join("\t", split(":", $svres[$idx])) . "\n";
 }
 close OUT;
+
+exit 0;
