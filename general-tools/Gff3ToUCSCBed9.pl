@@ -63,6 +63,7 @@ my $gff_in = OpenArchiveFile($infile);
 open OUT, "> $outfile" || die $!;
 my $cnt = 0;
 
+# parse GFF and create BED array
 while ( my $line = <$gff_in> ) {
 	# pass comment lines
 	next if $line =~ /^#/;
@@ -88,7 +89,7 @@ for my $row (@results) {
 close OUT;
 
 print STDOUT "# ".$cnt." features of type \'".$feature."\' have been converted\n";
-print STDOUT "# The $outfile file is sorted by 1st..3rd columns in the new coordinate system\n";
+print STDOUT "# The ".$outfile." file is sorted by 1st..3rd columns in the new coordinate system\n";
 
 undef $gff_in;
 
@@ -96,28 +97,29 @@ exit 0;
 
 #### Subs ####
 sub convert_to_bed {
-my ($cnt, @data) = @_;
-my @bed = ();
+	# convert one row from GFF to BED9
+	my ($cnt, @data) = @_;
+	my @bed = ();
 
-# my $name = "na";
-# extract name from col9
-#if ($data[8] =~ /(^.*;Name=)([^;]*)(;.*$)/) {
-#	$name = $2;
-#	}
-#$bed[3] = $name;
+	# my $name = "na";
+	# extract name from col9
+	#if ($data[8] =~ /(^.*;Name=)([^;]*)(;.*$)/) {
+	#	$name = $2;
+	#	}
+	#$bed[3] = $name;
 
-# order BED fields
-$bed[0] = $data[0];
-$bed[1] = $data[3]-1;
-$bed[2] = $data[4];
-$bed[3] = $data[8];
-$bed[4] = $cnt;
-$bed[5] = $data[6];
-$bed[6] = $data[3]-1;
-$bed[7] = $data[4];
-$bed[8] = "10,0,255";
-# add to @results
-push @results, [@bed];
+	# order BED fields
+	$bed[0] = $data[0];
+	$bed[1] = $data[3]-1;
+	$bed[2] = $data[4];
+	$bed[3] = $data[8];
+	$bed[4] = $cnt;
+	$bed[5] = $data[6];
+	$bed[6] = $data[3]-1;
+	$bed[7] = $data[4];
+	$bed[8] = "10,0,255";
+	# add to @results
+	push @results, [@bed];
 }
 
 sub arraysort {
@@ -131,6 +133,7 @@ sub arraysort {
 }
 
 sub OpenArchiveFile {
+	# read data from plain or compressed GFF file
     my $infile = shift;
     my $FH;
     if ($infile =~ /\.gff(.)?$/i) {
