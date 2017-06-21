@@ -669,7 +669,7 @@ The perl script **[Gff3ToUCSCBed9.pl](general-tools/HSlog2report.pl)** converts 
 ## **prettyReport.pl**
 *[[General-tools](#general-tools)]*  
 
-The perl scrip **[prettyReport.pl](general-tools/prettyReport.pl)** reformat a typical exp_informaticsReport.txt intot a new text file that can be open in excel as a series of tables.
+The perl scrip **[prettyReport.pl](general-tools/prettyReport.pl)** reformat a typical *exp_informaticsReport.txt* intot a new text file that can be open in excel as a series of tables.
 
 ```bash
 ## Usage: 
