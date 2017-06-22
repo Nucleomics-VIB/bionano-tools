@@ -656,7 +656,7 @@ Usage: move to where HYBRID_SCAFFOLD.log is located and run /path_to/HSlog2repor
 ### **Gff3ToUCSCBed9.pl**
 *[[General-tools](#general-tools)]*
 
-The perl script **[Gff3ToUCSCBed9.pl](general-tools/HSlog2report.pl)** converts **GFF** formatted annotations to a **BED**-9 file that can be loaded in Bionano Access. It requires a key file translating original NGS contigs names into IDs (should match what was used for assembly and HS).
+The perl script **[Gff3ToUCSCBed9.pl](general-tools/Gff3ToUCSCBed9.pl)** converts **GFF** formatted annotations to a **BED**-9 file that can be loaded in Bionano Access. It requires a key file translating original NGS contigs names into IDs (should match what was used for assembly and HS).
 
 ```bash
 # Gff3ToUCSCBed9.pl (version 1.0, 2017-06-16)
