@@ -52,14 +52,13 @@ while (my $line = <FILE>) {
 	if ($line =~ m/pipelineCL.py/) {
 		chomp($line);
 		$command = $line;
-		#print STDOUT $line."\n";
+		$command =~ s/\ -/\n\ -/g;
 		readline(FILE);
 		}
 	
 	if ($line =~ m/Informatics\ Report\ Version\:/) {
 		chomp($line);
 		$pipelineversion = (split "\:", $line)[1];
-		#print STDOUT $line."\n";		
 		readline(FILE);
 		}
 
@@ -182,7 +181,7 @@ open OUT, "> $outfile" || die $!;
 
 # print command and version
 print OUT "## De Novo Assembly results\n";
-print OUT "\n# Assembly Command :".$command."\n";
+print OUT "\n# Assembly Command :\n\'".$command."\'\n";
 print OUT "\n# Pipeline version :".$pipelineversion."\n";
 
 
