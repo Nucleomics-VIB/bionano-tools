@@ -672,9 +672,11 @@ The perl script **[Gff3ToUCSCBed9.pl](general-tools/Gff3ToUCSCBed9.pl)** convert
 The perl scrip **[prettyReport.pl](general-tools/prettyReport.pl)** reformat a typical *exp_informaticsReport.txt* intot a new text file that can be open in excel as a series of tables.
 
 ```bash
-## Usage: 
-prettyReport.pl <-i exp_informaticsReport.txt> <-o base-name for output (optional)>
+## Usage: prettyReport.pl <-i exp_informaticsReport.txt> 
+# <-o base-name for output (optional)>
+# <-w also create html output (optional)
 # <-h to display this help>
+# script version: 2017-06-23, version 1.1
 ```
 
 
