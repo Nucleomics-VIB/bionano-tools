@@ -2,7 +2,7 @@
 
 # Print prettier TEXT report from BioNano 'exp_informaticsReport.txt'
 # Should take haploid reports as well as diploid ones regardless fo the chosen iteration count
-# Stephane Plaisance (VIB-NC+BITS) 2017/06/20; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2017/06/23; v1.1
 # visit our Git: https://github.com/BITS-VIB
 
 use warnings;
@@ -15,24 +15,32 @@ use File::Basename;
 use Array::Transpose;
 # @array=transpose(\@array);
 
-my $usage="## Usage: 
-prettyReport.pl <-i exp_informaticsReport.txt> <-o base-name for output (optional)>
-# <-h to display this help>";
+my $version ="2017-06-23, version 1.1";
+
+my $usage="## Usage: prettyReport.pl <-i exp_informaticsReport.txt> 
+# <-o base-name for output (optional)>
+# <-w also create html output (optional)
+# <-h to display this help>
+# script version: $version";
+
+my $citeus="<i># Stephane Plaisance (VIB-NC) $version\n# visit our Git: <a href=\"https://github.com/Nucleomics-VIB\">Nucleomics-VIB</a></i>";
 
 ####################
 # declare variables
 ####################
-getopts('i:o:h');
-our ($opt_i, $opt_o, $opt_h);
+getopts('i:o:wh');
+our ($opt_i, $opt_o, $opt_w, $opt_h);
 
 my $infile = $opt_i || die $usage."\n";
-
 my $outbase = $opt_o || "prettyReport";
+my $makehtml = defined($opt_w) || undef;
 defined($opt_h) && die $usage."\n";
 
 open FILE, $infile or die $!;
 my $outpath = dirname($infile);
 my $outfile = $outpath."/".$outbase.".txt";
+my $html = $outfile;
+$html =~ s/.txt/.html/;
 
 # declare variables
 my $command;
@@ -179,11 +187,25 @@ close FILE;
 
 open OUT, "> $outfile" || die $!;
 
+if ( defined($makehtml) ) {
+	open HTML, "> $html" || die $!;
+	html_header("Status Info de-novo Assembly");
+}
+
 # print command and version
 print OUT "## De Novo Assembly results\n";
 print OUT "\n# Assembly Command :\n\'".$command."\'\n";
 print OUT "\n# Pipeline version :".$pipelineversion."\n";
 
+if ( defined($makehtml) ) {
+	text2title("Status Info de-novo Assembly");
+	text2line("HTML version of the <b>exp_informaticsReport.txt</b> file produced during denovo assembly on the Irys Solve server");
+	array2lines( split("\n", $citeus) );
+	text2subtitle("# Assembly Command");
+	array2lines( split("\n", $command) );
+	text2line("Pipeline version :$pipelineversion");
+	text2line("&nbsp");
+}
 
 # print molecule noise parameters & stats results
 print OUT "\n# Molecule Stats\n";
@@ -192,11 +214,37 @@ for (my $idx=0; $idx < scalar @stats; $idx++) {
     print OUT join("\n", join("\t", $statst[$idx], @{@{$stats[$idx]}[1]})) . "\n";
 }
 
+if ( defined($makehtml) ) {
+	text2subtitle("# Molecule Statistics");
+	text2line("The first row reports metrics for all molecules submitted to de-novo assembly, 
+	the second raw reports sorted molecules and raw coverage considering the provided NGS reference length, 
+	while the last row reports molecules and raw coverage considering the optical assembly size.");
+	my @table = ();
+	push @table, [ "stats", @{@{$stats[0]}[0]}, "cvg (x)" ];
+	for (my $idx=0; $idx < scalar @stats; $idx++) {
+    	push @table, [ $statst[$idx], @{@{$stats[$idx]}[1]} ];
+	}	
+	array2table( @table );
+	text2line("&nbsp");
+}
+
 # print assembly stages results
-print OUT "\n# Assembly Stage Results\n";
+print OUT "\n# Molecule Statistics\n";
 print OUT join("\t", "assembly stages", @{@{$stages[0]}[0]}) . "\n";
 for (my $idx=0; $idx < scalar @stages; $idx++) {
     print OUT join("\n", join("\t", $stagest[$idx], @{@{$stages[$idx]}[1]})) . "\n";
+}
+
+if ( defined($makehtml) ) {
+	text2subtitle("# Assembly Stage Statistics");
+	text2line("The following table reports statistics for all assembly stages except the RefineFinal last stages.");
+	my @table = ();
+	push @table, [ "assembly stages", @{@{$stages[0]}[0]} ];
+	for (my $idx=0; $idx < scalar @stages; $idx++) {
+    	push @table, [ $stagest[$idx], @{@{$stages[$idx]}[1]} ];
+	}	
+	array2table( @table );
+	text2line("&nbsp");
 }
 
 # print final stage results
@@ -206,11 +254,35 @@ for (my $idx=0; $idx < scalar @final; $idx++) {
     print OUT join("\n", join("\t", $finalt[$idx], @{@{$final[$idx]}[1]})) . "\n";
 }
 
+if ( defined($makehtml) ) {
+	text2subtitle("# Final Assembly Stage Results");
+	text2line("RefineFinal last stages either reported in \'haploid\' mode or in \'haplotype-aware\' mode depending on the selected XML settings.");
+	my @table = ();
+	push @table, [ "assembly stages", @{@{$final[0]}[0]} ];
+	for (my $idx=0; $idx < scalar @final; $idx++) {
+    	push @table, [ $finalt[$idx], @{@{$final[$idx]}[1]} ];
+	}	
+	array2table( @table );
+	text2line("&nbsp");
+}
+
 # print molecule alignment results
 print OUT "\n# Molecule alignments\n";
 print OUT join("\t", "alignments", @{@{$aligns[0]}[0]}) . "\n";
 for (my $idx=0; $idx < scalar @aligns; $idx++) {
     print OUT join("\n", join("\t", $alignst[$idx], @{@{$aligns[$idx]}[1]})) . "\n";
+}
+
+if ( defined($makehtml) ) {
+	text2subtitle("# Molecule alignments");
+	text2line("Molecule alignment statistics and noise parameters computed against the provide reference or the final optical assembly.");
+	my @table = ();
+	push @table, [ "alignments", @{@{$aligns[0]}[0]} ];
+	for (my $idx=0; $idx < scalar @aligns; $idx++) {
+    	push @table, [ $alignst[$idx], @{@{$aligns[$idx]}[1]} ];
+	}	
+	array2table( @table );
+	text2line("&nbsp");
 }
 
 # print SV results
@@ -222,4 +294,94 @@ for (my $idx=0; $idx < scalar @svres; $idx++) {
 }
 close OUT;
 
+if ( defined($makehtml) ) {
+	text2subtitle("# Structural differences with the provided Reference");
+	text2line("SV counts as reported by the pipeline.");
+	my @table = ();
+	for (my $idx=0; $idx < scalar @svres; $idx++) {
+		my @row = split(":", $svres[$idx]);
+    	push @table, [ @row ];
+	}	
+	array2table( @table );
+	text2line("&nbsp");
+}
+
+if ( defined($makehtml) ) {
+	html_footer();
+}
+
 exit 0;
+
+############### SUBS ################
+
+#################
+sub html_header {
+my $html_title = shift;
+print HTML <<"END_TXT";
+<!DOCTYPE html>
+<html>
+<head>
+<title>$html_title</title>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 3px;
+}
+</style>
+</head>
+<body>\n
+END_TXT
+}
+
+#################
+sub html_footer {
+print HTML <<"END_TXT";
+</body>
+</html>\n
+END_TXT
+}
+
+################
+sub text2title {
+my $txt = shift;
+print HTML "<h1>$txt</h1>\n"
+}
+
+################
+sub text2subtitle {
+my $txt = shift;
+print HTML "<h2>$txt</h2>\n"
+}
+
+################
+sub text2line {
+my $txt = shift;
+print HTML "<p>$txt</p>\n"
+}
+
+#################
+sub array2lines {
+my @a = @_;
+print HTML "</p>\n";
+foreach my $row (@a) {
+	print HTML "$row<br>";
+	}
+	print HTML "</p>\n";
+}
+
+#################
+sub array2table {
+	my @AoA = @_;
+	print HTML "<table>\n";
+	foreach my $row (@AoA) {
+    	print HTML "\t<tr>\n";
+    	foreach my $col (@{$row}) {
+    		print HTML "\t\t<td>$col</td>\n";
+    	}
+    print HTML "\t</tr>\n";
+	}
+	print HTML "</table>\n";
+}
