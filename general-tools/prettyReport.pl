@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-# Print prettier TEXT report from BioNano 'exp_informaticsReport.txt'
-# Should take haploid reports as well as diploid ones regardless fo the chosen iteration count
+# Print prettier TEXT & HTML reports from BioNano 'exp_informaticsReport.txt'
+# Should take haploid reports as well as diploid ones regardless of the chosen iteration count
 # Stephane Plaisance (VIB-NC+BITS) 2017/06/23; v1.1
 # visit our Git: https://github.com/BITS-VIB
 
