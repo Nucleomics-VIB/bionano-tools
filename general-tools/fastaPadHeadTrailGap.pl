@@ -16,8 +16,8 @@ my $version = "1.0";
 
 my $usage="## Usage: fastaPadHeadTrailGap.pl
 ## script version:".$version."
-# <-i HYBRID_SCAFFOLD.fasta_file (required)>
-# <-t trimHeadTailGap.coord file (required)>
+# <-i NGScontigs_HYBRID_SCAFFOLD.fasta file (required)>
+# <-t NGScontigs_HYBRID_SCAFFOLD_trimHeadTailGap.coord file (required)>
 # <-h to display this help>";
 
 ####################
