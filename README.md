@@ -515,6 +515,19 @@ The perl script **[fastaPad20k.pl](general-tools/fastaPad20k.pl)** adds N's and 
 # <-h to display this help>
 ```
 
+### **fastaPadHeadTrailGap.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[fastaPadHeadTrailGap.pl](general-tools/fastaPadHeadTrailGap.pl)** adds N-regions's at front and back of **NGScontigs_HYBRID_SCAFFOLD.fasta** sequences based on the **NGScontigs_HYBRID_SCAFFOLD_trimHeadTailGap.coord** file to account for the head and tail trimming done by the pipeline. The resulting sequences have a length identical to the hybrid features shown in Access (or IrysView).
+
+```bash
+## Usage: fastaPadHeadTrailGap.pl
+## script version:1.0
+# <-i NGScontigs_HYBRID_SCAFFOLD.fasta file@ (required)>
+# <-t NGScontigs_HYBRID_SCAFFOLD_trimHeadTailGap.coord file (required)>
+# <-h to display this help>
+```
+
 ### **FastaExtractList.pl**
 *[[General-tools](#general-tools)]*  
 
