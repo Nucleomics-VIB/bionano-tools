@@ -9,8 +9,8 @@
 
 use warnings;
 use strict;
-use Bio::SeqIO;
 use Getopt::Std;
+use Bio::SeqIO;
 
 my $version = "1.0";
 
