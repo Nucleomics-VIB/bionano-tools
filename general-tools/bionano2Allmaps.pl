@@ -1,4 +1,4 @@
-#!/bin/env perl
+#!/usr/bin/perl
 
 use Getopt::Std;
 getopts "x:i:e:";
@@ -37,12 +37,17 @@ if($ref_file ne "ref.fasta"){
   system($cmd);
 	}
 
+# edit to your own path for fa2cmap_multi_color.pl
+#$fa2cmap_multi_color='/Users/splaisan/git_repos/splaisan/BionanoThinkmate@NC/scripts/HybridScaffold/scripts/fa2cmap_multi_color.pl';
+#$cmd = "perl $fa2cmap_multi_color -i ref.fasta -e $enzyme";
 
-$cmd = "perl ~/Irys-scaffolding/KSU_bioinfo_lab/assemble_XeonPhi/third-party/fa2cmap_multi.pl -i ref.fasta -e $enzyme";
+$fa2cmap='/Users/splaisan/git_repos/splaisan/BionanoThinkmate@NC/scripts/HybridScaffold/scripts/fa2cmap.pl';
+$cmd = "perl $fa2cmap -i ref.fasta -n $enzyme";
+
 system($cmd);
 
 $enzyme =~ s/\s+/_/g;
-$key_file = "ref_".$enzyme."_key.txt";
+$key_file = "fa2cmap/ref_".$enzyme."_0Kb_0labels_key.txt";
 
 open(IN, $key_file) or die"";
 while(<IN>){
