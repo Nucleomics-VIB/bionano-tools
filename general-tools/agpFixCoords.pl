@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 
-## agp2bed.pl
+## agpFixCoords.pl
 ## first version: 2017-05-09
-## extract original coordinate from AGP optical superscaffolds
-## deduce true coordinates from '_subseq_start:end'
+## Convert AGP coordinates when subseq encountered
+## replace Bionano contig coordinates from '_subseq_start:end'
 
 # Stephane Plaisance (VIB-NC+BITS) 2017/05/09; v1.0
 # visit our Git: https://github.com/Nucleomics-VIB
@@ -23,8 +23,8 @@ $|=1;
 getopts('i:h');
 our ( $opt_i, $opt_h );
 
-my $usage = "Aim: Convert AGP data to BED. You must provide a AGP file with -i
-## Usage: agp2bed.pl <-i AGP-file>
+my $usage = "Aim: Convert AGP coordinates when subseq encountered. You must provide a AGP file with -i
+## Usage: agpFixCoords.pl <-i AGP-file>
 # <-h to display this help>";
 
 ####################
@@ -44,7 +44,7 @@ my @sufx = ( ".agp", ".agp.gzip", ".agp.gz", ".agp.zip" );
 my $outbase = basename( $inputfile, @sufx );
 
 # create output handle
-open BED, ">".$outpath."/".$outbase.".bed" || die $!;
+open AGPOUT, ">".$outpath."/"."fixed_".$outbase.".agp" || die $!;
 
 # declare variables
 my $count = 0;
@@ -62,10 +62,13 @@ while ( my $line = <$FILE> ) {
 			die "$line\n This does not seem to be a valid AGP file";
 		}
 		$first = 0;
+		print AGPOUT $line;
+		next;
 	}
 
 	# pass through header block
 	if ( $line =~ /^#/ ) {
+		print AGPOUT $line;
 		next;
 	}
 	
@@ -104,15 +107,23 @@ while ( my $line = <$FILE> ) {
 		$coordinates = $3;
 		# update coordinates based on subseq info
 		( $start, $end ) = ( split(/:/, $coordinates) );
+		# update Contig name=nameOfField
+		$seqname =~ s/_subseq_[[:digit:]]+\:[[:digit:]]+$//;
 	}
 	
-	# write to bed
-	print BED join("\t", ( (split(/;/, $seqname))[0], $start, $end, $info, $strand ))."\n";
+	# write to AGP with correct coordinates
+	print AGPOUT join("\t", 
+		@field[0..4],
+		$seqname,
+		$start, 
+		$end,
+		$field[8]
+		)."\n";
 }	
 
 # take care of handles neetly
 undef $FILE;
-close BED;
+close AGPOUT;
 
 exit 0;
 

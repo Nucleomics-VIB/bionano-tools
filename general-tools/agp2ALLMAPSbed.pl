@@ -1,11 +1,9 @@
 #!/usr/bin/perl -w
 
-## agp2bed.pl
-## first version: 2017-05-09
-## extract original coordinate from AGP optical superscaffolds
-## deduce true coordinates from '_subseq_start:end'
+## agp2ALLMAPSbed.pl
+## convert HybridScaffold AGP to BED6 for ALLMAPS
 
-# Stephane Plaisance (VIB-NC+BITS) 2017/05/09; v1.0
+# Stephane Plaisance (VIB-NC+BITS) 2017/06/30; v1.0
 # visit our Git: https://github.com/Nucleomics-VIB
 
 use strict;
@@ -23,8 +21,8 @@ $|=1;
 getopts('i:h');
 our ( $opt_i, $opt_h );
 
-my $usage = "Aim: Convert AGP data to BED. You must provide a AGP file with -i
-## Usage: agp2bed.pl <-i AGP-file>
+my $usage = "Aim: Convert AGP data to ALLMAP BED. You must provide a AGP file with -i
+## Usage: agp2ALLMAPSbed.pl <-i AGP-file>
 # <-h to display this help>";
 
 ####################
@@ -44,7 +42,7 @@ my @sufx = ( ".agp", ".agp.gzip", ".agp.gz", ".agp.zip" );
 my $outbase = basename( $inputfile, @sufx );
 
 # create output handle
-open BED, ">".$outpath."/".$outbase.".bed" || die $!;
+open BED, ">".$outpath."/".$outbase."_ALLMAPS.bed" || die $!;
 
 # declare variables
 my $count = 0;
@@ -72,42 +70,44 @@ while ( my $line = <$FILE> ) {
 	#############################
 	# split AGP line in elements
 	#############################
-	# col0: Obj_Name
-	# col1: Obj_Start
-	# col2: Obj_End 
-	# col3: PartNum 
-	# col4: Compnt_Type
-	# col5: CompntId_GapLength
-	# col6: CompntStart_GapType
-	# col7: CompntEnd_Linkage
-	# col8: Orientation_LinkageEvidence
+	# col0: Obj_Name / Super-Scaffold_2
+	# col1: Obj_Start / 1
+	# col2: Obj_End / 634629
+	# col3: PartNum  / 1
+	# col4: Compnt_Type / W
+	# col5: CompntId_GapLength / 000000F_018_pilon
+	# col6: CompntStart_GapType / 1
+	# col7: CompntEnd_Linkage / 634629
+	# col8: Orientation_LinkageEvidence / +
 	
 	chomp($line);
 	my @field = split("\t", $line);
-	
+	my $optname = $field[0];
+
+	# consider only if a Super_Scaffold entry
+	$optname =~ m/Super-Scaffold_/ || next;
+
 	# skip N-gaps
-	if ($field[5] eq "N"){
+	if ($field[4] eq "N"){
 		# this is a GAP
 		next;
 		}
 		
 	# parse fields
-	my $info = join(";", @field);
 	my $CompntId = $field[5];
-	my $seqname = $CompntId;
-	my ( $start, $end, $strand ) = @field[6..8];
-	my $coordinates;
-	
 	# correct coordinates in case of subseq
+	my $seqname = $CompntId;
+	my $coordinates;
+	my ( $start, $end, $strand ) = @field[6..8];
 	if ($CompntId =~ m/(.*)(_subseq_)(.*)/g){
 		$seqname = $1;
 		$coordinates = $3;
 		# update coordinates based on subseq info
 		( $start, $end ) = ( split(/:/, $coordinates) );
 	}
-	
-	# write to bed
-	print BED join("\t", ( (split(/;/, $seqname))[0], $start, $end, $info, $strand ))."\n";
+	my $score = 0;
+	# handle dovetail names with ';" and keep only first name
+	print BED join("\t", ( (split(/;/, $seqname))[0], $start, $end, $optname, $score, $strand ))."\n";
 }	
 
 # take care of handles neetly
