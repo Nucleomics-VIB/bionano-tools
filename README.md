@@ -672,8 +672,13 @@ Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder)
 The perl script **[dovetail2agp.pl](general-tools/dovetail2agp.pl)** converts Dovetail text files describing ID mappings to AGP format to recover information about the original sequences. The resulting AGP data can be fed to [JCVI](https://github.com/tanghaibao/jcvi) tools to obtain chain files.
 
 ```bash
-Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder) to BED.
-## Usage: dovetail2bed.pl <-i XXX.table.txt or XXX.input_breaks.txt>
+Aim: Convert Dovetail XXX.table.txt to AGP
+## Usage: dovetail2agp.pl <-i XXX.table.txt>
+# <-o organism (optional)>
+# <-n assembly-name (optional)>
+# <-d assembly-date (optional)>
+# <-s assembly-source (optional)>
+# <-D assembly-Description (optional)>
 # <-h to display this help>
 ```
 
