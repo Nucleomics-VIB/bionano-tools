@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[General-tools](#general-tools)**
 
-- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)**
+- [xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[agpFixCoords.pl](#agpfixcoordspl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[dovetail2agp.pl](#dovetail2agppl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)** 
 
 **[SysAdmin-tools](#sysadmin-tools)**  
 
@@ -220,7 +220,7 @@ Type the script name followed by -h will list all available parameters
 ## General-tools
 *[[back-to-top](#top)]*  
 
-**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)**
+**[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[agpFixCoords.pl](#agpfixcoordspl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[dovetail2agp.pl](#dovetail2agppl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)**  
 
 ### **xmapisec.pl**
 *[[General-tools](#general-tools)]*  
@@ -644,10 +644,32 @@ Aim: Convert AGP data to BED. You must provide a AGP file with -i
 # <-h to display this help>
 ```
 
+### **agpFixCoords.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[agpFixCoords.pl](general-tools/agpFixCoords.pl)** fixes AGP coordinates to make the AGP data compatible with tools like [JCVI](https://github.com/tanghaibao/jcvi).
+
+```bash
+Aim: Convert AGP coordinates when subseq encountered. You must provide a AGP file with -i
+## Usage: agpFixCoords.pl <-i AGP-file>
+# <-h to display this help>
+```
+
 ### **dovetail2bed.pl**
 *[[General-tools](#general-tools)]*  
 
 The perl script **[dovetail2bed.pl](general-tools/dovetail2bed.pl)** converts Dovetail text files describing ID mappings to BED format to recover information about the original sequences.
+
+```bash
+Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder) to BED.
+## Usage: dovetail2bed.pl <-i XXX.table.txt or XXX.input_breaks.txt>
+# <-h to display this help>
+```
+
+### **dovetail2agp.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[dovetail2agp.pl](general-tools/dovetail2agp.pl)** converts Dovetail text files describing ID mappings to AGP format to recover information about the original sequences. The resulting AGP data can be fed to [JCVI](https://github.com/tanghaibao/jcvi) tools to obtain chain files.
 
 ```bash
 Aim: Convert Dovetail XXX.table.txt (and .input_breaks.txt from the same folder) to BED.
