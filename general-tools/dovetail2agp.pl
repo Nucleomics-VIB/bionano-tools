@@ -28,7 +28,7 @@ my $usage = "Aim: Convert Dovetail XXX.table.txt to AGP
 ## Usage: dovetail2agp.pl <-i XXX.table.txt>
 # <-o organism (optional)>
 # <-n assembly-name (optional)>
-# <-d assembly-data (optional)>
+# <-d assembly-date (optional)>
 # <-s assembly-source (optional)>
 # <-D assembly-Description (optional)>
 # <-h to display this help>";
