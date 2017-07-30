@@ -238,8 +238,7 @@ arch_file=MQR_${bnx_base}_vs_${ref_base}.tgz
 # archive with tar and pigz if present
 if hash pigz 2>/dev/null
 then
-	tar --use-compress-program="pigz -p8" -cvf ${outfolder}/${arch_file} \
-		${outpath}
+	tar -cf - ${outpath}|pigz -p8 > ${outfolder}/${arch_file}
 else
 	tar -zcvf ${outfolder}/${arch_file} ${outpath}
 fi
