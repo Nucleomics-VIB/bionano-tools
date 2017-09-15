@@ -37,6 +37,7 @@
 #TOOLS=$BNG_TOOLS
 
 # try auto-detect (RefAligner is in PATH!)
+$( hash RefAligner 2>/dev/null ) || ( echo "# RefAligner not found in PATH, please get it from Bionano"; exit 1 )
 TOOLS=$(dirname $(which RefAligner))
 
 version="2.2, 2016_11_06"
