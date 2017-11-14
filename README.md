@@ -13,7 +13,7 @@ Please refer to the accompanying **[wiki](https://github.com/Nucleomics-VIB/bion
 
 **[General-tools](#general-tools)**
 
-- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[agpFixCoords.pl](#agpfixcoordspl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[dovetail2agp.pl](#dovetail2agppl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)** 
+- **[xmapisec.pl](#xmapisecpl)** - **[mapisec.pl](#mapisecpl)** - **[bnx0convert.pl](#bnx0convertpl)** - **[mqr2bnx.pl](#mqr2bnxpl)** - **[bnxclnheader.pl](#bnxclnheaderpl)** - **[bnxreheader.pl](#bnxreheaderpl-1)** - **[bedrename.pl](#bedrenamepl)** - **[cmap2bed.pl](#cmap2bedpl)** - **[xmap2bed.pl](#xmap2bedpl)** - **[xmap2bed12.pl](#xmap2bed12pl)** - **[smap2bed.pl](#smap2bedpl)** - **[bnxsplitter.pl](#bnxsplitterpl)** - **[labeldensity.pl](#labeldensitypl)** - **[cmap2renum.pl](#cmap2renumpl)** - **[findnregions.pl](#findnregionspl)** - **[fastafiltlength.pl](#fastafiltlengthpl)** - **[fastasortlength.pl](#fastasortlengthpl)** - **[fastaRename.pl](#fastarenamepl)** - **[fastaPad20k.pl](#fastapad20kpl)** - **[fastaPadHeadTrailGap.pl](#fastapadheadtrailgappl)** - **[FastaExtractList.pl](#fastaextractlistpl)** - **[CmapExtractList.pl](#cmapextractlistpl)** - **[run_SV.sh](#run_svsh)** - **[run_HS.sh](#run_hssh)** - **[run_DNloc.sh](#run_dnlocsh)** - **[agp2bed.pl](#agp2bedpl)** - **[agpFixCoords.pl](#agpfixcoordspl)** - **[dovetail2bed.pl](#dovetail2bedpl)** - **[dovetail2agp.pl](#dovetail2agppl)** - **[HSlog2report.pl](#hslog2reportpl)** - **[Gff3ToUCSCBed9.pl](#gff3toucscbed9pl)** - **[prettyReport.pl](#prettyreportpl)** - **[xmap2ALLMAPSbed.pl](#xmap2allmapsbed.pl)** - **[agp2ALLMAPSbed.pl](#agp2allmapsbedpl)**
 
 **[SysAdmin-tools](#sysadmin-tools)**  
 
@@ -368,6 +368,21 @@ Aim: Convert xmap data to BED12. You must provide a xmap file with -i
 # <-h to display this help>
 ```
 
+### **xmap2ALLMAPSbed.pl**
+*[[General-tools](#general-tools)]*  
+
+inspired by **https://github.com/tanghaibao/jcvi/wiki/ALLMAPS:-How-to-use-different-types-of-genomic-maps**
+
+The perl script **[xmap2ALLMAPSbed.pl](general-tools/xmap2ALLMAPSbed.pl)** will create a BED6 file from a 'xmap' file.
+
+```bash
+Aim: Convert XMAP data to BED6 for use with ALLMAPS
+## Usage: xmap2ALLMAPSbed.pl 
+# <-x NGScontigs_HYBRID_SCAFFOLD.xmap_sorted.xmap> (required)
+# <-k NGS-Reference-to-cmap_key.txt (required)
+# <-h to display this help>
+```
+
 ### **smap2bed.pl**
 *[[General-tools](#general-tools)]*  
 
@@ -642,6 +657,17 @@ The perl script **[agp2bed.pl](general-tools/agp2bed.pl)** converts AGP files fr
 ```bash
 Aim: Convert AGP data to BED. You must provide a AGP file with -i
 ## Usage: agp2bed.pl <-i AGP-file>
+# <-h to display this help>
+```
+
+### **agp2ALLMAPSbed.pl**
+*[[General-tools](#general-tools)]*  
+
+The perl script **[agp2ALLMAPSbed.pl](general-tools/agp2ALLMAPSbed.pl)** converts AGP files from hybriscaffolding to ALLMAPS compatible BED format to recover information about the original sequences.
+
+```bash
+Aim: Convert AGP data to ALLMAP BED. You must provide a AGP file with -i
+## Usage: agp2ALLMAPSbed.pl <-i AGP-file>
 # <-h to display this help>
 ```
 
