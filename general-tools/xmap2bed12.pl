@@ -114,8 +114,9 @@ while (my $line = <FILE>) {
 	my @field = ( undef, (split /\t/, $line) );
 	my $refid;
 	if (defined ($keyfile)) {
-		# translating from key
-		$refid = $translate{$field[3]};
+		# translating from key or return the new=clipped $field[3] without relation to the key file
+		$refid = (defined($translate{$field[3]}) ? $translate{$field[3]} : $field[3]);
+		# debug defined($refid) ? print STDOUT $refid."\n" : print STDOUT $field[3]."\n";
 		} else {
 			# keeping BNG key naming
 			$refid = $field[3];
