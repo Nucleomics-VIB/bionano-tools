@@ -107,7 +107,9 @@ while ( my $line = <$FILE> ) {
 	}
 	my $score = 0;
 	# handle dovetail names with ';" and keep only first name
-	print BED join("\t", ( (split(/;/, $seqname))[0], $start, $end, $optname, $score, $strand ))."\n";
+	# print BED join("\t", ( (split(/;/, $seqname))[0], $start, $end, $optname, $score, $strand ))."\n";
+	print BED join("\t", ( (split(/\ q/, $seqname))[0], $start, $end, $optname, $score, $strand ))."\n";
+	# print BED join("\t", ( $seqname, $start, $end, $optname, $score, $strand ))."\n";
 }	
 
 # take care of handles neetly
