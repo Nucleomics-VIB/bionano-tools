@@ -20,10 +20,10 @@ library("data.table")
 # such sample can be downloaded from the github page (look into the BNX_viewer.shinyapp Data folder)
 
 # you may uncomment the next line to allow large input files
-# options(shiny.maxRequestSize=1000*1024^2)
+options(shiny.maxRequestSize=1000*1024^2)
 # the following test checks if we are running on shinnyapps.io to limit file size dynamically
 # ref: https://stackoverflow.com/questions/31423144/how-to-know-if-the-app-is-running-at-local-or-on-server-r-shiny/31425801#31425801
-if ( Sys.getenv('SHINY_PORT') == "" ) { options(shiny.maxRequestSize=1000*1024^2) }
+#if ( Sys.getenv('SHINY_PORT') == "" ) { options(shiny.maxRequestSize=1000*1024^2) }
 
 script.version="1.2"
 
