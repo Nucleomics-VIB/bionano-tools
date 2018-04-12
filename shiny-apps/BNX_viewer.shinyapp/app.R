@@ -7,25 +7,27 @@
 # version: 2017-03-10_v1.0
 # version 1.1, added density histogram
 # version 1.2, added L50 and N50 data and lines
+# version 1.3, data.table speedup and progress indicators
 # © by using this tool, you accept the licence saved under ./www/licence.pdf
 
 library("shiny")
+library("shinyBS")
 library("readr")
 library("stringr")
 library("ggplot2")
 library("data.table")
 
-# limit upload to 1GB
+# limit upload to 2GB
 # the limit was kept low to make the online shiniapps.io version work with a sample BNX file
 # such sample can be downloaded from the github page (look into the BNX_viewer.shinyapp Data folder)
 
 # you may uncomment the next line to allow large input files
-options(shiny.maxRequestSize=1000*1024^2)
+options(shiny.maxRequestSize=2*1000*1024^2)
 # the following test checks if we are running on shinnyapps.io to limit file size dynamically
 # ref: https://stackoverflow.com/questions/31423144/how-to-know-if-the-app-is-running-at-local-or-on-server-r-shiny/31425801#31425801
 #if ( Sys.getenv('SHINY_PORT') == "" ) { options(shiny.maxRequestSize=1000*1024^2) }
 
-script.version="1.2"
+script.version="1.3"
 
 # defaults for controllers
 def.selin1 <- 'molLength'
@@ -41,16 +43,26 @@ def.max3 <- 100
 def.val3 <- c(0, 100)
 
 # custom functions
-## convert data.frame column types
+## convert data.table column types
 convert.magic <- function(obj, types){
   for (i in 1:length(obj)){
     FUN <- switch(types[i],
                   character = as.character,
                   numeric = as.numeric,
                   factor = as.factor)
-    obj[,i] <- FUN(obj[,i])
+    obj[[i]] <- FUN(obj[[i]])
   }
   obj
+}
+
+# rpound data.frame numbers
+round_df <- function(x, digits) {
+  # round all numeric variables
+  # x: data frame 
+  # digits: number of digits to round
+  numeric_columns <- sapply(x, mode) == 'numeric'
+  x[numeric_columns] <-  round(x[numeric_columns], digits)
+  x
 }
 
 ## return L50 and N50 from a vector
@@ -161,7 +173,8 @@ ui <- fluidPage(
       textOutput('n50x'),
       textOutput('n50y'),
       br(),
-      tableOutput('summaryzero')
+      #tableOutput('summaryzero')
+      div(DT::dataTableOutput('summaryzero'), style = "font-size: 75%; width: 75%")
     )
   )
 )
@@ -206,9 +219,19 @@ server <- function(input, output) {
   load.data <- reactive({
     inFile <- input$file1
     if (is.null(inFile)) return(NULL)
+    # show progress
+    n <- 4
+    progress <- shiny::Progress$new()
+    progress$set(message = "Importing data", value = 0)
+    progress$set(value = 1/n, detail = "reading file in")
+    on.exit(progress$close())
     dat <- readLines(inFile$datapath, skipNul=TRUE)
+    Sys.sleep(1)
+    progress$set(value = 2/n, detail = "filtering rows")
     dat <- dat[grepl("^0\t*", dat, perl = TRUE)]
-    dat <- data.frame(do.call('rbind', strsplit(as.character(dat),'\t', fixed=TRUE)),
+    Sys.sleep(1)
+    progress$set(value = 3/n, detail = "creating table")
+    dat <- data.table(do.call('rbind', strsplit(as.character(dat),'\t', fixed=TRUE)),
                       stringsAsFactors=FALSE)
     # adjust data type per column
     dat <- convert.magic(dat, c(rep('numeric', 9), 'character', rep('numeric',3)))
@@ -217,7 +240,14 @@ server <- function(input, output) {
                        "ChipId", "Flowcell", "RunId", "GlobalScanNumber")
     # add label dentity per 100k
     dat$label100kdens <- 100000*dat$NumberofLabels/dat$molLength
-    dat
+    Sys.sleep(1)
+    progress$set(value = 4/n, detail = "creating indexes")
+    # set keys for fast access
+    key(dat)
+    keycols = c("molLength","molAvgIntensity","labelSNR")
+    setkeyv(dat, keycols)   # rather than key(DT)<-keycols (which copies entire table)
+    Sys.sleep(1)
+    return(dat)
   })
 
   filter.data <- eventReactive(input$goButton, {
@@ -231,13 +261,21 @@ server <- function(input, output) {
     minSNR <- min(input$mSNR)
     maxSNR <- max(input$mSNR)
 
-    # subset
-    subset(load.data(), ( load.data()$molLength>=minlen*1000 &
-                            load.data()$molLength<=maxlen*1000 &
-                            load.data()$molAvgIntensity>=minAI &
-                            load.data()$molAvgIntensity<=maxAI &
-                            load.data()$labelSNR>=minSNR &
-                            load.data()$labelSNR<=maxSNR) )
+    # 3x subset
+    n <- 3
+    progress <- shiny::Progress$new()
+    progress$set(message = "Filtering by", value = 0)
+    progress$set(value = 1/n, detail = "by molLength")
+    on.exit(progress$close())
+    subset <- load.data()[molLength %between% list(minlen*1000 ,maxlen*1000)]
+    Sys.sleep(1)
+    progress$set(value = 2/n, detail = "by molAvgIntensity")
+    subset <- subset[molAvgIntensity %between% list(minAI, maxAI)]
+    Sys.sleep(1)
+    progress$set(value = 3/n, detail = "by labelSNR")
+    subset <- subset[labelSNR %between% list(minSNR, maxSNR)]
+    Sys.sleep(1)
+    return(subset)
   })
 
   output$cntData <- reactive({
@@ -258,13 +296,20 @@ server <- function(input, output) {
     sum <- rbindlist(list(sum, more), fill = TRUE)
     sum <- t(sum)
     colnames(sum) <- col.names
-    sum
+    # round average values
+    sum[,4] <- round(as.numeric(sum[,4]),2)
+    sum[c(1:9,12:14),] <- round(as.numeric(sum[c(1:9,12:14),]),2)
+    return(sum)
   })
 
-  output$summaryzero <- renderTable({
+  output$summaryzero = DT::renderDataTable({
+    if (is.null(sumData())) return(NULL)
     sumData()
-  }, rownames=TRUE, colnames=TRUE, digits=2)
-
+    }, options = list(dom = 'lt', 
+                      pageLength = 5,
+                      columnDefs=list(list(targets=1:8, class="dt-right")))
+  )
+  
   # output N50 and L50 values as separate text lines
   output$n50x <- renderText({
     if (is.null(sumData()[input$Xaxis,8])) return(NULL)
