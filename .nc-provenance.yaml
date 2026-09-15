@@ -1,0 +1,8 @@
+# .nc-provenance.yaml — VIB Nucleomics Core, provenance of this repository
+schema: 1
+processed:
+- skill: repo_rename
+  version: 0.1.0
+  date: '2026-09-15'
+  ticket: Nucleomics-VIB/ai-skills#30
+  summary: recorded via repo_rename (rename performed outside this tool)
