@@ -775,6 +775,11 @@ Moved to **[Nucleomics-VIB/Shiny-apps](https://github.com/Nucleomics-VIB/Shiny-a
 
 <hr>
 
-![Creative Commons License](http://i.creativecommons.org/l/by-sa/3.0/88x31.png?raw=true)
+![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 
-This work is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
+Licensed under the **GNU General Public License v3.0** — see [`LICENSE`](LICENSE) for the
+full text, and [`NOTICE.md`](NOTICE.md) for attribution and the relicensing history.
+
+Attribute the work to *VIB Nucleomics Core*, and licence derived work under the same terms.
+Relicensed on 2026-08-27; copies obtained before that date remain available to their
+holders under the previous CC BY-SA 3.0 terms.
