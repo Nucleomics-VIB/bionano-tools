@@ -13,9 +13,9 @@
 # added return 0 when density is null (2016-04-19; v1.01)
 #
 # dependencies:
-# restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/BITS-VIB/ngs-tools)
+# restrict2bed.pl & fasta2chromsizes.pl (from: https://github.com/splaisan/ngs-tools)
 # bedtools (from: https://github.com/arq5x/bedtools2/releases)
-# 2histo.R (https://github.com/BITS-VIB/plotting-tools)
+# 2histo.R (https://github.com/splaisan/plotting-tools)
 #
 # visit our Git: https://github.com/Nucleomics-VIB
 

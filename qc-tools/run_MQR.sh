@@ -18,7 +18,7 @@
 # updated v2.4 parameters and added non-unique alignments, 2016-06-23; v2.1
 # added archiving at end of process, 2016-11-06; v2.2
 #
-# visit our Git: https://github.com/BITS-VIB
+# visit our Git: https://github.com/Nucleomics-VIB
 
 ########################################################################
 # default MQR parameters recommended for human samples in IrysView v2.4.
