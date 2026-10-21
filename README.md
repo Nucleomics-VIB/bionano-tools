@@ -430,8 +430,8 @@ The perl tool **[labeldensity.pl](general-tools/labeldensity.pl)** will find reg
 
 To achieve this, it proceeds as follows:
 
-* Search for selected nicking enzyme sites in a multifasta and save results in BED format (depends on: **[restrict2bed.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/restrict2bed.pl)**)
-* Create the chromosome / contig-size list in BED format a from multifasta (depends on: **[fasta2chromsizes.pl](https://github.com/BITS-VIB/ngs-tools/blob/master/fasta-tools/fasta2chromsizes.pl)**)
+* Search for selected nicking enzyme sites in a multifasta and save results in BED format (depends on: **[restrict2bed.pl](https://github.com/splaisan/ngs-tools/blob/main/fasta-tools/restrict2bed.pl)**)
+* Create the chromosome / contig-size list in BED format a from multifasta (depends on: **[fasta2chromsizes.pl](https://github.com/splaisan/ngs-tools/blob/main/fasta-tools/fasta2chromsizes.pl)**)
 * Create windows for each chromosome / contig in teh former file and save in BED format (required: **bedtools makewindows**)
 * Compare the first and last BED files and record the count of nicking sites in each bin (required: **bedtools map**)
 * Sort the obtained BED file naturally (requires a recent version of **GNU sort**) for visualisation (eg. **[IGV](https://www.broadinstitute.org/igv/)**).
